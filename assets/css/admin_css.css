@@ -201,3 +201,13 @@ input[type=number] {
 .note-editing-area{
   height: 180px;
 }
+
+.login-new{
+  width: 60%!important;
+}
+
+@media screen and (max-width: 600px) {
+ .login-new{
+  width: 80%!important;
+}
+}

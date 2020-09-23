@@ -18,10 +18,10 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition login-page"   >
+<body class="hold-transition login-page " style="background-image: linear-gradient(to right, #044c9d, #00aff4);" >
 <div class="login-box">
   <div class="login-logo ">
-    <span class="login-box-msg">User Login </span>
+    <span class="login-box-msg"> <img src="<?php echo base_url(); ?>assets/images/website/logo.png"> </span>
     <!-- <br><i class="fas fa-hospital-alt"></i> -->
   </div>
   <!-- /.login-logo -->
@@ -55,9 +55,19 @@
         </div>
       </form>
       <!-- /.social-auth-links -->
-      <p class="mb-1">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-1">
         <a href="<?php echo base_url(); ?>User/forgot_password">I forgot my password</a>
       </p>
+        </div>
+        <div class="col-md-6 text-right">
+          <p class="mb-1">
+            <a href="<?php echo base_url(); ?>websiteController/signup2">Sign Up </a>
+          </p>
+        </div>
+      </div>
+      
       <div class="alert alert-danger p-2 msg_invalid" style="display:none" role="alert">
         Invalid Information
       </div>

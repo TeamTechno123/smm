@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/home2.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
     <title>SMM</title> 
   </head>
   <body>
@@ -24,8 +25,8 @@
         <a class="nav-item nav-link" href="#">What We Offer!</a>
         <a class="nav-item nav-link" href="#">Services</a>
         <a class="nav-item nav-link" href="#">Blog</a>
-        <a class="nav-item nav-link" href="#">Login</a>
-        <a class="nav-item nav-link" href="#"> <button type="button" class="btn btn-outline-light btn-sign f-12">Sign Up</button> </a>
+        <a class="nav-item nav-link" href="<?php echo base_url(); ?>websiteController/login2">Login</a>
+        <a class="nav-item nav-link" href="<?php echo base_url(); ?>websiteController/signup2"> <button type="button" class="btn btn-outline-light btn-sign f-12">Sign Up</button> </a>
       </div>
     </div>
 </nav>
