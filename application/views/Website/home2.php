@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/home1.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/home2.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <title>SMM</title> 
@@ -42,7 +42,7 @@
 
     <div class="col-md-6">
       <div class="images-div">
-        <img src="<?php echo base_url(); ?>assets/images/website/home1/home1laptop.png" width="100%">
+        <img src="<?php echo base_url(); ?>assets/images/website/home2/home1laptop.png" width="100%">
       </div>
     </div>
 </div>
@@ -54,13 +54,13 @@
         <div class="row">
           <div class="col-md-12">
             <h1 class="text-center">Featured Package</h1>
-            <img class="border-svg w-100" src="<?php echo base_url(); ?>assets/images/website/home1/underline.svg" alt="package image">
+            <img class="border-svg w-100" src="<?php echo base_url(); ?>assets/images/website/home2/underline.svg" alt="package image">
             <p class="text-center">Lorem ipsum is placeholder text commonly used in the graphic,</p>
           </div>
           <div class="col-md-3">
               <div class="card">
-                <img class="discount" src="<?php echo base_url(); ?>assets/images/website/home1/discount.svg" alt="package image">
-                <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/home1/package.png" alt="package image">
+                <img class="discount" src="<?php echo base_url(); ?>assets/images/website/home2/discount.svg" alt="package image">
+                <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/home2/package.png" alt="package image">
 
                 <div class="card-body">
                   <h5 class="card-title text-center">Package Demo 1</h5>
@@ -85,8 +85,8 @@
 
           <div class="col-md-3">
               <div class="card">
-                <img class="discount" src="<?php echo base_url(); ?>assets/images/website/home1/discount.svg" alt="package image">
-                <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/home1/package.png" alt="package image">
+                <img class="discount" src="<?php echo base_url(); ?>assets/images/website/home2/discount.svg" alt="package image">
+                <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/home2/package.png" alt="package image">
 
                 <div class="card-body">
                   <h5 class="card-title text-center">Package Demo 1</h5>
@@ -111,8 +111,8 @@
 
           <div class="col-md-3">
               <div class="card">
-                <img class="discount" src="<?php echo base_url(); ?>assets/images/website/home1/discount.svg" alt="package image">
-                <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/home1/package.png" alt="package image">
+                <img class="discount" src="<?php echo base_url(); ?>assets/images/website/home2/discount.svg" alt="package image">
+                <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/home2/package.png" alt="package image">
 
                 <div class="card-body">
                   <h5 class="card-title text-center">Package Demo 1</h5>
@@ -137,8 +137,8 @@
 
           <div class="col-md-3">
               <div class="card">
-                <img class="discount" src="<?php echo base_url(); ?>assets/images/website/home1/discount.svg" alt="package image">
-                <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/home1/package.png" alt="package image">
+                <img class="discount" src="<?php echo base_url(); ?>assets/images/website/home2/discount.svg" alt="package image">
+                <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/home2/package.png" alt="package image">
 
                 <div class="card-body">
                   <h5 class="card-title text-center">Package Demo 1</h5>
@@ -170,7 +170,7 @@
           <div class="row">
             <div class="col-md-12">
             <h1 class="text-center">Testimonials</h1>
-            <img class="border-svg w-100" src="<?php echo base_url(); ?>assets/images/website/home1/underline.svg" alt="package image">
+            <img class="border-svg w-100" src="<?php echo base_url(); ?>assets/images/website/home2/underline.svg" alt="package image">
             <p class="text-center">Lorem ipsum is placeholder text commonly used in the graphic,</p>
           </div>
 
@@ -216,7 +216,7 @@
           <div class="row">
             <div class="col-md-12">
             <h1 class="text-center">Our Blog</h1>
-            <img class="border-svg w-100" src="<?php echo base_url(); ?>assets/images/website/home1/underline.svg" alt="package image">
+            <img class="border-svg w-100" src="<?php echo base_url(); ?>assets/images/website/home2/underline.svg" alt="package image">
             <p class=" space text-center">Lorem ipsum is placeholder text commonly used in the graphic,</p>
           </div>
             <div class="col-md-4">
@@ -225,7 +225,7 @@
                     <p class="ml-3 f-22"> 22 </p>
                     <p class="ml-3">Jun</p>
                   </div>
-                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/images/website/home1/blog1.png " alt="Card image cap">
+                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/images/website/home2/blog1.png " alt="Card image cap">
                     <div class="card-body"> 
                          <div class="blog-name"> 
                         <h4 class="f-22"> Blog 1 </h4>                  
@@ -243,7 +243,7 @@
                     <p class="ml-3 f-22"> 22 </p>
                     <p class="ml-3">Jun</p>
                   </div>
-                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/images/website/home1/blog2.png " alt="Card image cap">
+                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/images/website/home2/blog2.png " alt="Card image cap">
                     <div class="card-body"> 
                          <div class="blog-name"> 
                         <h4 class="f-22"> Blog 2 </h4>                  
@@ -261,7 +261,7 @@
                     <p class="ml-3 f-22"> 22 </p>
                     <p class="ml-3">Jun</p>
                   </div>
-                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/images/website/home1/blog3.png " alt="Card image cap">
+                    <img class="card-img-top" src="<?php echo base_url(); ?>assets/images/website/home2/blog3.png " alt="Card image cap">
                     <div class="card-body"> 
                          <div class="blog-name"> 
                         <h4 class="f-22"> Blog 3 </h4>                  
@@ -284,7 +284,7 @@
           <div class="row">            
             <div class="col-md-12 text-center text-white">
               <h1> Newsletter</h1>
-               <img class="border-svg w-100" src="<?php echo base_url(); ?>assets/images/website/home1/underline2.svg" alt="package image">
+               <img class="border-svg w-100" src="<?php echo base_url(); ?>assets/images/website/home2/underline2.svg" alt="package image">
              <p class=" space text-center">Lorem ipsum is placeholder text commonly used in the graphic,</p>
                 </div>
                 <div class="col-md-6 offset-md-3">

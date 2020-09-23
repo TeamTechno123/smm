@@ -15,6 +15,14 @@ class websiteController extends CI_Controller{
   $this->load->view('Website/home1');
  }
 
+ public function home2(){
+  $this->load->view('Website/home2');
+ }
+
+ public function home3(){
+  $this->load->view('Website/home3');
+ }
+
 
 }
 ?>
