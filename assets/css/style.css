@@ -165,12 +165,21 @@ body{
 	background-image: url('../images/website/testback.png');
 	background-repeat: no-repeat;
   	background-size: auto;
-  	height: 1300px;
+  	height: 600px;
   	font-family: 'Oswald', sans-serif;
+}
+
+.testomonial .owl-carousel .card-img-top{
+		width: 180px;
+		height: 180px;
+		border-radius: 50%!important;
+		margin-left: auto;
+		margin-right: auto;
 }
 
 .testomonial .card{
 	margin-bottom: 40px;
+	padding: 15px;
 }
 
 .testomonial h2{

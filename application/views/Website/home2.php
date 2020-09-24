@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css//owl.theme.default.min.css">
     <title>SMM</title> 
   </head>
   <body>
@@ -175,34 +177,53 @@
             <p class="text-center">Lorem ipsum is placeholder text commonly used in the graphic,</p>
           </div>
 
-             <div class="col-md-4">
-                <div class="card">
+             <div class="owl-carousel owl-theme">
+                <div class="item">
+                    <div class="card">
                     <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/stevan.png " alt="Card image cap">
                     <div class="card-body">                          
                       <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt </p>
                       <h5 class="card-title text-center">Stevan</h5>
                     </div>
-                  </div>                      
-              </div>
-              <div class="col-md-4">
-                <div class="card">
+                  </div>   
+                </div>
+                <div class="item">
+                    <div class="card">
                     <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/stevan.png " alt="Card image cap">
                     <div class="card-body">                          
                       <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt </p>
                       <h5 class="card-title text-center">Stevan</h5>
                     </div>
-                  </div>                      
-              </div>
-
-               <div class="col-md-4">
-                <div class="card">
+                  </div>   
+                </div>
+                <div class="item">
+                    <div class="card">
                     <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/stevan.png " alt="Card image cap">
                     <div class="card-body">                          
                       <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt </p>
                       <h5 class="card-title text-center">Stevan</h5>
                     </div>
-                  </div>                      
-              </div>
+                  </div>   
+                </div>
+                <div class="item">
+                    <div class="card">
+                    <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/stevan.png " alt="Card image cap">
+                    <div class="card-body">                          
+                      <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt </p>
+                      <h5 class="card-title text-center">Stevan</h5>
+                    </div>
+                  </div>   
+                </div>
+                <div class="item">
+                    <div class="card">
+                    <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/stevan.png " alt="Card image cap">
+                    <div class="card-body">                          
+                      <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt </p>
+                      <h5 class="card-title text-center">Stevan</h5>
+                    </div>
+                  </div>   
+                </div>              
+            </div>
 
               <div class="col-md-12 text-center">
                 <button type="button" class="btn bg-home1 btn-border btn-primary">Leave A Review</button>
@@ -388,5 +409,27 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+     <script src="<?php echo base_url(); ?>assets/js/owl.carousel.min.js"></script>
+     <script type="text/javascript">
+      $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    autoplay:true,
+    autoplayTimeout:3000,
+    autoplayHoverPause:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:2
+        },
+        1000:{
+            items:3
+        }
+    }
+})
+    </script>
   </body>
 </html>

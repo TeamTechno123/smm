@@ -8,6 +8,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css//owl.theme.default.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;500;700&display=swap" rel="stylesheet">
     <title>SMM</title> 
   </head>
@@ -223,7 +225,60 @@
             </div>
             <div class="col-md-9">
                 <div class="row">
-                   <div class="col-md-6">
+
+                  <div class="owl-carousel owl-theme">
+                <div class="item">
+                    <div class="card">
+                        <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/michle.png " alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">Michle</h5>
+                          <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
+                          
+                        </div>
+                      </div>   
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/michle.png " alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">Michle</h5>
+                          <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
+                          
+                        </div>
+                      </div>    
+                </div>
+                <div class="item">
+                    <div class="card">
+                        <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/michle.png " alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">Michle</h5>
+                          <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
+                          
+                        </div>
+                      </div>    
+                </div>
+                <div class="item">
+                   <div class="card">
+                        <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/michle.png " alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">Michle</h5>
+                          <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
+                          
+                        </div>
+                      </div>  
+                </div>
+                <div class="item">
+                   <div class="card">
+                        <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/michle.png " alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title text-center">Michle</h5>
+                          <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
+                          
+                        </div>
+                      </div>   
+                </div>              
+            </div> 
+                   <!-- <div class="col-md-6">
                     <div class="card">
                         <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/michle.png " alt="Card image cap">
                         <div class="card-body">
@@ -264,7 +319,7 @@
                           
                         </div>
                       </div>                      
-                  </div>
+                  </div> -->
                 </div>
             </div>
            
@@ -379,5 +434,27 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="<?php echo base_url(); ?>assets/js/owl.carousel.min.js"></script>
+     <script type="text/javascript">
+      $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    autoplay:true,
+    autoplayTimeout:3000,
+    autoplayHoverPause:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:2
+        },
+        1000:{
+            items:2
+        }
+    }
+})
+    </script>
   </body>
 </html>
