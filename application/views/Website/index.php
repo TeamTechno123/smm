@@ -171,7 +171,7 @@
            </div>
 
            <div class="col-md-6">
-             <img class="right" src="<?php echo base_url(); ?>assets/images/website/rockit.png" width="100%">
+             <img class="right mm-10" src="<?php echo base_url(); ?>assets/images/website/rockit.png" width="100%">
            </div>
            
         </div>
