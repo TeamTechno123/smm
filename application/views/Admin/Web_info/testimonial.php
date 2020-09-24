@@ -26,7 +26,7 @@
                   <?php if(!isset($update)){
                     echo '<button type="button" class="btn btn-sm btn-primary" data-card-widget="collapse">Add New</button>';
                   } else{
-                    echo '<a href="'.base_url().'Master/testimonial" type="button" class="btn btn-sm btn-outline-info" >Cancel Edit</a>';
+                    echo '<a href="'.base_url().'Web_info/testimonial" type="button" class="btn btn-sm btn-outline-info" >Cancel Edit</a>';
                   } ?>
                 </div>
               </div>
@@ -79,7 +79,7 @@
                           </div>
                         </div>
                         <div class="col-md-6 text-right">
-                          <a href="<?php echo base_url(); ?>Master/testimonial" class="btn btn-sm btn-default px-4 mx-4">Cancel</a>
+                          <a href="<?php echo base_url(); ?>Web_info/testimonial" class="btn btn-sm btn-default px-4 mx-4">Cancel</a>
                           <?php if(isset($update)){
                             echo '<button class="btn btn-sm btn-primary float-right px-4">Update</button>';
                           } else{
@@ -120,8 +120,8 @@
                       <td class="d-none"><?php echo $i; ?></td>
                       <td class="text-center">
                         <div class="btn-group">
-                          <a href="<?php echo base_url() ?>Master/edit_testimonial/<?php echo $list->testimonial_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
-                          <a href="<?php echo base_url() ?>Master/delete_testimonial/<?php echo $list->testimonial_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Testimonial Information');"><i class="fa fa-trash text-danger"></i></a>
+                          <a href="<?php echo base_url() ?>Web_info/edit_testimonial/<?php echo $list->testimonial_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
+                          <a href="<?php echo base_url() ?>Web_info/delete_testimonial/<?php echo $list->testimonial_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Testimonial Information');"><i class="fa fa-trash text-danger"></i></a>
                         </div>
                       </td>
                       <td><?php echo $list->testimonial_name; ?></td>

@@ -83,7 +83,7 @@
                     </div>
                     <div class="form-group col-md-3">
                       <label>Email Id</label>
-                      <input type="email" class="form-control form-control-sm" name="user_email" id="user_email" value="<?php if(isset($user_info)){ echo $user_info['user_email']; } ?>"  placeholder="Enter Email Id" required >
+                      <input type="email" class="form-control form-control-sm email" name="user_email" id="user_email" value="<?php if(isset($user_info)){ echo $user_info['user_email']; } ?>"  placeholder="Enter Email Id" required >
                     </div>
                     <div class="form-group col-md-3 select_sm">
                       <label>Gender</label>
@@ -113,11 +113,11 @@
                     </div>
                     <div class="form-group col-md-3">
                       <label>Password</label>
-                      <input type="password" class="form-control form-control-sm" name="user_password" id="user_password" value="<?php if(isset($user_info)){ echo $user_info['user_password']; } ?>"  placeholder="Enter Password" required >
+                      <input type="password" class="form-control form-control-sm password" name="user_password" id="user_password" value="<?php if(isset($user_info)){ echo $user_info['user_password']; } ?>"  placeholder="Enter Password" required >
                     </div>
                     <div class="form-group col-md-3">
                       <label>Confirm Password</label>
-                      <input type="password" class="form-control form-control-sm" id="user_password" value="<?php if(isset($user_info)){ echo $user_info['user_password']; } ?>"  placeholder="Confirm Password" required >
+                      <input type="password" class="form-control form-control-sm con_password" id="user_password" value="<?php if(isset($user_info)){ echo $user_info['user_password']; } ?>"  placeholder="Confirm Password" required >
                     </div>
 
                     <div class="form-group col-md-3 select_sm">

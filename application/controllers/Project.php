@@ -97,7 +97,8 @@ class Project extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Project/project');
     }
-    $data['client_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','client_name','ASC','smm_client');
+    $data['project_no'] = $this->Master_Model->get_count_no($smm_company_id, 'project_no', 'smm_project');
+    $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_name','ASC','smm_reseller');
     $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'is_admin','0','','','','','user_name','ASC','user');
 
     $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_id','ASC','smm_project');
@@ -197,7 +198,7 @@ class Project extends CI_Controller{
     $data['update_project'] = 'update';
     $data['project_info'] = $project_info[0];
     $data['act_link'] = base_url().'Project/edit_project/'.$project_id;
-    $data['client_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','client_name','ASC','smm_client');
+    $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_name','ASC','smm_reseller');
     $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'is_admin','0','','','','','user_name','ASC','user');
     $data['project_file_list'] = $this->Master_Model->get_list_by_id3('','project_id',$project_id,'','','','','project_file_id','DESC','smm_project_file');
     $data['project_del_phase_list'] = $this->Master_Model->get_list_by_id3('','project_id',$project_id,'','','','','project_del_phase_id','ASC','smm_project_del_phase');
@@ -726,6 +727,212 @@ class Project extends CI_Controller{
     $this->Master_Model->delete_info('time_log_id', $time_log_id, 'smm_time_log');
     $this->session->set_flashdata('delete_success','success');
     header('location:'.base_url().'Project/time_log');
+  }
+
+
+/*********************************** Projects Kanban Board *********************************/
+
+  // Projects Kanban Board....
+  public function project_kanban(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $data['project_not_started_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_status','0','','','','','project_id','DESC','smm_project');
+    $data['project_in_process_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_status','1','','','','','project_id','DESC','smm_project');
+    $data['project_complete_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_status','2','','','','','project_id','DESC','smm_project');
+    $data['project_cancel_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_status','3','','','','','project_id','DESC','smm_project');
+    $data['project_hold_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_status','4','','','','','project_id','DESC','smm_project');
+
+    $data['page'] = 'Projects Kanban Board';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_kanban', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+
+/********************************* Project Revision  ***********************************/
+  // Add Project Revision ...
+  public function project_revision(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('project_revision_title', 'Project Revision Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      // $project_revision_status = $this->input->post('project_revision_status');
+      // if(!isset($project_revision_status)){ $project_revision_status = '1'; }
+      $save_data = $_POST;
+      $save_data['project_revision_company'] = $smm_company_id;
+      $save_data['project_revision_addedby'] = $smm_user_id;
+      $save_data['project_revision_date'] = date('d-m-Y');
+      unset($save_data['project_revision_file_name']);
+      unset($save_data['project_revision_file_image']);
+      unset($save_data['input']);
+      $project_revision_id = $this->Master_Model->save_data('smm_project_revision', $save_data);
+
+      if(isset($_FILES['project_revision_file_image']['name'])){
+        $this->load->library('upload');
+        $files = $_FILES;
+        $cpt = count($_FILES['project_revision_file_image']['name']);
+        for($i=0; $i<$cpt; $i++)
+        {
+          $j = $i+1;
+          $time = time();
+          $image_name = 'project_revision_file_'.$project_revision_id.'_'.$j.'_'.$time;
+          $_FILES['project_revision_file_image']['name']= $files['project_revision_file_image']['name'][$i];
+          $_FILES['project_revision_file_image']['type']= $files['project_revision_file_image']['type'][$i];
+          $_FILES['project_revision_file_image']['tmp_name']= $files['project_revision_file_image']['tmp_name'][$i];
+          $_FILES['project_revision_file_image']['error']= $files['project_revision_file_image']['error'][$i];
+          $_FILES['project_revision_file_image']['size']= $files['project_revision_file_image']['size'][$i];
+          $config['upload_path'] = 'assets/images/project_revision/';
+          $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|docx|doc';
+          $config['file_name'] = $image_name;
+          $config['overwrite']     = FALSE;
+          $filename = $files['project_revision_file_image']['name'][$i];
+          $ext = pathinfo($filename, PATHINFO_EXTENSION);
+          $this->upload->initialize($config);
+          $project_revision_file_name = $_POST['project_revision_file_name'][$i];
+          if($this->upload->do_upload('project_revision_file_image') && $filename && $ext ){
+            $file_data['project_revision_file_image'] = $image_name.'.'.$ext;
+            $file_data['project_revision_id'] = $project_revision_id;
+            $file_data['company_id'] = $smm_company_id;
+            $file_data['project_revision_file_name'] = $project_revision_file_name;
+            $this->Master_Model->save_data('smm_project_revision_file', $file_data);
+          }
+          else{
+            $error = $this->upload->display_errors();
+            $this->session->set_flashdata('status',$this->upload->display_errors());
+          }
+        }
+      }
+
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Project/project_revision');
+    }
+    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_name','ASC','smm_project');
+    $data['project_revision_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_revision_category_id','ASC','smm_project_revision_category');
+    // $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','user_name','ASC','user');
+
+    $data['project_revision_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_revision_id','DESC','smm_project_revision');
+    $data['page'] = 'Project Revision';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_revision', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update Project Revision...
+  public function edit_project_revision($project_revision_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('project_revision_title', 'Project Revision Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $update_data = $_POST;
+      unset($update_data['old_project_revision_image']);
+      unset($update_data['project_revision_file_name']);
+      unset($update_data['project_revision_file_image']);
+      unset($update_data['input']);
+      $this->Master_Model->update_info('project_revision_id', $project_revision_id, 'smm_project_revision', $update_data);
+
+      if(isset($_FILES['project_revision_file_image']['name'])){
+        $this->load->library('upload');
+        $files = $_FILES;
+        $cpt = count($_FILES['project_revision_file_image']['name']);
+        for($i=0; $i<$cpt; $i++)
+        {
+          $j = $i+1;
+          $time = time();
+          $image_name = 'project_revision_file_'.$project_revision_id.'_'.$j.'_'.$time;
+          $_FILES['project_revision_file_image']['name']= $files['project_revision_file_image']['name'][$i];
+          $_FILES['project_revision_file_image']['type']= $files['project_revision_file_image']['type'][$i];
+          $_FILES['project_revision_file_image']['tmp_name']= $files['project_revision_file_image']['tmp_name'][$i];
+          $_FILES['project_revision_file_image']['error']= $files['project_revision_file_image']['error'][$i];
+          $_FILES['project_revision_file_image']['size']= $files['project_revision_file_image']['size'][$i];
+          $config['upload_path'] = 'assets/images/project_revision/';
+          $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|docx|doc';
+          $config['file_name'] = $image_name;
+          $config['overwrite']     = FALSE;
+          $filename = $files['project_revision_file_image']['name'][$i];
+          $ext = pathinfo($filename, PATHINFO_EXTENSION);
+          $this->upload->initialize($config);
+          $project_revision_file_name = $_POST['project_revision_file_name'][$i];
+          if($this->upload->do_upload('project_revision_file_image') && $filename && $ext ){
+            $file_data['project_revision_file_image'] = $image_name.'.'.$ext;
+            $file_data['project_revision_id'] = $project_revision_id;
+            $file_data['company_id'] = $smm_company_id;
+            $file_data['project_revision_file_name'] = $project_revision_file_name;
+            $this->Master_Model->save_data('smm_project_revision_file', $file_data);
+          }
+          else{
+            $error = $this->upload->display_errors();
+            $this->session->set_flashdata('status',$this->upload->display_errors());
+          }
+        }
+      }
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Project/project_revision');
+    }
+
+    $project_revision_info = $this->Master_Model->get_info_arr('project_revision_id',$project_revision_id,'smm_project_revision');
+    if(!$project_revision_info){ header('location:'.base_url().'Project/project_revision'); }
+    $data['update'] = 'update';
+    $data['update_project_revision'] = 'update';
+    $data['project_revision_info'] = $project_revision_info[0];
+    $data['act_link'] = base_url().'Project/edit_project_revision/'.$project_revision_id;
+    // $data['project_revision_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_revision_category_status','1','project_revision_category_type',$project_revision_category_type,'','','project_revision_category_name','ASC','smm_project_revision_category');
+    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_name','ASC','smm_project');
+    $data['project_revision_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_revision_category_id','ASC','smm_project_revision_category');
+    // $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','user_name','ASC','user');
+
+    $data['project_revision_file_list'] = $this->Master_Model->get_list_by_id3('','project_revision_id',$project_revision_id,'','','','','project_revision_file_id','DESC','smm_project_revision_file');
+
+    $data['project_revision_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_revision_id','DESC','smm_project_revision');
+    $data['page'] = 'Project Revision';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_revision', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Delete Project Revision File
+  public function delete_project_revision_file(){
+    $project_revision_file_id = $this->input->post('project_revision_file_id');
+    $project_revision_file_info = $this->Master_Model->get_info_arr_fields('project_revision_file_image, project_revision_file_id', 'project_revision_file_id', $project_revision_file_id, 'smm_project_revision_file');
+    if($project_revision_file_info){
+      $project_revision_file_image = $project_revision_file_info[0]['project_revision_file_image'];
+      if($project_revision_file_image){ unlink("assets/images/project_revision/".$project_revision_file_image); }
+    }
+    $this->Master_Model->delete_info('project_revision_file_id', $project_revision_file_id, 'smm_project_revision_file');
+  }
+
+  //Delete Task...
+  public function delete_project_revision($project_revision_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+    // $project_revision_info = $this->Master_Model->get_info_arr_fields('project_revision_image, project_revision_id', 'project_revision_id', $project_revision_id, 'smm_project_revision');
+    // if($project_revision_info){
+    //   $project_revision_image = $project_revision_info[0]['project_revision_image'];
+    //   if($project_revision_image){ unlink("assets/images/project_revision/".$project_revision_image); }
+    // }
+    $project_revision_file_list = $this->Master_Model->get_list_by_id3($smm_company_id,'project_revision_id',$project_revision_id,'','','','','project_revision_file_id','ASC','smm_project_revision_file');
+    foreach ($project_revision_file_list as $project_revision_file_list1) {
+      $project_revision_file_image = $project_revision_file_list1->project_revision_file_image;
+      if($project_revision_file_image){ unlink("assets/images/project_revision/".$project_revision_file_image); }
+    }
+    $this->Master_Model->delete_info('project_revision_id', $project_revision_id, 'smm_project_revision');
+    $this->Master_Model->delete_info('project_revision_id', $project_revision_id, 'smm_project_revision_file');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Project/project_revision');
   }
 
 

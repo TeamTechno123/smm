@@ -30,6 +30,18 @@ class Finance extends CI_Controller{
       $save_data['reseller_addedby'] = $smm_user_id;
       $reseller_id = $this->Master_Model->save_data('smm_reseller', $save_data);
 
+      // Save in Web Setting...
+      $save_web_setting = array(
+        'company_id' => $smm_company_id,
+        'web_setting_name' => $_POST['reseller_name'],
+        'web_setting_address' => $_POST['reseller_address'],
+        'country_id' => $_POST['country_id'],
+        'state_id' => $_POST['state_id'],
+        'city_id' => $_POST['city_id'],
+        'web_setting_addedby_type' => 2,
+      );
+      $web_setting_id = $this->Master_Model->save_data('smm_web_setting', $save_web_setting);
+
       if($_FILES['reseller_logo']['name']){
         $time = time();
         $image_name = 'reseller_'.$reseller_id.'_'.$time;
@@ -631,7 +643,8 @@ class Finance extends CI_Controller{
     }
     $data['invoice_no'] = $this->Master_Model->get_count_no($smm_company_id, 'invoice_no', 'smm_invoice');
     $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_name','ASC','smm_reseller');
-    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_name','ASC','smm_project');
+    // $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_name','ASC','smm_project');
+    $data['package_list'] = $this->Master_Model->package_list($smm_company_id);
 
     $data['invoice_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','invoice_id','ASC','smm_invoice');
     $data['page'] = 'Invoice';
@@ -685,8 +698,10 @@ class Finance extends CI_Controller{
     $data['update_invoice'] = 'update';
     $data['invoice_info'] = $invoice_info[0];
     $data['act_link'] = base_url().'Finance/edit_invoice/'.$invoice_id;
+    $reseller_id =  $invoice_info[0]['reseller_id'];
     $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_name','ASC','smm_reseller');
-    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_name','ASC','smm_project');
+    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'client_id',$reseller_id,'','','','','project_name','ASC','smm_project');
+    $data['package_list'] = $this->Master_Model->package_list($smm_company_id);
     $data['invoice_item_list'] = $this->Master_Model->get_list_by_id3('','invoice_id',$invoice_id,'','','','','invoice_item_id','ASC','smm_invoice_item');
 
     $data['invoice_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','invoice_id','ASC','smm_invoice');
@@ -738,6 +753,19 @@ class Finance extends CI_Controller{
     $this->load->view('Admin/Include/navbar', $data);
     $this->load->view('Admin/Finance/invoice_payment', $data);
     $this->load->view('Admin/Include/footer', $data);
+  }
+
+
+/**************************************************************************************************/
+
+  public function get_project_by_reseller(){
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $reseller_id = $this->input->post('reseller_id');
+    $project_list = $this->Master_Model->get_list_by_id3($smm_company_id,'client_id',$reseller_id,'','','','','project_name','ASC','smm_project');
+    echo "<option value='' selected >Select Project</option>";
+    foreach ($project_list as $list) {
+      echo "<option value='".$list->project_id."'> ".$list->project_name." </option>";
+    }
   }
 
 }

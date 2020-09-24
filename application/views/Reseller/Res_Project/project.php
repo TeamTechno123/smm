@@ -44,7 +44,7 @@
                         <label>Project Date</label>
                         <input type="text" class="form-control form-control-sm" name="project_date" value="<?php if(isset($project_info)){ echo $project_info['project_date']; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Project Date" required  disabled>
                       </div>
-                      <div class="form-group col-md-6 select_sm">
+                      <div class="form-group col-md-12 select_sm">
                         <label>Project Name</label>
                         <input type="text" class="form-control form-control-sm" name="project_name" id="project_name" value="<?php if(isset($project_info)){ echo $project_info['project_name']; } ?>"  placeholder="Enter Name of Project" required  disabled>
                       </div>
@@ -56,7 +56,7 @@
                         <label>Phase No. </label>
                         <input type="number" class="form-control form-control-sm" name="project_phase_no" id="project_phase_no" value="<?php if(isset($project_info)){ echo $project_info['project_phase_no']; } ?>"  placeholder="Phase No." required>
                       </div> -->
-                      <div class="form-group col-md-6 select_sm">
+                      <!-- <div class="form-group col-md-6 select_sm">
                         <label>Client(Customer)</label>
                         <select class="form-control select2" name="client_id" id="client_id" data-placeholder="Client(Customer)" disabled>
                           <option value="">Select Client(Customer)</option>
@@ -64,7 +64,7 @@
                           <option value="<?php echo $list->client_id; ?>" <?php if(isset($project_info) && $project_info['client_id'] == $list->client_id){ echo 'selected'; } ?>><?php echo $list->client_name; ?></option>
                           <?php } } ?>
                         </select>
-                      </div>
+                      </div> -->
                       <div class="form-group col-md-3 select_sm">
                         <label>Start Date</label>
                         <input type="text" class="form-control form-control-sm" name="project_start_date" value="<?php if(isset($project_info)){ echo $project_info['project_start_date']; } ?>" id="date3" data-target="#date3" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Start Date" required disabled>
@@ -115,7 +115,8 @@
                           <option value="0" <?php if(isset($project_info) && $project_info['project_status'] == '0'){ echo 'selected'; } ?>>Not Started</option>
                           <option value="1" <?php if(isset($project_info) && $project_info['project_status'] == '1'){ echo 'selected'; } ?>>In Progress</option>
                           <option value="2" <?php if(isset($project_info) && $project_info['project_status'] == '2'){ echo 'selected'; } ?>>Completed</option>
-                          <option value="3" <?php if(isset($project_info) && $project_info['project_status'] == '3'){ echo 'selected'; } ?>>Deferred</option>
+                          <option value="3" <?php if(isset($project_info) && $project_info['project_status'] == '3'){ echo 'selected'; } ?>>Cancelled</option>
+                          <option value="4" <?php if(isset($project_info) && $project_info['project_status'] == '4'){ echo 'selected'; } ?>>Hold</option>
                         </select>
                       </div>
                       <div class="form-group col-md-6">
@@ -251,7 +252,7 @@
                         </div> -->
                       </div>
                       <div class="col-md-6 text-right">
-                        <a href="<?php echo base_url(); ?>Reseller/Res_Project/project" class="btn btn-sm btn-default px-4 mx-4">Project List</a>
+                        <a href="<?php echo base_url(); ?>Reseller/Res_Project/project" class="btn btn-sm btn-outline-info px-4 mx-4">Project List</a>
                         <?php if(isset($update)){
                           //echo '<button class="btn btn-sm btn-primary float-right px-4">Update</button>';
                         } else{
@@ -303,10 +304,11 @@
                         <td><?php echo $list->project_start_date; ?></td>
                         <td><?php echo $list->project_end_date; ?></td>
                         <td>
-                          <?php if($list->project_status == 0){ echo '<span class="text-danger"><b>Not Started</b></span>'; }
-                            elseif($list->project_status == 1){ echo '<span class="text-info"><b>In Progress</b></span>'; }
+                          <?php if($list->project_status == 0){ echo '<span class="text-warning"><b>Not Started</b></span>'; }
+                            elseif($list->project_status == 1){ echo '<span class="text-primary"><b>In Progress</b></span>'; }
                             elseif($list->project_status == 2){ echo '<span class="text-success"><b>Completed</b></span>'; }
-                            elseif($list->project_status == 3){ echo '<span class="text-primary"><b>Deferred</b></span>'; } ?>
+                            elseif($list->project_status == 3){ echo '<span class="text-danger"><b>Cancelled</b></span>'; }
+                            elseif($list->project_status == 4){ echo '<span class="text-info"><b>Hold</b></span>'; } ?>
                         </td>
                       </tr>
                     <?php } } ?>

@@ -93,27 +93,27 @@
                     </div>
                     <div class="form-group col-md-6">
                       <label>Email Id</label>
-                      <input type="email" class="form-control form-control-sm" name="reseller_email" id="reseller_email" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_email']; } ?>" placeholder="Email" required>
+                      <input type="email" class="form-control form-control-sm email" name="reseller_email" id="reseller_email" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_email']; } ?>" placeholder="Email" required>
                     </div>
                     <div class="form-group col-md-6">
                       <label>Website</label>
-                      <input type="text" class="form-control form-control-sm" name="reseller_website" id="reseller_website" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_website']; } ?>" placeholder="Website">
+                      <input type="text" class="form-control form-control-sm website" name="reseller_website" id="reseller_website" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_website']; } ?>" placeholder="Website">
                     </div>
                     <div class="form-group col-md-6">
                       <label>Reseller Password</label>
-                      <input type="password" class="form-control form-control-sm" name="reseller_password" id="reseller_password" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_password']; } ?>" placeholder="Enter Reseller Password" required>
+                      <input type="password" class="form-control form-control-sm password" name="reseller_password" id="reseller_password" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_password']; } ?>" placeholder="Enter Reseller Password" required>
                     </div>
                     <div class="form-group col-md-6">
                       <label>Reseller Confirm Password</label>
-                      <input type="password" class="form-control form-control-sm" id="reseller_c_password" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_password']; } ?>" placeholder="Enter Reseller Password" required>
+                      <input type="password" class="form-control form-control-sm con_password" id="reseller_c_password" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_password']; } ?>" placeholder="Enter Reseller Password" required>
                     </div>
                     <div class="form-group col-md-6">
                       <label>GST No.</label>
-                      <input type="text" class="form-control form-control-sm" name="reseller_gst_no" id="reseller_gst_no" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_gst_no']; } ?>" placeholder="GST No.">
+                      <input type="text" class="form-control form-control-sm gst_no" name="reseller_gst_no" id="reseller_gst_no" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_gst_no']; } ?>" placeholder="GST No.">
                     </div>
                     <div class="form-group col-md-6">
                       <label>PAN No.</label>
-                      <input type="text" class="form-control form-control-sm" name="reseller_pan_no" id="reseller_pan_no" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_pan_no']; } ?>" placeholder="Pan No.">
+                      <input type="text" class="form-control form-control-sm pan_no" name="reseller_pan_no" id="reseller_pan_no" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_pan_no']; } ?>" placeholder="Pan No.">
                     </div>
                     <div class="form-group col-md-6">
                       <label>Opening Balance</label>

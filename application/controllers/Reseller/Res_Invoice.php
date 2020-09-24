@@ -18,7 +18,7 @@ class Res_Invoice extends CI_Controller{
     // $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'','','','','','','reseller_name','ASC','smm_reseller');
     // $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'','','','','','','project_name','ASC','smm_project');
 
-    $data['invoice_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'invoice_addedby_type','1','reseller_id',$smm_reseller_id,'','','invoice_id','ASC','smm_invoice');
+    $data['invoice_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'','','reseller_id',$smm_reseller_id,'','','invoice_id','ASC','smm_invoice');
     $data['page'] = 'Invoice';
     $this->load->view('Reseller/Include/head', $data);
     $this->load->view('Reseller/Include/navbar', $data);

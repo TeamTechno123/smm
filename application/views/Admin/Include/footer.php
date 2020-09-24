@@ -69,12 +69,10 @@
 <script src="<?php echo base_url(); ?>assets/plugins/flot-old/jquery.flot.resize.min.js"></script>
 <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
 <script src="<?php echo base_url(); ?>assets/plugins/flot-old/jquery.flot.pie.min.js"></script>
-<!-- InputMask -->
-<!-- <script src="../../plugins/moment/moment.min.js"></script>
-<script src="../../plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script> -->
 
 <script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/my_validation.js"></script>
 <script type="text/javascript">
   <?php if($this->session->flashdata('save_success')){ ?>
     $(document).ready(function(){
@@ -127,12 +125,6 @@
     $('[data-mask]').inputmask();
     $('.mfd_date').inputmask();
     // $(f).find('.mfd_date').mask('99/99/9999');
-
-
-
-
-
-
   })
 </script>
 
@@ -140,6 +132,27 @@
 
 
 <script type="text/javascript">
+  var dateToday = new Date();
+  $('#min_date1').datetimepicker({
+    format: 'DD-MM-YYYY',
+    minDate: dateToday,
+  });
+  $('#min_date2').datetimepicker({
+    format: 'DD-MM-YYYY',
+    minDate: dateToday,
+  });
+  $('#min_date3').datetimepicker({
+    format: 'DD-MM-YYYY',
+    minDate: dateToday,
+  });
+  $('#min_date4').datetimepicker({
+    format: 'DD-MM-YYYY',
+    minDate: dateToday,
+  });
+  $('#min_date5').datetimepicker({
+    format: 'DD-MM-YYYY',
+    minDate: dateToday,
+  });
 
   $('#date1').datetimepicker({
     format: 'DD-MM-Y'
