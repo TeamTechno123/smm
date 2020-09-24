@@ -45,7 +45,7 @@
 
     <div class="col-md-6">
       <div class="images-div">
-        <img src="<?php echo base_url(); ?>assets/images/website/girl.png">
+        <img src="<?php echo base_url(); ?>assets/images/website/girl.png" >
       </div>
     </div>
 </div>
@@ -77,23 +77,23 @@
               <div class="row">
                 <div class="col-md-6">
                 <img class="about-img1" src="<?php echo base_url(); ?>assets/images/website/support.png" width="100%" >
-                <h4>24*7 Support</h4>
+                <h4 class="m-center">24*7 Support</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui</p>
               </div>
               <div class="col-md-6">
                 <img class="about-img1" src="<?php echo base_url(); ?>assets/images/website/automated.png" width="100%" >
-                <h4>24*7 Support</h4>
+                <h4  class="m-center">24*7 Support</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui</p>
               </div>
               
               <div class="col-md-6">
                 <img class="about-img1" src="<?php echo base_url(); ?>assets/images/website/time.png" width="100%" >
-                <h4>24*7 Support</h4>
+                <h4  class="m-center">24*7 Support</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui</p>
               </div>
              <div class="col-md-6">
                 <img class="about-img1" src="<?php echo base_url(); ?>assets/images/website/team.png" width="100%" >
-                <h4>24*7 Support</h4>
+                <h4  class="m-center">24*7 Support</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui</p>
               </div>
               </div>
@@ -189,12 +189,12 @@
             <img class="p-30" src="<?php echo base_url(); ?>assets/images/website/step1.png" width="100%">
           </div>
            <div class="col-md-6">
-              <h2 class="pt-5  text-center text-white">Sign Up! </h2>
+              <h2 class="pt-5 mpt-5  text-center text-white">Sign Up! </h2>
              <p class="text-white"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
           </div>
 
           <div class="col-md-6">
-              <h2 class="pt-5  text-center text-white">Add Credit Founds  </h2>
+              <h2 class="pt-5 mpt-5 text-center text-white">Add Credit Founds  </h2>
              <p class="text-white"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
               </div>
            <div class="col-md-6">
@@ -205,8 +205,8 @@
             <img class="p-30" src="<?php echo base_url(); ?>assets/images/website/step3.png" width="100%">
           </div>
            <div class="col-md-6">
-              <h2 class="pt-5  text-center text-white">Select  Service and place Your Order</h2>
-             <p class="text-white"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
+              <h2 class="pt-5 mpt-5 m-cblue text-center text-white">Select  Service and place Your Order</h2>
+             <p class="text-white m-cblue"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</p>
           </div>
 
         </div>
@@ -218,7 +218,7 @@
           <div class="row">
             <div class="col-md-3">
                 <h2 class="text-white text-center">Testimonials</h2>
-                <p class="text-white">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry</p>
+                <p class="text-white m-cblack">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry</p>
                 <img class="" src="<?php echo base_url(); ?>assets/images/website/testo1.png" width="100%">
             </div>
             <div class="col-md-9">
@@ -281,9 +281,9 @@
                 </div>
                 <div class="col-md-6 offset-md-3">
                    <div class="input-group mb-3">                
-                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="Enter Email" aria-label="Username" aria-describedby="basic-addon1">
                 <div class="input-group-append">
-                    <button type="button" class="btn btn-secondary btn-sm">Subcribe Now !</button>
+                    <button type="button" class="btn round  ml-minus btn-secondary btn-sm">Subcribe Now !</button>
                   </div>
               </div>
                 </div>
@@ -291,7 +291,7 @@
         </div>
       </section>
 
-      <section class="footer">
+      <section class="footer m-center">
         <div class="container">
           <div class="row">
              <div class="col-md-3">
@@ -364,7 +364,7 @@
                   <p>Copyright @ 2020  -SMM </p>
                 </div>
 
-                 <div class="col-md-6 text-right">
+                 <div class="col-md-6 text-right m-center">
                      <img  src="<?php echo base_url(); ?>assets/images/website/visa.png">
                 </div>
               </div>

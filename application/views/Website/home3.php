@@ -289,7 +289,7 @@
                 </div>
                 <div class="col-md-6 offset-md-3">
                    <div class="input-group mb-3">                
-                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="Enter Email" aria-label="Username" aria-describedby="basic-addon1">
                 <div class="input-group-append">
                     <button type="button" class="btn btn-secondary round ml-minus btn-sm">Subcribe Now !</button>
                   </div>
