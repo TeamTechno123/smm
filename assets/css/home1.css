@@ -168,7 +168,7 @@ h1, h2, h3, h4{
   	background-color: #f2f2f2;
 }
 
-.testomonial .card-img-top{
+.testomonial .owl-carousel .card-img-top{
 		width: 180px;
 		height: 180px;
 		border-radius: 50%!important;
