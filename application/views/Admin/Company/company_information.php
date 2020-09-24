@@ -85,11 +85,11 @@
                   </div> -->
                   <div class="form-group col-md-3">
                     <label>Pin/Zip Code</label>
-                    <input type="number" min="100000" max="999999" step="1" class="form-control form-control-sm" name="company_pincode" id="company_pincode" value="<?php if(isset($company_info)){ echo $company_info['company_pincode']; } ?>" placeholder="Pin/Zip Code">
+                    <input type="number" min="100000" max="999999" step="1" class="form-control form-control-sm pincode_no" name="company_pincode" id="company_pincode" value="<?php if(isset($company_info)){ echo $company_info['company_pincode']; } ?>" placeholder="Pin/Zip Code">
                   </div>
                   <div class="form-group col-md-6">
                     <label>Mobile No. 1</label>
-                    <input type="number" min="5555555555" max="9999999999" step="1" class="form-control form-control-sm" name="company_mob1" id="company_mob1" value="<?php if(isset($company_info)){ echo $company_info['company_mob1']; } ?>" placeholder="Mobile No. 1" required>
+                    <input type="number" min="5555555555" max="9999999999" step="1" class="form-control form-control-sm mobile_no" name="company_mob1" id="company_mob1" value="<?php if(isset($company_info)){ echo $company_info['company_mob1']; } ?>" placeholder="Mobile No. 1" required>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Mobile No. 2 / Landline No.</label>
@@ -97,19 +97,19 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label>Email Id</label>
-                    <input type="email" class="form-control form-control-sm" name="company_email" id="company_email" value="<?php if(isset($company_info)){ echo $company_info['company_email']; } ?>" placeholder="Email" required>
+                    <input type="email" class="form-control form-control-sm email" name="company_email" id="company_email" value="<?php if(isset($company_info)){ echo $company_info['company_email']; } ?>" placeholder="Email" required>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Website</label>
-                    <input type="text" class="form-control form-control-sm" name="company_website" id="company_website" value="<?php if(isset($company_info)){ echo $company_info['company_website']; } ?>" placeholder="Website">
+                    <input type="text" class="form-control form-control-sm website" name="company_website" id="company_website" value="<?php if(isset($company_info)){ echo $company_info['company_website']; } ?>" placeholder="Website (www.google.com)">
                   </div>
                   <div class="form-group col-md-6">
                     <label>PAN No.</label>
-                    <input type="text" class="form-control form-control-sm" name="company_pan_no" id="company_pan_no" value="<?php if(isset($company_info)){ echo $company_info['company_pan_no']; } ?>" placeholder="Pan No.">
+                    <input type="text" class="form-control form-control-sm pan_no" name="company_pan_no" id="company_pan_no" value="<?php if(isset($company_info)){ echo $company_info['company_pan_no']; } ?>" placeholder="Pan No. (AAAAA1234A)">
                   </div>
                   <div class="form-group col-md-6">
                     <label>GST No.</label>
-                    <input type="text" class="form-control form-control-sm" name="company_gst_no" id="company_gst_no" value="<?php if(isset($company_info)){ echo $company_info['company_gst_no']; } ?>" placeholder="GST No.">
+                    <input type="text" class="form-control form-control-sm gst_no" name="company_gst_no" id="company_gst_no" value="<?php if(isset($company_info)){ echo $company_info['company_gst_no']; } ?>" placeholder="GST No.">
                   </div>
 
                   <!-- <div class="form-group col-md-4">
@@ -153,7 +153,7 @@
 
                   <div class="form-group col-md-4">
                     <label>Company Logo</label>
-                    <input type="file" class="form-control form-control-sm" name="company_logo" id="company_logo">
+                    <input type="file" class="form-control form-control-sm valid_image" name="company_logo" id="company_logo">
                     <label>.jpg,.png,.jpeg file. Size less than 500 kb</label>
                   </div>
                   <div class="form-group col-md-2">
@@ -164,7 +164,7 @@
                   </div>
                   <div class="form-group col-md-4">
                     <label>Company Fevicon</label>
-                    <input type="file" class="form-control form-control-sm" name="company_fevicon" id="company_fevicon">
+                    <input type="file" class="form-control form-control-sm valid_image" name="company_fevicon" id="company_fevicon">
                     <label>.jpg,.png,.jpeg file. Size less than 500 kb</label>
                   </div>
                   <div class="form-group col-md-2">
@@ -214,18 +214,6 @@
     });
   });
 
-  $('#company_logo, #company_fevicon').bind('change', function() {
-    var size = this.files[0].size;
-    var type = this.files[0].type;
-    if(size > 561276){
-      toastr.error('File size is must be less than 500kb');
-      $(this).val('');
-    }
-    if(type != "image/jpeg" && type != "image/jpg" && type != "image/png"){
-      toastr.error('Invalid File Type');
-      $(this).val('');
-    }
-  });
 </script>
 
 <script>

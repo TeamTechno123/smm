@@ -38,7 +38,7 @@
 
                       <div class="form-group col-md-6 select_sm">
                         <label>Project No.</label>
-                        <input type="number" class="form-control form-control-sm" name="project_no" id="project_no" value="<?php if(isset($project_info)){ echo $project_info['project_no']; } ?>"  placeholder="Enter Project No." required >
+                        <input type="number" class="form-control form-control-sm" name="project_no" id="project_no" value="<?php if(isset($project_info)){ echo $project_info['project_no']; } elseif(isset($project_no)){ echo $project_no; } ?>"  placeholder="Enter Project No." required readonly>
                       </div>
                       <div class="form-group col-md-6 select_sm">
                         <label>Project Date</label>
@@ -60,8 +60,8 @@
                         <label>Client(Customer)</label>
                         <select class="form-control select2" name="client_id" id="client_id" data-placeholder="Client(Customer)">
                           <option value="">Select Client(Customer)</option>
-                          <?php if(isset($client_list)){ foreach ($client_list as $list) { ?>
-                          <option value="<?php echo $list->client_id; ?>" <?php if(isset($project_info) && $project_info['client_id'] == $list->client_id){ echo 'selected'; } ?>><?php echo $list->client_name; ?></option>
+                          <?php if(isset($reseller_list)){ foreach ($reseller_list as $list) { ?>
+                          <option value="<?php echo $list->reseller_id; ?>" <?php if(isset($project_info) && $project_info['client_id'] == $list->reseller_id){ echo 'selected'; } ?>><?php echo $list->reseller_name; ?></option>
                           <?php } } ?>
                         </select>
                       </div>
@@ -71,11 +71,15 @@
                       </div>
                       <div class="form-group col-md-6 select_sm">
                         <label>End Date</label>
-                        <input type="text" class="form-control form-control-sm" name="project_end_date" value="<?php if(isset($project_info)){ echo $project_info['project_end_date']; } ?>" id="date2" data-target="#date2" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="End Date" required>
+                        <input type="text" class="form-control form-control-sm" name="project_end_date" value="<?php if(isset($project_info)){ echo $project_info['project_end_date']; } ?>" id="min_date2" data-target="#min_date2" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="End Date" required>
                       </div>
                       <div class="form-group col-md-6 select_sm">
                         <label>Budget Hours</label>
-                        <input type="number" class="form-control form-control-sm" name="project_budget_hours" id="project_budget_hours" value="<?php if(isset($project_info)){ echo $project_info['project_budget_hours']; } ?>"  placeholder="Budget Hours" required>
+                        <input type="number" min="0" class="form-control form-control-sm" name="project_budget_hours" id="project_budget_hours" value="<?php if(isset($project_info)){ echo $project_info['project_budget_hours']; } ?>"  placeholder="Budget Hours" required>
+                      </div>
+                      <div class="form-group col-md-6 select_sm">
+                        <label>Budget Amount</label>
+                        <input type="number" min="0" class="form-control form-control-sm" name="project_budget_amount" id="project_budget_amount" value="<?php if(isset($project_info)){ echo $project_info['project_budget_amount']; } ?>"  placeholder="Budget Amount" required>
                       </div>
                       <div class="form-group col-md-6 select_sm">
                         <label>Priority</label>
@@ -118,7 +122,8 @@
                           <option value="0" <?php if(isset($project_info) && $project_info['project_status'] == '0'){ echo 'selected'; } ?>>Not Started</option>
                           <option value="1" <?php if(isset($project_info) && $project_info['project_status'] == '1'){ echo 'selected'; } ?>>In Progress</option>
                           <option value="2" <?php if(isset($project_info) && $project_info['project_status'] == '2'){ echo 'selected'; } ?>>Completed</option>
-                          <option value="3" <?php if(isset($project_info) && $project_info['project_status'] == '3'){ echo 'selected'; } ?>>Deferred</option>
+                          <option value="3" <?php if(isset($project_info) && $project_info['project_status'] == '3'){ echo 'selected'; } ?>>Cancelled</option>
+                          <option value="4" <?php if(isset($project_info) && $project_info['project_status'] == '4'){ echo 'selected'; } ?>>Hold</option>
                         </select>
                       </div>
 
@@ -223,13 +228,13 @@
                             <input type="hidden" name="input[<?php echo $k; ?>][project_del_phase_id]" value="<?php echo $list->project_del_phase_id; ?>">
                             <tr>
                               <td>
-                                <input type="text" class="form-control form-control-sm" name="input[<?php echo $k; ?>][project_del_phase_descr]" value="<?php echo $list->project_del_phase_descr; ?>" >
+                                <input type="text" class="form-control form-control-sm" name="input[<?php echo $k; ?>][project_del_phase_descr]" value="<?php echo $list->project_del_phase_descr; ?>" required>
                               </td>
                               <td>
-                                <input type="date" class="form-control form-control-sm" name="input[<?php echo $k; ?>][project_del_phase_date]" value="<?php echo $list->project_del_phase_date; ?>" >
+                                <input type="date" class="form-control form-control-sm" name="input[<?php echo $k; ?>][project_del_phase_date]" value="<?php echo $list->project_del_phase_date; ?>" required>
                               </td>
                               <td>
-                                <input type="number" min="0" class="form-control form-control-sm" name="input[<?php echo $k; ?>][project_del_phase_amount]" value="<?php echo $list->project_del_phase_amount; ?>" >
+                                <input type="number" min="0" class="form-control form-control-sm  project_del_phase_amount" name="input[<?php echo $k; ?>][project_del_phase_amount]" value="<?php echo $list->project_del_phase_amount; ?>" required>
                               </td>
                               <td class="wt_50">
                                 <!-- <input type="hidden" class="project_del_phase_id" value="<?php echo $list->project_del_phase_id; ?>"> -->
@@ -239,13 +244,13 @@
                           <?php $k++;  } } else{ ?>
                             <tr>
                               <td>
-                                <input type="text" class="form-control form-control-sm" name="input[0][project_del_phase_descr]" value="" >
+                                <input type="text" class="form-control form-control-sm" name="input[0][project_del_phase_descr]" value="" required>
                               </td>
                               <td>
-                                <input type="date" class="form-control form-control-sm" name="input[0][project_del_phase_date]" value="" >
+                                <input type="date" class="form-control form-control-sm" name="input[0][project_del_phase_date]" value="" required>
                               </td>
                               <td>
-                                <input type="number" min="0" class="form-control form-control-sm" name="input[0][project_del_phase_amount]" value="" >
+                                <input type="number" min="0" class="form-control form-control-sm  project_del_phase_amount" name="input[0][project_del_phase_amount]" value="" required>
                               </td>
                               <td class="wt_50"></td>
                             </tr>
@@ -266,9 +271,9 @@
                       <div class="col-md-6 text-right">
                         <a href="<?php echo base_url(); ?>Project/project" class="btn btn-sm btn-default px-4 mx-4">Cancel</a>
                         <?php if(isset($update)){
-                          echo '<button class="btn btn-sm btn-primary float-right px-4">Update</button>';
+                          echo '<button type="submit" class="btn btn-sm btn-primary float-right px-4">Update</button>';
                         } else{
-                          echo '<button class="btn btn-sm btn-success float-right px-4">Save</button>';
+                          echo '<button type="submit" class="btn btn-sm btn-success float-right px-4">Save</button>';
                         } ?>
                       </div>
                     </div>
@@ -280,7 +285,7 @@
 
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header border-transparent">
+              <div class="card-header ">
                 <h3 class="card-title">List All Project</h3>
               </div>
               <div class="card-body p-2">
@@ -292,34 +297,35 @@
                     <th>Project Name</th>
                     <th class="wt_75">Client</th>
                     <th class="wt_75">Priority</th>
-                    <th class="wt_75">Start Date</th>
-                    <th class="wt_75">End Date</th>
+                    <th class="wt_50">Start Date</th>
+                    <th class="wt_50">End Date</th>
                     <th class="wt_75">Status</th>
                   </tr>
                   </thead>
                   <tbody>
                     <?php if(isset($project_list)){
                     $i=0; foreach ($project_list as $list) { $i++;
-                      $client_info = $this->Master_Model->get_info_arr_fields3('client_name', '', 'client_id', $list->client_id, '', '', '', '', 'smm_client');
+                      $reseller_info = $this->Master_Model->get_info_arr_fields3('reseller_name', '', 'reseller_id', $list->client_id, '', '', '', '', 'smm_reseller');
                     ?>
                       <tr>
                         <td class="d-none"><?php echo $i; ?></td>
-                        <td>
+                        <td class="text-center">
                           <div class="btn-group">
                             <a href="<?php echo base_url() ?>Project/edit_project/<?php echo $list->project_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
                             <a href="<?php echo base_url() ?>Project/delete_project/<?php echo $list->project_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Project');"><i class="fa fa-trash text-danger"></i></a>
                           </div>
                         </td>
                         <td><?php echo $list->project_name; ?></td>
-                        <td><?php if($client_info){ echo $client_info[0]['client_name']; } ?></td>
+                        <td><?php if($reseller_info){ echo $reseller_info[0]['reseller_name']; } ?></td>
                         <td><?php echo $list->project_piority; ?></td>
                         <td><?php echo $list->project_start_date; ?></td>
                         <td><?php echo $list->project_end_date; ?></td>
                         <td>
-                          <?php if($list->project_status == 0){ echo '<span class="text-danger"><b>Not Started</b></span>'; }
-                            elseif($list->project_status == 1){ echo '<span class="text-info"><b>In Progress</b></span>'; }
+                          <?php if($list->project_status == 0){ echo '<span class="text-warning"><b>Not Started</b></span>'; }
+                            elseif($list->project_status == 1){ echo '<span class="text-primary"><b>In Progress</b></span>'; }
                             elseif($list->project_status == 2){ echo '<span class="text-success"><b>Completed</b></span>'; }
-                            elseif($list->project_status == 3){ echo '<span class="text-primary"><b>Deferred</b></span>'; } ?>
+                            elseif($list->project_status == 3){ echo '<span class="text-danger"><b>Cancelled</b></span>'; }
+                            elseif($list->project_status == 4){ echo '<span class="text-info"><b>Hold</b></span>'; } ?>
                         </td>
                       </tr>
                     <?php } } ?>
@@ -338,6 +344,34 @@
 </html>
 
 <script type="text/javascript">
+
+  // $(document).on('change','#project_budget_amount',function(){
+  //   var project_budget_amount = parseFloat($('#project_budget_amount').val());
+  //   var sum = 0;
+  //   $(".project_del_phase_amount").each(function(){
+  //     var amt = parseFloat($(this).val());
+  //       sum += +amt;
+  //   });
+  // });
+  //
+  // $(document).on('change','.project_del_phase_amount',function(){
+  //   var project_budget_amount = parseFloat($('#project_budget_amount').val());
+  //
+  //   var sum = 0;
+  //   $(".project_del_phase_amount").each(function(){
+  //     var amt = parseFloat($(this).val());
+  //       sum += amt;
+  //   });
+  //   if(project_budget_amount != sum){
+  //     $(this).val('');
+  //     $(this).focus();
+  //     toastr.error('Total Phase Amount is must be equal to Total Budget Amount');
+  //   }
+  // });
+
+
+
+
   // Add Row...
   <?php if(isset($update)){ ?>
   var i = <?php echo $i-1; ?>
@@ -396,7 +430,7 @@
         '<input type="date" class="form-control form-control-sm" name="input['+k+'][project_del_phase_date]" value="" required>'+
       '</td>'+
       '<td>'+
-        '<input type="number" min="0" class="form-control form-control-sm" name="input['+k+'][project_del_phase_amount]" value="" required>'+
+        '<input type="number" min="0" class="form-control form-control-sm project_del_phase_amount" name="input['+k+'][project_del_phase_amount]" value="" required>'+
       '</td>'+
       '<td class="wt_50"><a class="rem_row"><i class="fa fa-trash text-danger"></i></a></td>'+
     '</tr>';

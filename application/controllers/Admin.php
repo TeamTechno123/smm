@@ -101,6 +101,17 @@ class Admin extends CI_Controller{
       );
       $user_id = $this->Master_Model->save_data('user', $user_save_info);
 
+      $save_web_setting = array(
+        'company_id' => $company_id,
+        'web_setting_name' => $_POST['company_name'],
+        'web_setting_address' => $_POST['company_address'],
+        'country_id' => $_POST['country_id'],
+        'state_id' => $_POST['state_id'],
+        'city_id' => $_POST['city_id'],
+        'web_setting_addedby_type' => 1,
+      );
+      $web_setting_id = $this->Master_Model->save_data('smm_web_setting', $save_web_setting);
+
       if($_FILES['company_logo']['name']){
         $time = time();
         $image_name = 'company_logo_'.$company_id.'_'.$time;

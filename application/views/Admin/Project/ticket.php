@@ -24,7 +24,9 @@
                 <h3 class="card-title"> <?php if(isset($update)){ echo 'Update'; } else{ echo 'Add New'; } ?> Ticket</h3>
                 <div class="card-tools">
                   <?php if(!isset($update)){
-                    echo '<button type="button" class="btn btn-sm btn-primary" data-card-widget="collapse">Add New</button>';
+                    echo '<button type="button" class="btn btn-xs btn-info" data-card-widget="collapse">Add New</button>';
+                  } else{
+                    echo '<a href="'.base_url().'Project/ticket" class="btn btn-xs btn-outline-info">Cancel Edit</a>';
                   } ?>
                 </div>
               </div>
@@ -133,7 +135,7 @@
 
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header border-transparent">
+              <div class="card-header ">
                 <h3 class="card-title">List All Ticket</h3>
               </div>
               <div class="card-body p-2">

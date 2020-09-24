@@ -34,7 +34,7 @@
                   <div class="row p-4">
                         <div class="form-group col-md-6">
                           <label>Ticket No.</label>
-                          <input type="number" class="form-control form-control-sm" name="ticket_no" id="ticket_no" value="<?php if(isset($ticket_info)){ echo $ticket_info['ticket_no']; } ?>"  placeholder="Enter Ticket No." required >
+                          <input type="number" class="form-control form-control-sm" name="ticket_no" id="ticket_no" value="<?php if(isset($ticket_info)){ echo $ticket_info['ticket_no']; } elseif(isset($ticket_no)){ echo $ticket_no; } ?>" placeholder="Enter Ticket No." required readonly>
                         </div>
                         <div class="form-group col-md-6">
                           <label>Ticket Date</label>
@@ -156,10 +156,10 @@
                     ?>
                       <tr>
                         <td class="d-none"><?php echo $i; ?></td>
-                        <td>
+                        <td class="text-center">
                           <div class="btn-group">
                             <a href="<?php echo base_url() ?>Reseller/Res_Project/edit_ticket/<?php echo $list->ticket_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
-                            <a href="<?php echo base_url() ?>Reseller/Res_Project/delete_ticket/<?php echo $list->ticket_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Ticket');"><i class="fa fa-trash text-danger"></i></a>
+                            <!-- <a href="<?php echo base_url() ?>Reseller/Res_Project/delete_ticket/<?php echo $list->ticket_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Ticket');"><i class="fa fa-trash text-danger"></i></a> -->
                           </div>
                         </td>
                         <td><?php echo $list->ticket_title; ?></td>

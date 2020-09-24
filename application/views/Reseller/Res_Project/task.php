@@ -18,13 +18,15 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <!-- <div class="col-md-12">
+          <div class="col-md-12">
             <div class="card <?php if(!isset($update)){ echo 'collapsed-card'; } ?> card-default">
               <div class="card-header">
                 <h3 class="card-title"> <?php if(isset($update)){ echo 'Update'; } else{ echo 'Add New'; } ?> Task</h3>
                 <div class="card-tools">
                   <?php if(!isset($update)){
-                    echo '<button type="button" class="btn btn-sm btn-primary" data-card-widget="collapse">Add New</button>';
+                    echo '<button type="button" class="btn btn-xs btn-info" data-card-widget="collapse">Add New</button>';
+                  } else{
+                    echo '<a href="'.base_url().'Reseller/Res_Project/task" class="btn btn-xs btn-outline-info">Cancel Edit</a>';
                   } ?>
                 </div>
               </div>
@@ -75,7 +77,7 @@
                           <option value="High" <?php if(isset($task_info) && $task_info['task_piority'] == 'High'){ echo 'selected'; } ?>>High</option>
                         </select>
                       </div>
-                      <div class="form-group col-md-6 select_sm">
+                      <!-- <div class="form-group col-md-6 select_sm">
                         <label>Task Status</label>
                         <select class="form-control select2 form-control-sm" name="task_status_id" id="task_status_id" data-placeholder="Select Task Status" required>
                           <option value="">Select Task Status</option>
@@ -83,29 +85,13 @@
                           <option value="<?php echo $list->task_status_id; ?>" <?php if(isset($task_info) && $task_info['task_status_id'] == $list->task_status_id){ echo 'selected'; } ?>><?php echo $list->task_status_name; ?></option>
                           <?php } } ?>
                         </select>
-                      </div>
-                      <div class="form-group col-md-12 select_sm">
-                        <label>Assign to</label>
-                        <select class="form-control select2 form-control-sm" multiple name="task_assign_to[]" id="task_assign_to" data-placeholder="Select Task Status" required>
-                          <option value="">Select Task Status</option>
-                          <?php if(isset($user_list)){ foreach ($user_list as $list) { ?>
-                          <option value="<?php echo $list->user_id; ?>"
-                            <?php if(isset($task_info)){
-                              $task_assign_to = $task_info['task_assign_to'];
-                              $task_assign_to_arr = explode(',', $task_assign_to);
-                              foreach ($task_assign_to_arr as $asign_user_id) {
-                                if($asign_user_id == $list->user_id){ echo 'selected'; }
-                              }
-                            } ?>
-                          ><?php echo $list->user_name; ?></option>
-                          <?php } } ?>
-                        </select>
-                      </div>
+                      </div> -->
+
                     </div>
                     <div class="col-md-6 w-100 row pr-0">
                       <style media="screen">
                         .note-editing-area {
-                          height: 275px !important;
+                          height: 200px !important;
                         }
                       </style>
                       <div class="form-group col-md-12 pr-0">
@@ -190,11 +176,11 @@
                 </form>
               </div>
             </div>
-          </div> -->
+          </div>
 
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header border-transparent">
+              <div class="card-header ">
                 <h3 class="card-title">List All Task</h3>
               </div>
               <div class="card-body p-2">
@@ -205,8 +191,8 @@
                     <th class="wt_50">Action</th>
                     <th>Task Title</th>
                     <th>Project</th>
-                    <th class="wt_75">Start Date</th>
-                    <th class="wt_75">End Date</th>
+                    <th class="wt_50">Start Date</th>
+                    <th class="wt_50">End Date</th>
                     <th class="wt_50">Status</th>
                   </tr>
                   </thead>
@@ -217,10 +203,10 @@
                     ?>
                       <tr>
                         <td class="d-none"><?php echo $i; ?></td>
-                        <td>
+                        <td class="text-center">
                           <div class="btn-group">
                             <a href="<?php echo base_url() ?>Reseller/Res_Project/edit_task/<?php echo $list->task_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
-                            <a href="<?php echo base_url() ?>Reseller/Res_Project/delete_task/<?php echo $list->task_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Task');"><i class="fa fa-trash text-danger"></i></a>
+                            <!-- <a href="<?php echo base_url() ?>Reseller/Res_Project/delete_task/<?php echo $list->task_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Task');"><i class="fa fa-trash text-danger"></i></a> -->
                           </div>
                         </td>
                         <td><?php echo $list->task_title; ?></td>
@@ -229,7 +215,7 @@
                         <td><?php echo $list->task_end_date; ?></td>
 
                         <td>
-                          <?php if($list->task_status == 0){ echo '<span class="text-danger">Inactive</span>'; }
+                          <?php if($list->task_status == 0){ echo '<span class="text-danger">Open</span>'; }
                             else{ echo '<span class="text-success">Active</span>'; } ?>
                         </td>
                       </tr>
@@ -290,7 +276,7 @@
     $(this).closest('tr').remove();
     var task_file_id = $(this).closest('tr').find('.task_file_id').val();
     $.ajax({
-      url:'<?php echo base_url(); ?>Project/delete_task_file',
+      url:'<?php echo base_url(); ?>Reseller/Res_Project/delete_task_file',
       type: 'POST',
       data: {"task_file_id":task_file_id},
       context: this,

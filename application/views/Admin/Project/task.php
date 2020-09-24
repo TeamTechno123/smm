@@ -61,7 +61,7 @@
                       </div>
                       <div class="form-group col-md-6">
                         <label>End Date</label>
-                        <input type="text" class="form-control form-control-sm" name="task_end_date" value="<?php if(isset($task_info)){ echo $task_info['task_end_date']; } ?>" id="date2" data-target="#date2" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="End Date" required >
+                        <input type="text" class="form-control form-control-sm" name="task_end_date" value="<?php if(isset($task_info)){ echo $task_info['task_end_date']; } ?>" id="min_date2" data-target="#min_date2" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="End Date" required >
                       </div>
                       <div class="form-group col-md-6">
                         <label>Estimated Hour</label>
@@ -195,7 +195,7 @@
 
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header border-transparent">
+              <div class="card-header ">
                 <h3 class="card-title">List All Task</h3>
               </div>
               <div class="card-body p-2">

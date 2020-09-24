@@ -83,7 +83,7 @@
                     </div>
                     <div class="form-group col-md-3">
                       <label>Email Id</label>
-                      <input type="email" class="form-control form-control-sm" name="freelancer_email" id="freelancer_email" value="<?php if(isset($freelancer_info)){ echo $freelancer_info['freelancer_email']; } ?>"  placeholder="Enter Email Id" required >
+                      <input type="email" class="form-control form-control-sm email" name="freelancer_email" id="freelancer_email" value="<?php if(isset($freelancer_info)){ echo $freelancer_info['freelancer_email']; } ?>"  placeholder="Enter Email Id" required >
                     </div>
                     <div class="form-group col-md-3 select_sm">
                       <label>Gender</label>

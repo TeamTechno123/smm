@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group col-md-8 offset-md-2 select_sm">
                       <label>Reseller</label>
-                      <select class="form-control select2" name="reseller_id" id="reseller_id" data-placeholder="Select Reseller">
+                      <select class="form-control select2" name="reseller_id" id="reseller_id" data-placeholder="Select Reseller" required>
                         <option value="">Select Reseller</option>
                         <?php if(isset($reseller_list)){ foreach ($reseller_list as $list) { ?>
                         <option value="<?php echo $list->reseller_id; ?>" <?php if(isset($invoice_info) && $invoice_info['reseller_id'] == $list->reseller_id){ echo 'selected'; } if($list->reseller_status == 0){ echo 'disabled'; } ?>><?php echo $list->reseller_name; ?></option>
@@ -61,7 +61,6 @@
                         <?php } } ?>
                       </select>
                     </div>
-
 
 
                     <div class="form-group col-md-12">
@@ -90,20 +89,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                          <?php if(isset($invoice_item_list)){ $k = 0; foreach ($invoice_item_list as $list) { ?>
+                          <?php $k = 0; if(isset($invoice_item_list)){ foreach ($invoice_item_list as $list) { ?>
                             <input type="hidden" name="input[<?php echo $k; ?>][invoice_item_id]" value="<?php echo $list->invoice_item_id; ?>">
                             <tr>
                               <td>
-                                <input type="text" class="form-control form-control-sm" name="input[<?php echo $k; ?>][invoice_item_name]" value="<?php echo $list->invoice_item_name; ?>" >
+                                <select class="form-control form-control-sm package_id" id="package_id<?php echo $k; ?>" name="input[<?php echo $k; ?>][package_id]" value="<?php echo $list->package_id; ?>" required>
+                                  <option value="">Select Package</option>
+                                  <?php if(isset($package_list)){ foreach ($package_list as $list2) { ?>
+                                  <option value="<?php echo $list2->package_id; ?>" <?php if($list->package_id == $list2->package_id){ echo 'selected'; } if($list2->package_status == 0){ echo 'disabled'; } ?> gst_slab_per="<?php echo $list2->gst_slab_per; ?>" package_cost="<?php echo $list2->package_cost; ?>" ><?php echo $list2->package_name; ?></option>
+                                  <?php } } ?>
+                                </select>
+                                <!-- <input type="text" class="form-control form-control-sm" name="input[<?php echo $k; ?>][invoice_item_name]" value="<?php echo $list->invoice_item_name; ?>" > -->
                               </td>
                               <td class="wt_125">
-                                <input type="number" class="form-control form-control-sm" name="input[<?php echo $k; ?>][invoice_item_qty]" value="<?php echo $list->invoice_item_qty; ?>" >
+                                <input type="number" min="1" step="1" class="form-control form-control-sm invoice_item_qty" name="input[<?php echo $k; ?>][invoice_item_qty]" value="<?php echo $list->invoice_item_qty; ?>" >
                               </td>
                               <td class="wt_125">
-                                <input type="number" min="0" class="form-control form-control-sm" name="input[<?php echo $k; ?>][invoice_item_rate]" value="<?php echo $list->invoice_item_rate; ?>" >
+                                <input type="number" min="0" class="form-control form-control-sm invoice_item_rate" name="input[<?php echo $k; ?>][invoice_item_rate]" value="<?php echo $list->invoice_item_rate; ?>" >
                               </td>
                               <td class="wt_125">
-                                <input type="number" min="0" class="form-control form-control-sm" name="input[<?php echo $k; ?>][invoice_item_amount]" value="<?php echo $list->invoice_item_amount; ?>" >
+                                <input type="number" min="0" class="form-control form-control-sm invoice_item_amount" name="input[<?php echo $k; ?>][invoice_item_amount]" value="<?php echo $list->invoice_item_amount; ?>" readonly >
+                                <input type="hidden" class="invoice_item_gst_amt" name="input[<?php echo $k; ?>][invoice_item_gst_amt]" value="<?php echo $list->invoice_item_gst_amt; ?>">
+                                <input type="hidden" class="invoice_item_basic_amt" name="input[<?php echo $k; ?>][invoice_item_basic_amt]" value="<?php echo $list->invoice_item_basic_amt; ?>">
                               </td>
                               <td class="wt_50">
                                 <?php if($k > 0){ ?><a class="rem_row"><i class="fa fa-trash text-danger"></i></a><?php } ?>
@@ -112,16 +119,24 @@
                           <?php $k++;  } } else{ ?>
                             <tr>
                               <td>
-                                <input type="text" class="form-control form-control-sm" name="input[0][invoice_item_name]" value="" >
+                                <select class="form-control form-control-sm package_id" id="package_id0" name="input[0][invoice_item_name]" required>
+                                  <option value="">Select Package</option>
+                                  <?php if(isset($package_list)){ foreach ($package_list as $list) { ?>
+                                  <option value="<?php echo $list->package_id; ?>" <?php if($list->package_status == 0){ echo 'disabled'; } ?> gst_slab_per="<?php echo $list->gst_slab_per; ?>"  package_cost="<?php echo $list->package_cost; ?>"><?php echo $list->package_name; ?></option>
+                                  <?php } } ?>
+                                </select>
+                                <!-- <input type="text" class="form-control form-control-sm" name="input[0][invoice_item_name]" value="" > -->
                               </td>
                               <td class="wt_125">
-                                <input type="number" class="form-control form-control-sm" name="input[0][invoice_item_qty]" value="" >
+                                <input type="number" min="1" step="1" class="form-control form-control-sm invoice_item_qty" name="input[0][invoice_item_qty]" value="" >
                               </td>
                               <td class="wt_125">
-                                <input type="number" min="0" class="form-control form-control-sm" name="input[0][invoice_item_rate]" value="" >
+                                <input type="number" min="0" class="form-control form-control-sm invoice_item_rate" name="input[0][invoice_item_rate]" value="" >
                               </td>
                               <td class="wt_125">
-                                <input type="number" min="0" class="form-control form-control-sm" name="input[0][invoice_item_amount]" value="" >
+                                <input type="number" min="0" class="form-control form-control-sm invoice_item_amount" name="input[0][invoice_item_amount]" value="" readonly >
+                                <input type="hidden" class="invoice_item_gst_amt" name="input[0][invoice_item_gst_amt]" value="">
+                                <input type="hidden" class="invoice_item_basic_amt" name="input[0][invoice_item_basic_amt]" value="">
                               </td>
                               <td class="wt_50"></td>
                             </tr>
@@ -149,19 +164,19 @@
                         <label>Basic Amount</label>
                       </div>
                       <div class="col-6 mb-3 mt-4">
-                        <input type="number" min="0" class="form-control form-control-sm" name="invoice_basic_amt" id="invoice_basic_amt" value="<?php if(isset($invoice_info)){ echo $invoice_info['invoice_basic_amt']; } ?>" required>
+                        <input type="number" class="form-control form-control-sm" name="invoice_basic_amt" id="invoice_basic_amt" value="<?php if(isset($invoice_info)){ echo $invoice_info['invoice_basic_amt']; } ?>" readonly required>
                       </div>
                       <div class="col-6 mb-3 text-right">
                         <label>GST Amount</label>
                       </div>
                       <div class="col-6 mb-3">
-                        <input type="number" min="0" class="form-control form-control-sm" name="invoice_gst_amt" id="invoice_gst_amt" value="<?php if(isset($invoice_info)){ echo $invoice_info['invoice_gst_amt']; } ?>" required>
+                        <input type="number" class="form-control form-control-sm" name="invoice_gst_amt" id="invoice_gst_amt" value="<?php if(isset($invoice_info)){ echo $invoice_info['invoice_gst_amt']; } ?>" readonly required>
                       </div>
                       <div class="col-6 mb-3 text-right">
                         <label>Net Amount</label>
                       </div>
                       <div class="col-6 mb-3">
-                        <input type="number" min="0" class="form-control form-control-sm" name="invoice_net_amt" id="invoice_net_amt" value="<?php if(isset($invoice_info)){ echo $invoice_info['invoice_net_amt']; } ?>" required>
+                        <input type="number" class="form-control form-control-sm" name="invoice_net_amt" id="invoice_net_amt" value="<?php if(isset($invoice_info)){ echo $invoice_info['invoice_net_amt']; } ?>" readonly required>
                       </div>
                     </div>
                   </div>
@@ -252,45 +267,24 @@
 </body>
 </html>
 
-<!-- <script type="text/javascript">
-  // Add Row...
-  <?php if(isset($update)){ ?>
-  var i = <?php echo $i-1; ?>
-  <?php } else { ?>
-  var i = 0;
-  <?php } ?>
+<script type="text/javascript">
 
-  $('#add_row').click(function(){
-    i++;
-    var row = ''+
-    '<tr>'+
-      '<td>'+
-        '<input type="text" class="form-control form-control-sm" name="invoice_file_name[]" required>'+
-      '</td>'+
-      '<td class="wt_250">'+
-        '<input type="file"  class="form-control form-control-sm" name="invoice_file_image[]" required>'+
-      '</td>'+
-      '<td class="wt_50"><a class="rem_row"><i class="fa fa-trash text-danger"></i></a></td>'+
-    '</tr>';
-    $('#myTable').append(row);
-  });
-
-  $('#myTable').on('click', '.rem_row', function () {
-    $(this).closest('tr').remove();
-    var invoice_file_id = $(this).closest('tr').find('.invoice_file_id').val();
+  $(document).on('change','#reseller_id',function(){
+    var reseller_id = $('#reseller_id').find("option:selected").val();
+    // alert(reseller_id);
     $.ajax({
-      url:'<?php echo base_url(); ?>Finance/delete_invoice_file',
+      url:'<?php echo base_url(); ?>Finance/get_project_by_reseller',
       type: 'POST',
-      data: {"invoice_file_id":invoice_file_id},
+      data: {"reseller_id":reseller_id},
       context: this,
       success: function(result){
-        toastr.error('File Deleted successfully');
+        $('#project_id').html(result);
       }
     });
-  });
-</script> -->
 
-<script type="text/javascript">
+  });
+
+
   // Add Row...
   <?php if(isset($update)){ ?>
   var k = <?php echo $k-1; ?>
@@ -303,16 +297,24 @@
     var row = ''+
     '<tr>'+
       '<td>'+
-        '<input type="text" class="form-control form-control-sm" name="input['+k+'][invoice_item_name]" value="" required>'+
+        '<select class="form-control form-control-sm package_id" id="package_id" name="input['+k+'][package_id]" required>'+
+          '<option value="">Select Package</option>'+
+          '<?php if(isset($package_list)){ foreach ($package_list as $list2) { ?>'+
+          '<option value="<?php echo $list2->package_id; ?>" <?php if($list2->package_status == 0){ echo 'disabled'; } ?> gst_slab_per="<?php echo $list2->gst_slab_per; ?>"  package_cost="<?php echo $list2->package_cost; ?>"><?php echo $list2->package_name; ?></option>'+
+          '<?php } } ?>'+
+        '</select>'+
+        // '<input type="text" class="form-control form-control-sm" name="input['+k+'][invoice_item_name]" value="" required>'+
       '</td>'+
       '<td class="wt_125">'+
-        '<input type="number" min="0" class="form-control form-control-sm" name="input['+k+'][invoice_item_qty]" value="" required>'+
+        '<input type="number" min="1" step="1" class="form-control form-control-sm invoice_item_qty" name="input['+k+'][invoice_item_qty]" value="" required>'+
       '</td>'+
       '<td class="wt_125">'+
-        '<input type="number" min="0" class="form-control form-control-sm" name="input['+k+'][invoice_item_rate]" value="" required>'+
+        '<input type="number" min="0" class="form-control form-control-sm invoice_item_rate" name="input['+k+'][invoice_item_rate]" value="" required>'+
       '</td>'+
       '<td class="wt_125">'+
-        '<input type="number" min="0" class="form-control form-control-sm" name="input['+k+'][invoice_item_amount]" value="" required>'+
+        '<input type="number" min="0" class="form-control form-control-sm invoice_item_amount" name="input['+k+'][invoice_item_amount]" value="" required readonly>'+
+        '<input type="hidden" class="invoice_item_gst_amt" name="input['+k+'][invoice_item_gst_amt]" value="">'+
+        '<input type="hidden" class="invoice_item_basic_amt" name="input['+k+'][invoice_item_basic_amt]" value="">'+
       '</td>'+
       '<td class="wt_50"><a class="rem_row"><i class="fa fa-trash text-danger"></i></a></td>'+
     '</tr>';
@@ -321,5 +323,113 @@
 
   $('#myTable2').on('click', '.rem_row', function () {
     $(this).closest('tr').remove();
+    var gst_slab_per = parseFloat($(this).closest('tr').find('.package_id').find("option:selected").attr('gst_slab_per'));
+    var package_cost = parseFloat($(this).closest('tr').find('.package_id').find("option:selected").attr('package_cost'));
+    $(this).closest('tr').find('.invoice_item_rate').val(package_cost);
+
+    var invoice_item_qty = $(this).closest('tr').find('.invoice_item_qty').val();
+    if(invoice_item_qty == '') { var invoice_item_qty = 0; }
+    var invoice_item_qty = parseFloat(invoice_item_qty);
+
+    var invoice_item_rate = $(this).closest('tr').find('.invoice_item_rate').val();
+    if(invoice_item_rate == '') { var invoice_item_rate = 0; }
+    var invoice_item_rate = parseFloat(invoice_item_rate);
+
+    var invoice_item_amount = invoice_item_qty * invoice_item_rate;
+    var invoice_item_amount = parseFloat(invoice_item_amount);
+    var invoice_item_amount = invoice_item_amount.toFixed(2);
+    $(this).closest('tr').find('.invoice_item_amount').val(invoice_item_amount);
+
+    var invoice_item_gst_amt = invoice_item_amount * gst_slab_per/(100 + gst_slab_per);
+    var invoice_item_gst_amt = parseFloat(invoice_item_gst_amt);
+    var invoice_item_gst_amt = invoice_item_gst_amt.toFixed(2);
+    $(this).closest('tr').find('.invoice_item_gst_amt').val(invoice_item_gst_amt);
+
+    var invoice_item_basic_amt = invoice_item_amount - invoice_item_gst_amt;
+    var invoice_item_basic_amt = invoice_item_basic_amt.toFixed(2);
+    $(this).closest('tr').find('.invoice_item_basic_amt').val(invoice_item_basic_amt);
+
+    var invoice_basic_amt = 0;
+    $(".invoice_item_basic_amt").each(function() {
+      var invoice_item_basic_amt = $(this).val();
+      if(!isNaN(invoice_item_basic_amt) && invoice_item_basic_amt.length != 0) {
+        invoice_basic_amt += parseFloat(invoice_item_basic_amt);
+      }
+    });
+    $('#invoice_basic_amt').val(invoice_basic_amt.toFixed(2));
+
+    var invoice_gst_amt = 0;
+    $(".invoice_item_gst_amt").each(function() {
+      var invoice_item_gst_amt = $(this).val();
+      if(!isNaN(invoice_item_gst_amt) && invoice_item_gst_amt.length != 0) {
+        invoice_gst_amt += parseFloat(invoice_item_gst_amt);
+      }
+    });
+    $('#invoice_gst_amt').val(invoice_gst_amt.toFixed(2));
+
+    var invoice_net_amt = 0;
+    $(".invoice_item_amount").each(function() {
+      var invoice_item_amount = $(this).val();
+      if(!isNaN(invoice_item_amount) && invoice_item_amount.length != 0) {
+        invoice_net_amt += parseFloat(invoice_item_amount);
+      }
+    });
+    $('#invoice_net_amt').val(invoice_net_amt.toFixed(2));
+  });
+
+
+  $(document).on('change', '.package_id, .invoice_item_qty', function(){
+    var gst_slab_per = parseFloat($(this).closest('tr').find('.package_id').find("option:selected").attr('gst_slab_per'));
+    var package_cost = parseFloat($(this).closest('tr').find('.package_id').find("option:selected").attr('package_cost'));
+    $(this).closest('tr').find('.invoice_item_rate').val(package_cost);
+
+    var invoice_item_qty = $(this).closest('tr').find('.invoice_item_qty').val();
+    if(invoice_item_qty == '') { var invoice_item_qty = 0; }
+    var invoice_item_qty = parseFloat(invoice_item_qty);
+
+    var invoice_item_rate = $(this).closest('tr').find('.invoice_item_rate').val();
+    if(invoice_item_rate == '') { var invoice_item_rate = 0; }
+    var invoice_item_rate = parseFloat(invoice_item_rate);
+
+    var invoice_item_amount = invoice_item_qty * invoice_item_rate;
+    var invoice_item_amount = parseFloat(invoice_item_amount);
+    var invoice_item_amount = invoice_item_amount.toFixed(2);
+    $(this).closest('tr').find('.invoice_item_amount').val(invoice_item_amount);
+
+    var invoice_item_gst_amt = invoice_item_amount * gst_slab_per/(100 + gst_slab_per);
+    var invoice_item_gst_amt = parseFloat(invoice_item_gst_amt);
+    var invoice_item_gst_amt = invoice_item_gst_amt.toFixed(2);
+    $(this).closest('tr').find('.invoice_item_gst_amt').val(invoice_item_gst_amt);
+
+    var invoice_item_basic_amt = invoice_item_amount - invoice_item_gst_amt;
+    var invoice_item_basic_amt = invoice_item_basic_amt.toFixed(2);
+    $(this).closest('tr').find('.invoice_item_basic_amt').val(invoice_item_basic_amt);
+
+    var invoice_basic_amt = 0;
+    $(".invoice_item_basic_amt").each(function() {
+      var invoice_item_basic_amt = $(this).val();
+      if(!isNaN(invoice_item_basic_amt) && invoice_item_basic_amt.length != 0) {
+        invoice_basic_amt += parseFloat(invoice_item_basic_amt);
+      }
+    });
+    $('#invoice_basic_amt').val(invoice_basic_amt.toFixed(2));
+
+    var invoice_gst_amt = 0;
+    $(".invoice_item_gst_amt").each(function() {
+      var invoice_item_gst_amt = $(this).val();
+      if(!isNaN(invoice_item_gst_amt) && invoice_item_gst_amt.length != 0) {
+        invoice_gst_amt += parseFloat(invoice_item_gst_amt);
+      }
+    });
+    $('#invoice_gst_amt').val(invoice_gst_amt.toFixed(2));
+
+    var invoice_net_amt = 0;
+    $(".invoice_item_amount").each(function() {
+      var invoice_item_amount = $(this).val();
+      if(!isNaN(invoice_item_amount) && invoice_item_amount.length != 0) {
+        invoice_net_amt += parseFloat(invoice_item_amount);
+      }
+    });
+    $('#invoice_net_amt').val(invoice_net_amt.toFixed(2));
   });
 </script>

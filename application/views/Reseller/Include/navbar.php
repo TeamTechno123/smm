@@ -77,7 +77,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="<?php echo base_url(); ?>Reseller/Res_User/dashboard" class="nav-link">
+          <a href="<?php echo base_url(); ?>Reseller/Res_User/dashboard" class="nav-link head">
             <i class="nav-icon fas fa-th"></i>
             <p>
               Dashboard
@@ -129,7 +129,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="<?php echo base_url(); ?>Reseller/Res_Master/order_list" class="nav-link">
+          <a href="<?php echo base_url(); ?>Reseller/Res_Master/order_list" class="nav-link head">
             <i class="nav-icon fas fa-th"></i>
             <p>Order</p>
           </a>
@@ -145,7 +145,7 @@
           </a>
           <ul class="nav nav-treeview" style="display: none;">
             <li class="nav-item">
-              <a <?php if(isset($update_project)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Project/project" <?php } ?> class="nav-link">
+              <a href="<?php echo base_url(); ?>Reseller/Res_Project/project" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Project</p>
               </a>
@@ -160,6 +160,12 @@
               <a <?php if(isset($update_task)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Project/task" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Task</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a <?php if(isset($update_project_revision)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Project/project_revision" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Project Revision </p>
               </a>
             </li>
 
@@ -182,18 +188,18 @@
                 <p>Invoice List(Admin)</p>
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a <?php if(isset($update_invoice)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Invoice/invoice" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Add Invoice</p>
               </a>
-            </li>
+            </li> -->
 
           </ul>
         </li>
 
         <li class="nav-item">
-          <a href="<?php echo base_url(); ?>Reseller/Res_Master/announcement" class="nav-link">
+          <a href="<?php echo base_url(); ?>Reseller/Res_Master/announcement" class="nav-link head">
             <i class="nav-icon fas fa-th"></i>
             <p>Announcement</p>
           </a>
