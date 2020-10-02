@@ -18,7 +18,7 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition login-page " style="background-image: linear-gradient(to right, #044c9d, #00aff4);" >
+<body class="hold-transition login-page " style="background-image: linear-gradient(to right, #9c0483, #730bbe);" >
 <div class="login-box login-new">
   <div class="login-logo ">
     <span class="login-box-msg"> <img src="<?php echo base_url(); ?>assets/images/website/logo.png"> </span>
@@ -106,7 +106,7 @@
         </div>
         <div class="col-md-6 text-right">
           <p class="mb-1">
-            <a href="<?php echo base_url(); ?>websiteController/login2">Login</a>
+            <a href="<?php echo base_url(); ?>Login">Login</a>
           </p>
         </div>
       </div>

@@ -12,7 +12,9 @@ class Website extends CI_Controller{
  // }
 
  public function index(){
-  $this->load->view('Website/index1');
+  $this->load->view('Website/index');
  }
+
+ 
 
 }

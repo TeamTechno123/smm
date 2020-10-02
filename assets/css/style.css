@@ -240,6 +240,37 @@ body{
 	padding-right: 30px;
 }
 
+.bg-green{
+	background-color: #4ede80!important;
+	border : 1px solid #4ede80!important;
+	color: #fff;
+}
+
+.bg-green2{
+	background-color: #716aca;
+	color: #fff;
+}
+
+.category p{
+	margin-bottom: 5px;
+}
+
+.page-sec-two{
+	padding-top: 30px;
+	margin-top: 30px;
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+}
+
+.page-sec-two  .category{
+	border-radius: 5px;
+	margin-bottom: 40px;
+}
+
+#m-scroll{
+	margin-bottom: 30px;
+}
+
 @media screen and (max-width: 400px) {
 
 	.home-nav .text-div{
@@ -308,7 +339,7 @@ body{
 		}
 
 		.testomonial{
-		  	height: 2300px;
+		  	height: 1100px;
 		}
 
 		.testomonial .card{
@@ -329,4 +360,14 @@ body{
 			margin-left: 10px!important;
 			padding-left: 10px!important;
 		}
+
+
+	#m-scroll{
+	overflow-x: auto;
+}
+
+		#m-scroll table{
+		width: 650px;
+}
+
 }

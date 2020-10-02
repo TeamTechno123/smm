@@ -33,11 +33,11 @@
           <input type="number" min="5000000000" max="9999999999" class="form-control" name="mobile" id="mobile" placeholder="Mobile Number" required>
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+              <span class="fas fa-mobile"></span>
             </div>
           </div>
         </div>
-        <span class="text-red"> <?php echo form_error('email'); ?> </span>
+        <span class="text-red"> <?php echo form_error('mobile'); ?> </span>
         <div class="input-group mb-3">
           <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
           <div class="input-group-append">
@@ -63,7 +63,7 @@
         </div>
         <div class="col-md-6 text-right">
           <p class="mb-1">
-            <a href="<?php echo base_url(); ?>websiteController/signup3">Sign Up </a>
+            <a href="<?php echo base_url(); ?>Sign-Up">Sign Up </a>
           </p>
         </div>
       </div>
