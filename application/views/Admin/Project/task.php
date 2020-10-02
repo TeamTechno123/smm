@@ -146,7 +146,7 @@
                                   <input type="text" class="form-control form-control-sm" name="task_file_name[]" value="<?php echo $list->task_file_name; ?>" disabled>
                                 </td>
                                 <td class="wt_250">
-                                  <a target="_blank" href="<?php echo base_url() ?>assets/images/task/<?php echo $list->task_file_image; ?>"><?php echo $list->task_file_image; ?></a>
+                                  <a target="_blank" href="<?php echo $list->task_file_image; ?>"><?php echo $list->task_file_image; ?></a>
                                 </td>
                                 <td class="wt_50">
                                   <input type="hidden" class="task_file_id" value="<?php echo $list->task_file_id; ?>">

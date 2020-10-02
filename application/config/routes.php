@@ -49,7 +49,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'websiteController';
+$route['default_controller'] = 'User';
 
 $route['Pharmacy'] = 'Website/pharmacy_index';
 $route['Lab-Tests'] = 'Website/lab_index';

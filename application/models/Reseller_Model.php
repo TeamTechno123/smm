@@ -35,6 +35,41 @@ class Reseller_Model extends CI_Model{
     return $result;
   }
 
+  // Ticket List...
+  public function reseller_ticket_list($reseleer_id){
+    $this->db->select('smm_ticket.*, smm_project.client_id');
+    $this->db->from('smm_ticket');
+    $this->db->where('smm_project.client_id', $reseleer_id);
+    $this->db->order_by('smm_ticket.ticket_id','DESC');
+    $this->db->join('smm_project','smm_ticket.project_id = smm_project.project_id','left');
+    $query = $this->db->get();
+    $result = $query->result();
+    return $result;
+  }
+
+  // Task List...
+  public function reseller_task_list($reseleer_id){
+    $this->db->select('smm_task.*, smm_project.client_id, smm_project.project_name');
+    $this->db->from('smm_task');
+    $this->db->where('smm_project.client_id', $reseleer_id);
+    $this->db->order_by('smm_task.task_id','DESC');
+    $this->db->join('smm_project','smm_task.project_id = smm_project.project_id','left');
+    $query = $this->db->get();
+    $result = $query->result();
+    return $result;
+  }
+
+  // Reseller List...
+  public function reseller_project_revision_list($reseleer_id){
+    $this->db->select('smm_project_revision.*, smm_project.client_id, smm_project.project_name');
+    $this->db->from('smm_project_revision');
+    $this->db->where('smm_project.client_id', $reseleer_id);
+    $this->db->order_by('smm_project_revision.project_revision_id','DESC');
+    $this->db->join('smm_project','smm_project_revision.project_id = smm_project.project_id','left');
+    $query = $this->db->get();
+    $result = $query->result();
+    return $result;
+  }
 
 }
 ?>

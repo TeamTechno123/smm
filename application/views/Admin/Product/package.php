@@ -34,12 +34,21 @@
                   <div class="row p-4">
                     <div class="col-md-6 pl-0">
                       <div class="row">
-                        <div class="form-group col-md-12 select_sm">
+                        <div class="form-group col-md-6 select_sm">
                           <label>Select Type</label>
                           <select class="form-control select2 form-control-sm" name="package_type" id="package_type" data-placeholder="Select Type" required>
                             <option value="">Select Type</option>
                             <option value="1" <?php if(isset($package_info) && $package_info['package_type'] == '1'){ echo 'selected'; } ?>>Product</option>
                             <option value="2" <?php if(isset($package_info) && $package_info['package_type'] == '2'){ echo 'selected'; } ?>>Service</option>
+                          </select>
+                        </div>
+                        <div class="form-group col-md-6 select_sm">
+                          <label>Select Package Category</label>
+                          <select class="form-control select2" name="package_category_id" id="package_category_id" data-placeholder="Select Package Category" required>
+                            <option value="">Select Package Category</option>
+                            <?php if(isset($package_category_list)){ foreach ($package_category_list as $list) { ?>
+                            <option value="<?php echo $list->package_category_id; ?>" <?php if(isset($package_info) && $package_info['package_category_id'] == $list->package_category_id){ echo 'selected'; } if($list->package_category_status == 0){ echo 'disabled'; } ?>><?php echo $list->package_category_name; ?></option>
+                            <?php } } ?>
                           </select>
                         </div>
                         <div class="form-group col-md-12">
@@ -130,7 +139,7 @@
                           <thead>
                           <tr>
                             <th>Name</th>
-                            <th class="wt_250">Image</th>
+                            <!-- <th class="wt_250">Image</th> -->
                             <th class="wt_50"></th>
                           </tr>
                           </thead>
@@ -139,11 +148,11 @@
                               <input type="hidden" name="input[<?php echo $i; ?>][package_feature_id]" value="<?php echo $list->package_feature_id; ?>">
                               <tr>
                                 <td>
-                                  <input type="text" class="form-control form-control-sm" name="package_feature_name[]" value="<?php echo $list->package_feature_name; ?>" disabled>
+                                  <input type="text" class="form-control form-control-sm" name="input[<?php echo $i; ?>][package_feature_name]" value="<?php echo $list->package_feature_name; ?>" required>
                                 </td>
-                                <td class="wt_250">
+                                <!-- <td class="wt_250">
                                   <a target="_blank" href="<?php echo base_url() ?>assets/images/package/<?php echo $list->package_feature_image; ?>"><?php echo $list->package_feature_image; ?></a>
-                                </td>
+                                </td> -->
                                 <td class="wt_50">
                                   <input type="hidden" class="package_feature_id" value="<?php echo $list->package_feature_id; ?>">
                                   <a class="rem_row"><i class="fa fa-trash text-danger"></i></a>
@@ -152,11 +161,11 @@
                             <?php $i++;  } } else{ ?>
                               <tr>
                                 <td>
-                                  <input type="text" class="form-control form-control-sm" name="package_feature_name[]" required>
+                                  <input type="text" class="form-control form-control-sm" name="input[0][package_feature_name]" required>
                                 </td>
-                                <td class="wt_250">
+                                <!-- <td class="wt_250">
                                   <input type="file"  class="form-control form-control-sm" name="package_feature_image[]" required>
-                                </td>
+                                </td> -->
                                 <td class="wt_50"></td>
                               </tr>
                             <?php } ?>
@@ -202,6 +211,7 @@
                     <th class="d-none">#</th>
                     <th class="wt_50">Action</th>
                     <th>Package Name</th>
+                    <th class="">Category</th>
                     <th class="wt_50">Validity</th>
                     <th class="wt_50">Cost</th>
                     <th class="wt_50">Image</th>
@@ -211,7 +221,7 @@
                   <tbody>
                     <?php if(isset($package_list)){
                       $i=0; foreach ($package_list as $list) { $i++;
-                        // $city_info = $this->Master_Model->get_info_arr_fields3('city_name', '', 'city_id', $list->city_id, '', '', '', '', 'city');
+                        $package_category_info = $this->Master_Model->get_info_arr_fields3('package_category_name', '', 'package_category_id', $list->package_category_id, '', '', '', '', 'smm_package_category');
                     ?>
                       <tr>
                         <td class="d-none"><?php echo $i; ?></td>
@@ -222,9 +232,9 @@
                           </div>
                         </td>
                         <td><?php echo $list->package_name; ?></td>
+                        <td><?php if($package_category_info){ echo $package_category_info[0]['package_category_name']; } ?></td>
                         <td><?php echo $list->package_per_duration; ?></td>
                         <td><?php echo $list->package_cost; ?></td>
-                        <!-- <td><?php if($city_info){ echo $city_info[0]['city_name']; } ?></td> -->
                         <td><img width="50px" src="<?php echo base_url() ?>assets/images/package/<?php echo $list->package_image;  ?>" alt="Package Image">
                         <td>
                           <?php if($list->package_status == 0){ echo '<span class="text-danger">Inactive</span>'; }
@@ -276,11 +286,11 @@
       var row = ''+
       '<tr>'+
         '<td>'+
-          '<input type="text" class="form-control form-control-sm" name="package_feature_name[]" required>'+
+          '<input type="text" class="form-control form-control-sm" name="input['+i+'][package_feature_name]" required>'+
         '</td>'+
-        '<td class="wt_250">'+
-          '<input type="file"  class="form-control form-control-sm" name="package_feature_image[]" required>'+
-        '</td>'+
+        // '<td class="wt_250">'+
+        //   '<input type="file"  class="form-control form-control-sm" name="package_feature_image[]" required>'+
+        // '</td>'+
         '<td class="wt_50"><a class="rem_row"><i class="fa fa-trash text-danger"></i></a></td>'+
       '</tr>';
       $('#myTable').append(row);

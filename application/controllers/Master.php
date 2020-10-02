@@ -595,6 +595,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   }
 
 
+/*********************************** Web Setup Request *********************************/
+
+  // Add Web Setup Request....
+  public function web_setup_request(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+
+    $data['web_setup_request_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','web_setup_request_id','DESC','smm_web_setup_request');
+    $data['page'] = 'Web Setup Request';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Master/web_setup_request', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update Web Setup Request...
+  public function edit_web_setup_request($web_setup_request_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('web_setup_request_no', 'Web Setup Request Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $update_data = $_POST;
+      $this->Master_Model->update_info('web_setup_request_id', $web_setup_request_id, 'smm_web_setup_request', $update_data);
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Master/web_setup_request');
+    }
+
+    $web_setup_request_info = $this->Master_Model->get_info_arr('web_setup_request_id',$web_setup_request_id,'smm_web_setup_request');
+    if(!$web_setup_request_info){ header('location:'.base_url().'Master/web_setup_request'); }
+    $data['update'] = 'update';
+    $data['update_web_setup_request'] = 'update';
+    $data['web_setup_request_info'] = $web_setup_request_info[0];
+    $data['act_link'] = base_url().'Master/edit_web_setup_request/'.$web_setup_request_id;
+
+    $data['web_setup_request_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','web_setup_request_id','DESC','smm_web_setup_request');
+    $data['page'] = 'Edit Web Setup Request';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Master/web_setup_request', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
 
 /*****************************************************************************************/
   // Check Duplication

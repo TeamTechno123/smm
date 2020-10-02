@@ -33,6 +33,7 @@ class Finance extends CI_Controller{
       // Save in Web Setting...
       $save_web_setting = array(
         'company_id' => $smm_company_id,
+        'reseller_id' => $reseller_id,
         'web_setting_name' => $_POST['reseller_name'],
         'web_setting_address' => $_POST['reseller_address'],
         'country_id' => $_POST['country_id'],

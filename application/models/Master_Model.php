@@ -260,27 +260,17 @@ class Master_Model extends CI_Model{
     return $value;
   }
 
+/********************************************************************************************/
 
-  // Student Report...
-    public function student_report_list($academic_year_id,$medium_id,$class_id,$batch_id){
-      $this->db->select('student.*');
-      if($academic_year_id != ''){
-        $this->db->where('academic_year_id',$academic_year_id);
-        }
-      if($medium_id != ''){
-      $this->db->where('medium_id',$medium_id);
-        }
-      if($class_id != ''){
-        $this->db->where('class_id',$class_id);
-        }
-      if($batch_id != ''){
-        $this->db->where('batch_id',$batch_id);
-        }
-        $this->db->from('student');
-      $query = $this->db->get();
-      $result = $query->result();
-      return $result;
-    }
+  public function package_list($company_id){
+    $this->db->select('smm_package.*,smm_gst_slab.*');
+    $this->db->where('smm_package.company_id', $company_id);
+    $this->db->join('smm_gst_slab','smm_gst_slab.gst_slab_id = smm_package.gst_slab_id','LEFT');
+    $this->db->from('smm_package');
+    $query = $this->db->get();
+    $result = $query->result();
+    return $result;
+  }
 
     // Topic Report...
       public function topic_report_list_all($company_id){
@@ -297,23 +287,6 @@ class Master_Model extends CI_Model{
         return $result;
       }
 
-    // Topic Report...
-  public function topic_report_list($section_id,$medium_id,$class_id,$subject_id){
-$this->db->select('topic.*,section.*,medium.*,class.*,subject.*,batch.*');
-  $this->db->from('topic');
-$this->db->where('topic.medium_id',$medium_id);
-$this->db->where('topic.class_id',$class_id);
-$this->db->where('topic.section_id',$section_id);
-$this->db->where('topic.subject_id',$subject_id);
-$this->db->join('section','topic.section_id = section.section_id','LEFT');
-$this->db->join('medium','topic.medium_id = medium.medium_id','LEFT');
-$this->db->join('class','topic.class_id = class.class_id','LEFT');
-$this->db->join('subject','topic.subject_id = subject.subject_id','LEFT');
-$this->db->join('batch','topic.batch_id = batch.batch_id','LEFT');
-  $query = $this->db->get();
-  $result = $query->result();
-  return $result;
-}
 
 
 }

@@ -465,6 +465,88 @@ class Product extends CI_Controller{
     header('location:'.base_url().'Product/product');
   }
 
+
+
+/********************************* Package Category ***********************************/
+  // Add Package Category...
+  public function package_category(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('package_category_name', 'Package Category Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $package_category_status = $this->input->post('package_category_status');
+      if(!isset($package_category_status)){ $package_category_status = '1'; }
+      $save_data = $_POST;
+      $save_data['package_category_status'] = $package_category_status;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['package_category_addedby'] = $smm_user_id;
+      $user_id = $this->Master_Model->save_data('smm_package_category', $save_data);
+
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Product/package_category');
+    }
+    $data['update_product_setting'] = 'update';
+    $data['act_link'] = base_url().'Product/package_category';
+
+    $data['package_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','package_category_id','ASC','smm_package_category');
+    $data['setting_menu'] = 'package_category';
+    $data['page'] = 'Package Category';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Product/package_category', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update Package Category...
+  public function edit_package_category($package_category_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('package_category_name', 'Package Category Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $package_category_status = $this->input->post('package_category_status');
+      if(!isset($package_category_status)){ $package_category_status = '1'; }
+      $update_data = $_POST;
+      $update_data['package_category_status'] = $package_category_status;
+      $update_data['package_category_addedby'] = $smm_user_id;
+      $this->Master_Model->update_info('package_category_id', $package_category_id, 'smm_package_category', $update_data);
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Product/package_category');
+    }
+
+    $package_category_info = $this->Master_Model->get_info_arr('package_category_id',$package_category_id,'smm_package_category');
+    if(!$package_category_info){ header('location:'.base_url().'Product/package_category'); }
+    $data['update'] = 'update';
+    $data['update_product_setting'] = 'update';
+    $data['package_category_info'] = $package_category_info[0];
+    $data['act_link'] = base_url().'Product/edit_package_category/'.$package_category_id;
+
+    $data['package_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','package_category_id','ASC','smm_package_category');
+    $data['setting_menu'] = 'package_category';
+    $data['page'] = 'Edit Package Category';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Product/package_category', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  //Delete Package Category...
+  public function delete_package_category($package_category_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+    $this->Master_Model->delete_info('package_category_id', $package_category_id, 'smm_package_category');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Product/package_category');
+  }
+
 /********************************* Package ***********************************/
   // Add Package...
   public function package(){
@@ -479,7 +561,7 @@ class Product extends CI_Controller{
       if(!isset($package_status)){ $package_status = '1'; }
       $save_data = $_POST;
       unset($save_data['files']);
-      // unset($save_data['input']);
+      unset($save_data['input']);
       unset($save_data['package_feature_name']);
       $save_data['package_status'] = $package_status;
       $save_data['company_id'] = $smm_company_id;
@@ -506,53 +588,54 @@ class Product extends CI_Controller{
         }
       }
 
-      if(isset($_FILES['package_feature_image']['name'])){
-        $this->load->library('upload');
-        $files = $_FILES;
-        $cpt = count($_FILES['package_feature_image']['name']);
-        for($i=0; $i<$cpt; $i++)
-        {
-          $j = $i+1;
-          $time = time();
-          $image_name = 'package_feature_'.$package_id.'_'.$j.'_'.$time;
-          $_FILES['package_feature_image']['name']= $files['package_feature_image']['name'][$i];
-          $_FILES['package_feature_image']['type']= $files['package_feature_image']['type'][$i];
-          $_FILES['package_feature_image']['tmp_name']= $files['package_feature_image']['tmp_name'][$i];
-          $_FILES['package_feature_image']['error']= $files['package_feature_image']['error'][$i];
-          $_FILES['package_feature_image']['size']= $files['package_feature_image']['size'][$i];
-          $config['upload_path'] = 'assets/images/package/';
-          $config['allowed_types'] = 'gif|jpg|jpeg|png';
-          $config['file_name'] = $image_name;
-          $config['overwrite']     = FALSE;
-          $filename = $files['package_feature_image']['name'][$i];
-          $ext = pathinfo($filename, PATHINFO_EXTENSION);
-          $this->upload->initialize($config);
-          $package_feature_name = $_POST['package_feature_name'][$i];
-          if($this->upload->do_upload('package_feature_image') && $filename && $ext ){
-            $file_data['package_feature_image'] = $image_name.'.'.$ext;
-            $file_data['package_id'] = $package_id;
-            $file_data['package_feature_name'] = $package_feature_name;
-            $this->Master_Model->save_data('smm_package_feature', $file_data);
-          }
-          else{
-            $error = $this->upload->display_errors();
-            $this->session->set_flashdata('status',$this->upload->display_errors());
-          }
-        }
-      }
-      // if(isset($_POST['input'])){
-      //   foreach($_POST['input'] as $multi_data){
-      //     $multi_data['package_id'] = $package_id;
-      //     $multi_data['company_id'] = $smm_company_id;
-      //     $multi_data['package_feature_addedby'] = $smm_user_id;
-      //     $this->db->insert('smm_package_feature', $multi_data);
+      // if(isset($_FILES['package_feature_image']['name'])){
+      //   $this->load->library('upload');
+      //   $files = $_FILES;
+      //   $cpt = count($_FILES['package_feature_image']['name']);
+      //   for($i=0; $i<$cpt; $i++)
+      //   {
+      //     $j = $i+1;
+      //     $time = time();
+      //     $image_name = 'package_feature_'.$package_id.'_'.$j.'_'.$time;
+      //     $_FILES['package_feature_image']['name']= $files['package_feature_image']['name'][$i];
+      //     $_FILES['package_feature_image']['type']= $files['package_feature_image']['type'][$i];
+      //     $_FILES['package_feature_image']['tmp_name']= $files['package_feature_image']['tmp_name'][$i];
+      //     $_FILES['package_feature_image']['error']= $files['package_feature_image']['error'][$i];
+      //     $_FILES['package_feature_image']['size']= $files['package_feature_image']['size'][$i];
+      //     $config['upload_path'] = 'assets/images/package/';
+      //     $config['allowed_types'] = 'gif|jpg|jpeg|png';
+      //     $config['file_name'] = $image_name;
+      //     $config['overwrite']     = FALSE;
+      //     $filename = $files['package_feature_image']['name'][$i];
+      //     $ext = pathinfo($filename, PATHINFO_EXTENSION);
+      //     $this->upload->initialize($config);
+      //     $package_feature_name = $_POST['package_feature_name'][$i];
+      //     if($this->upload->do_upload('package_feature_image') && $filename && $ext ){
+      //       $file_data['package_feature_image'] = $image_name.'.'.$ext;
+      //       $file_data['package_id'] = $package_id;
+      //       $file_data['package_feature_name'] = $package_feature_name;
+      //       $this->Master_Model->save_data('smm_package_feature', $file_data);
+      //     }
+      //     else{
+      //       $error = $this->upload->display_errors();
+      //       $this->session->set_flashdata('status',$this->upload->display_errors());
+      //     }
       //   }
       // }
+      if(isset($_POST['input'])){
+        foreach($_POST['input'] as $multi_data){
+          $multi_data['package_id'] = $package_id;
+          $multi_data['company_id'] = $smm_company_id;
+          $multi_data['package_feature_addedby'] = $smm_user_id;
+          $this->db->insert('smm_package_feature', $multi_data);
+        }
+      }
 
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Product/package');
     }
-    $data['gst_slab_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'gst_slab_status','1','','','','','gst_slab_per','ASC','smm_gst_slab');
+    $data['gst_slab_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','gst_slab_per','ASC','smm_gst_slab');
+    $data['package_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','package_category_name','ASC','smm_package_category');
 
     $data['package_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','package_id','ASC','smm_package');
     $data['page'] = 'Package';
@@ -582,60 +665,60 @@ class Product extends CI_Controller{
       $update_data['package_addedby'] = $smm_user_id;
       $this->Master_Model->update_info('package_id', $package_id, 'smm_package', $update_data);
 
-      // if(isset($_POST['input'])){
-      //   foreach($_POST['input'] as $multi_data){
-      //     if(isset($multi_data['package_feature_id'])){
-      //       $package_feature_id = $multi_data['package_feature_id'];
-      //       if(!isset($multi_data['package_feature_name'])){
-      //         $this->Master_Model->delete_info('package_feature_id', $package_feature_id, 'smm_package_feature');
-      //       }else{
-      //         $multi_data['package_feature_addedby'] = $smm_user_id;
-      //         $this->Master_Model->update_info('package_feature_id', $package_feature_id, 'smm_package_feature', $multi_data);
-      //       }
-      //     }
-      //     else{
-      //       $multi_data['package_id'] = $package_id;
-      //       $multi_data['company_id'] = $smm_company_id;
-      //       $multi_data['package_feature_addedby'] = $smm_user_id;
-      //       $this->db->insert('smm_package_feature', $multi_data);
-      //     }
-      //   }
-      // }
-
-      if(isset($_FILES['package_feature_image']['name'])){
-        $this->load->library('upload');
-        $files = $_FILES;
-        $cpt = count($_FILES['package_feature_image']['name']);
-        for($i=0; $i<$cpt; $i++)
-        {
-          $j = $i+1;
-          $time = time();
-          $image_name = 'package_feature_'.$package_id.'_'.$j.'_'.$time;
-          $_FILES['package_feature_image']['name']= $files['package_feature_image']['name'][$i];
-          $_FILES['package_feature_image']['type']= $files['package_feature_image']['type'][$i];
-          $_FILES['package_feature_image']['tmp_name']= $files['package_feature_image']['tmp_name'][$i];
-          $_FILES['package_feature_image']['error']= $files['package_feature_image']['error'][$i];
-          $_FILES['package_feature_image']['size']= $files['package_feature_image']['size'][$i];
-          $config['upload_path'] = 'assets/images/package/';
-          $config['allowed_types'] = 'gif|jpg|jpeg|png';
-          $config['file_name'] = $image_name;
-          $config['overwrite']     = FALSE;
-          $filename = $files['package_feature_image']['name'][$i];
-          $ext = pathinfo($filename, PATHINFO_EXTENSION);
-          $this->upload->initialize($config);
-          $package_feature_name = $_POST['package_feature_name'][$i];
-          if($this->upload->do_upload('package_feature_image') && $filename && $ext ){
-            $file_data['package_feature_image'] = $image_name.'.'.$ext;
-            $file_data['package_id'] = $package_id;
-            $file_data['package_feature_name'] = $package_feature_name;
-            $this->Master_Model->save_data('smm_package_feature', $file_data);
+      if(isset($_POST['input'])){
+        foreach($_POST['input'] as $multi_data){
+          if(isset($multi_data['package_feature_id'])){
+            $package_feature_id = $multi_data['package_feature_id'];
+            if(!isset($multi_data['package_feature_name'])){
+              $this->Master_Model->delete_info('package_feature_id', $package_feature_id, 'smm_package_feature');
+            }else{
+              $multi_data['package_feature_addedby'] = $smm_user_id;
+              $this->Master_Model->update_info('package_feature_id', $package_feature_id, 'smm_package_feature', $multi_data);
+            }
           }
           else{
-            $error = $this->upload->display_errors();
-            $this->session->set_flashdata('status',$this->upload->display_errors());
+            $multi_data['package_id'] = $package_id;
+            $multi_data['company_id'] = $smm_company_id;
+            $multi_data['package_feature_addedby'] = $smm_user_id;
+            $this->db->insert('smm_package_feature', $multi_data);
           }
         }
       }
+
+      // if(isset($_FILES['package_feature_image']['name'])){
+      //   $this->load->library('upload');
+      //   $files = $_FILES;
+      //   $cpt = count($_FILES['package_feature_image']['name']);
+      //   for($i=0; $i<$cpt; $i++)
+      //   {
+      //     $j = $i+1;
+      //     $time = time();
+      //     $image_name = 'package_feature_'.$package_id.'_'.$j.'_'.$time;
+      //     $_FILES['package_feature_image']['name']= $files['package_feature_image']['name'][$i];
+      //     $_FILES['package_feature_image']['type']= $files['package_feature_image']['type'][$i];
+      //     $_FILES['package_feature_image']['tmp_name']= $files['package_feature_image']['tmp_name'][$i];
+      //     $_FILES['package_feature_image']['error']= $files['package_feature_image']['error'][$i];
+      //     $_FILES['package_feature_image']['size']= $files['package_feature_image']['size'][$i];
+      //     $config['upload_path'] = 'assets/images/package/';
+      //     $config['allowed_types'] = 'gif|jpg|jpeg|png';
+      //     $config['file_name'] = $image_name;
+      //     $config['overwrite']     = FALSE;
+      //     $filename = $files['package_feature_image']['name'][$i];
+      //     $ext = pathinfo($filename, PATHINFO_EXTENSION);
+      //     $this->upload->initialize($config);
+      //     $package_feature_name = $_POST['package_feature_name'][$i];
+      //     if($this->upload->do_upload('package_feature_image') && $filename && $ext ){
+      //       $file_data['package_feature_image'] = $image_name.'.'.$ext;
+      //       $file_data['package_id'] = $package_id;
+      //       $file_data['package_feature_name'] = $package_feature_name;
+      //       $this->Master_Model->save_data('smm_package_feature', $file_data);
+      //     }
+      //     else{
+      //       $error = $this->upload->display_errors();
+      //       $this->session->set_flashdata('status',$this->upload->display_errors());
+      //     }
+      //   }
+      // }
 
       if($_FILES['package_image']['name']){
         $time = time();
@@ -669,6 +752,7 @@ class Product extends CI_Controller{
     $data['package_info'] = $package_info[0];
     $data['act_link'] = base_url().'Product/edit_package/'.$package_id;
     $data['gst_slab_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'gst_slab_status','1','','','','','gst_slab_per','ASC','smm_gst_slab');
+    $data['package_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','package_category_name','ASC','smm_package_category');
 
     $data['package_feature_list'] = $this->Master_Model->get_list_by_id3('','','','','','package_id',$package_id,'package_feature_id','ASC','smm_package_feature');
     $data['package_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','package_id','ASC','smm_package');

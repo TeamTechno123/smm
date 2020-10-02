@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 22, 2020 at 07:03 AM
+-- Generation Time: Sep 24, 2020 at 01:57 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -5857,7 +5857,7 @@ CREATE TABLE `company` (
 --
 
 INSERT INTO `company` (`company_id`, `company_name`, `company_shortname`, `company_address`, `country_id`, `state_id`, `district_id`, `city_id`, `company_statecode`, `company_entity_id`, `company_leg_name`, `company_pincode`, `company_mob1`, `company_mob2`, `company_email`, `company_website`, `company_pan_no`, `company_gst_no`, `company_vat_no`, `company_cst_no`, `company_reg_no`, `company_dl1`, `company_dl2`, `currency_id`, `timezone_id`, `company_logo`, `company_fevicon`, `company_seal`, `company_fin_from`, `company_fin_to`, `company_added_date`, `company_update_date`, `company_status`) VALUES
-(1, 'SMM System', 'SMM', 'Rajarampuri Kolhapur', 101, 22, 6, 2652, '27', 1, 'rrttt', '444555', '9876543210', '9988776655', 'smm@email.com', 'www.smm.com', '111', '222', '3', '4', '555', '11', '22', 1, 1, 'company_logo_1_1600328011.png', 'company_fevicon_1_1599304996.png', '', '01-04-2020', '31-03-2021', '2020-09-17 12:57:44', '2020-09-17 07:33:31', 1),
+(1, 'SMM System', 'SMM', 'Rajarampuri Kolhapur', 101, 22, 6, 2652, '27', 1, 'rrttt', '444555', '9876543210', '9988776655', 'smm@email.com', 'www.smm.com', 'AAAAA0000A', '27AAAAA0000A1A5', '3', '4', '555', '11', '22', 1, 1, 'company_logo_1_1600328011.png', 'company_fevicon_1_1599304996.png', '', '01-04-2020', '31-03-2021', '2020-09-17 12:57:44', '2020-09-22 10:55:27', 1),
 (6, 'Demo', 'Demo', 'sdfsdf sdfsdf', 101, 22, NULL, 2652, '', 4, 'aaasss', '111222', '9966332211', '9988774452', 'demo@www.com', 'www.lll.mmm', '444', '555', NULL, NULL, '666', '111', '222', 1, 0, 'company_logo_6_1600329307.png', 'company_fevicon_6_1600329307.png', '', '', '', '2020-09-17 13:25:06', '2020-09-17 07:55:07', 1);
 
 -- --------------------------------------------------------
@@ -7049,8 +7049,8 @@ CREATE TABLE `smm_invoice` (
 --
 
 INSERT INTO `smm_invoice` (`invoice_id`, `company_id`, `invoice_no`, `invoice_date`, `reseller_id`, `project_id`, `invoice_basic_amt`, `invoice_gst_amt`, `invoice_net_amt`, `invoice_note`, `invoice_status`, `invoice_addedby`, `invoice_addedby_type`, `invoice_created_at`, `invoice_updated_at`) VALUES
-(1, 1, 1, '01-09-2020', 2, 5, 1300, 50, 1350, 'ghjghj ghj', 0, 1, 1, '2020-09-13 12:54:48', '2020-09-19 12:07:35'),
-(2, 1, 2, '19-09-2020', 3, 2, 5000, 500, 5500, 'ghdfgh dfghdfgh', 1, 2, 2, '2020-09-19 17:48:49', '2020-09-19 12:20:03');
+(1, 1, 1, '01-09-2020', 2, 2, 9523.81, 476.19, 10000, 'ghjghj ghj', 0, 1, 1, '2020-09-13 12:54:48', '2020-09-23 11:52:23'),
+(2, 1, 2, '19-09-2020', 2, 2, 133333.34, 6666.66, 140000, 'ghdfgh dfghdfgh', 1, 1, 2, '2020-09-19 17:48:49', '2020-09-23 11:49:50');
 
 -- --------------------------------------------------------
 
@@ -7062,11 +7062,13 @@ CREATE TABLE `smm_invoice_item` (
   `invoice_item_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `invoice_id` int(11) NOT NULL,
+  `package_id` int(11) NOT NULL,
   `invoice_item_name` varchar(250) NOT NULL,
   `invoice_item_gst_per` double NOT NULL,
   `invoice_item_qty` double NOT NULL,
   `invoice_item_rate` double NOT NULL,
   `invoice_item_gst_amt` double NOT NULL,
+  `invoice_item_basic_amt` double NOT NULL,
   `invoice_item_amount` double NOT NULL,
   `invoice_item_status` int(11) NOT NULL DEFAULT 1,
   `invoice_item_addedby` int(11) DEFAULT 0,
@@ -7078,9 +7080,11 @@ CREATE TABLE `smm_invoice_item` (
 -- Dumping data for table `smm_invoice_item`
 --
 
-INSERT INTO `smm_invoice_item` (`invoice_item_id`, `company_id`, `invoice_id`, `invoice_item_name`, `invoice_item_gst_per`, `invoice_item_qty`, `invoice_item_rate`, `invoice_item_gst_amt`, `invoice_item_amount`, `invoice_item_status`, `invoice_item_addedby`, `invoice_item_created_at`, `invoice_item_updated_at`) VALUES
-(2, 1, 1, 'tyuigjk', 0, 1, 200, 0, 200, 1, 1, '2020-09-13 13:00:03', '2020-09-13 07:30:03'),
-(5, 1, 2, 'zfgdsfg sdfg', 0, 1, 5000, 0, 5000, 1, NULL, '2020-09-19 17:48:49', '2020-09-19 12:18:49');
+INSERT INTO `smm_invoice_item` (`invoice_item_id`, `company_id`, `invoice_id`, `package_id`, `invoice_item_name`, `invoice_item_gst_per`, `invoice_item_qty`, `invoice_item_rate`, `invoice_item_gst_amt`, `invoice_item_basic_amt`, `invoice_item_amount`, `invoice_item_status`, `invoice_item_addedby`, `invoice_item_created_at`, `invoice_item_updated_at`) VALUES
+(2, 1, 1, 1, 'tyuigjk', 0, 1, 10000, 476.19, 9523.81, 10000, 1, 1, '2020-09-13 13:00:03', '2020-09-23 11:43:02'),
+(5, 1, 2, 4, 'zfgdsfg sdfg', 0, 1, 20000, 952.38, 19047.62, 20000, 1, 1, '2020-09-19 17:48:49', '2020-09-23 11:42:21'),
+(6, 1, 2, 1, '1', 0, 2, 10000, 952.38, 19047.62, 20000, 1, 1, '2020-09-23 17:13:20', '2020-09-23 11:44:09'),
+(9, 1, 2, 4, '', 0, 5, 20000, 4761.9, 95238.1, 100000, 1, 1, '2020-09-23 17:16:11', '2020-09-23 11:46:11');
 
 -- --------------------------------------------------------
 
@@ -7583,11 +7587,12 @@ CREATE TABLE `smm_project` (
   `project_date` varchar(25) NOT NULL,
   `project_po_no` int(11) NOT NULL,
   `project_phase_no` int(11) DEFAULT NULL,
-  `client_id` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL COMMENT 'reseller_id',
   `project_company` varchar(250) NOT NULL,
   `project_start_date` varchar(20) NOT NULL,
   `project_end_date` varchar(20) NOT NULL,
   `project_budget_hours` varchar(20) NOT NULL,
+  `project_budget_amount` double NOT NULL,
   `project_piority` varchar(150) NOT NULL,
   `project_member` varchar(150) NOT NULL,
   `project_revisions` varchar(250) NOT NULL,
@@ -7604,9 +7609,9 @@ CREATE TABLE `smm_project` (
 -- Dumping data for table `smm_project`
 --
 
-INSERT INTO `smm_project` (`project_id`, `company_id`, `project_name`, `project_no`, `project_date`, `project_po_no`, `project_phase_no`, `client_id`, `project_company`, `project_start_date`, `project_end_date`, `project_budget_hours`, `project_piority`, `project_member`, `project_revisions`, `project_progress`, `project_descr`, `project_summery`, `project_status`, `project_addedby`, `project_created_at`, `project_updated_at`) VALUES
-(2, 1, 'dsfgsdfg', 1, '03-09-2020', 2, 3, 0, 'fgdfg', '02-08-2020', '22-08-2020', '4', 'Medium', '13', '555', 35, '<p>sdfg sdfg</p>', 'sdfg sdfgsd g', 1, 1, '2020-08-29 11:04:48', '2020-09-20 11:41:24'),
-(5, 1, 'rrr ttt yyy', 2, '01-09-2020', 0, NULL, 3, '', '01-09-2020', '30-09-2020', '100', 'Low', '13', '222', 0, '<p><b style=\"color: rgb(255, 0, 0);\">Lorem ipsum</b></p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p><br></p>', '', 1, 1, '2020-09-09 17:56:03', '2020-09-19 11:11:01');
+INSERT INTO `smm_project` (`project_id`, `company_id`, `project_name`, `project_no`, `project_date`, `project_po_no`, `project_phase_no`, `client_id`, `project_company`, `project_start_date`, `project_end_date`, `project_budget_hours`, `project_budget_amount`, `project_piority`, `project_member`, `project_revisions`, `project_progress`, `project_descr`, `project_summery`, `project_status`, `project_addedby`, `project_created_at`, `project_updated_at`) VALUES
+(2, 1, 'dsfgsdfg', 1, '03-09-2020', 2, 3, 2, 'fgdfg', '23-09-2020', '30-09-2020', '4', 50000, 'Medium', '13', '555', 35, '<p>sdfg sdfg</p>', 'sdfg sdfgsd g', 1, 1, '2020-08-29 11:04:48', '2020-09-23 08:05:05'),
+(5, 1, 'rrr ttt yyy', 2, '01-09-2020', 0, NULL, 3, '', '23-09-2020', '30-09-2020', '100', 0, 'Low', '13', '222', 20, '<p><b style=\"color: rgb(255, 0, 0);\">Lorem ipsum</b></p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p><br></p>', '', 4, 1, '2020-09-09 17:56:03', '2020-09-23 05:40:21');
 
 -- --------------------------------------------------------
 
@@ -7633,7 +7638,8 @@ CREATE TABLE `smm_project_del_phase` (
 
 INSERT INTO `smm_project_del_phase` (`project_del_phase_id`, `company_id`, `project_id`, `project_del_phase_date`, `project_del_phase_amount`, `project_del_phase_descr`, `project_del_phase_status`, `project_del_phase_addedby`, `project_del_phase_created_at`, `project_del_phase_updated_at`) VALUES
 (3, 1, 5, '2020-09-19', 777, 'rrr', 1, 1, '2020-09-09 18:00:29', '2020-09-19 11:01:08'),
-(4, 1, 5, '2020-09-25', 999, 'uuu', 1, 1, '2020-09-09 18:02:47', '2020-09-19 11:01:08');
+(4, 1, 5, '2020-09-25', 999, 'uuu', 1, 1, '2020-09-09 18:02:47', '2020-09-19 11:01:08'),
+(5, 1, 2, '2020-09-26', 20000, 'xdfghfgh dfghdfgh', 1, 1, '2020-09-23 13:36:36', '2020-09-23 08:06:36');
 
 -- --------------------------------------------------------
 
@@ -7647,7 +7653,7 @@ CREATE TABLE `smm_project_file` (
   `project_id` int(11) NOT NULL,
   `project_file_name` varchar(250) NOT NULL,
   `project_file_descr` text NOT NULL,
-  `project_file_image` varchar(150) NOT NULL,
+  `project_file_image` varchar(350) NOT NULL,
   `project_file_status` int(11) NOT NULL DEFAULT 1,
   `project_file_addedby` int(11) DEFAULT 0,
   `project_file_created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -7659,7 +7665,86 @@ CREATE TABLE `smm_project_file` (
 --
 
 INSERT INTO `smm_project_file` (`project_file_id`, `company_id`, `project_id`, `project_file_name`, `project_file_descr`, `project_file_image`, `project_file_status`, `project_file_addedby`, `project_file_created_at`, `project_file_updated_at`) VALUES
-(7, 1, 5, 'dddd', '', 'project_file_5_1_1599654363.png', 1, 0, '2020-09-09 17:56:03', '2020-09-09 12:26:03');
+(7, 1, 5, 'dddd', '', 'project_file_5_1_1599654363.png', 1, 0, '2020-09-09 17:56:03', '2020-09-09 12:26:03'),
+(8, 1, 2, 'fgjhfghj', '', 'project_file_2_1_1600848396.jpg', 1, 0, '2020-09-23 13:36:36', '2020-09-23 08:06:36');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `smm_project_revision`
+--
+
+CREATE TABLE `smm_project_revision` (
+  `project_revision_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `project_revision_category_id` int(11) NOT NULL,
+  `project_revision_date` varchar(25) NOT NULL,
+  `project_revision_title` varchar(250) NOT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `project_revision_status_id` int(11) NOT NULL,
+  `project_revision_descr` text NOT NULL,
+  `project_revision_status` int(11) NOT NULL DEFAULT 1,
+  `project_revision_addedby` int(11) DEFAULT 0,
+  `project_revision_addedby_type` int(11) NOT NULL DEFAULT 1,
+  `project_revision_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `project_revision_updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `smm_project_revision`
+--
+
+INSERT INTO `smm_project_revision` (`project_revision_id`, `company_id`, `project_revision_category_id`, `project_revision_date`, `project_revision_title`, `project_id`, `project_revision_status_id`, `project_revision_descr`, `project_revision_status`, `project_revision_addedby`, `project_revision_addedby_type`, `project_revision_created_at`, `project_revision_updated_at`) VALUES
+(2, 1, 4, '23-09-2020', 'zsdfgdfg sdfg', 5, 0, '<p>sdfg sdfg sdfg sdfgsdfg&nbsp; sdfg</p><p>cfghfgh dgh</p><p>fghdfgh</p>', 0, 1, 1, '2020-09-23 15:13:06', '2020-09-23 09:43:06');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `smm_project_revision_category`
+--
+
+CREATE TABLE `smm_project_revision_category` (
+  `project_revision_category_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `project_revision_category_name` varchar(150) NOT NULL,
+  `project_revision_category_status` int(11) NOT NULL DEFAULT 1,
+  `project_revision_category_addedby` int(11) NOT NULL DEFAULT 0,
+  `project_revision_category_created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `smm_project_revision_category`
+--
+
+INSERT INTO `smm_project_revision_category` (`project_revision_category_id`, `company_id`, `project_revision_category_name`, `project_revision_category_status`, `project_revision_category_addedby`, `project_revision_category_created_at`) VALUES
+(4, 1, 'New Page', 1, 1, '2020-09-01 02:04:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `smm_project_revision_file`
+--
+
+CREATE TABLE `smm_project_revision_file` (
+  `project_revision_file_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `project_revision_id` int(11) NOT NULL,
+  `project_revision_file_name` varchar(250) NOT NULL,
+  `project_revision_file_descr` text NOT NULL,
+  `project_revision_file_image` varchar(350) NOT NULL,
+  `project_revision_file_status` int(11) NOT NULL DEFAULT 1,
+  `project_revision_file_addedby` int(11) DEFAULT 0,
+  `project_revision_file_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `project_revision_file_updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `smm_project_revision_file`
+--
+
+INSERT INTO `smm_project_revision_file` (`project_revision_file_id`, `company_id`, `project_revision_id`, `project_revision_file_name`, `project_revision_file_descr`, `project_revision_file_image`, `project_revision_file_status`, `project_revision_file_addedby`, `project_revision_file_created_at`, `project_revision_file_updated_at`) VALUES
+(3, 1, 2, 'dfg sdfg', '', 'project_revision_file_2_1_1600854186.jpg', 1, 0, '2020-09-23 15:13:06', '2020-09-23 09:43:06'),
+(4, 1, 2, 'sdtg sdfgsdfg', '', 'project_revision_file_2_2_1600854186.jpg', 1, 0, '2020-09-23 15:13:06', '2020-09-23 09:43:06');
 
 -- --------------------------------------------------------
 
@@ -7747,6 +7832,7 @@ CREATE TABLE `smm_reseller` (
   `reseller_mobile2` varchar(20) NOT NULL,
   `reseller_email` varchar(150) NOT NULL,
   `reseller_website` varchar(150) NOT NULL,
+  `template_id` int(11) NOT NULL,
   `reseller_pan_no` varchar(20) NOT NULL,
   `reseller_gst_no` varchar(100) NOT NULL,
   `reseller_vat_no` varchar(10) DEFAULT NULL,
@@ -7766,9 +7852,9 @@ CREATE TABLE `smm_reseller` (
 -- Dumping data for table `smm_reseller`
 --
 
-INSERT INTO `smm_reseller` (`reseller_id`, `company_id`, `branch_id`, `reseller_name`, `reseller_address`, `country_id`, `state_id`, `district_id`, `city_id`, `reseller_pincode`, `reseller_statecode`, `reseller_mobile`, `reseller_password`, `reseller_mobile2`, `reseller_email`, `reseller_website`, `reseller_pan_no`, `reseller_gst_no`, `reseller_vat_no`, `reseller_cst_no`, `reseller_lic1`, `reseller_lic2`, `reseller_op_crd_balance`, `reseller_logo`, `reseller_status`, `reseller_addedby`, `reseller_added_type`, `reseller_created_at`, `reseller_updated_at`) VALUES
-(2, 1, 1, 'dsfgsdfg', 'sdfgsdfg', 101, 22, NULL, 2652, '222333', '', '9876543210', '123456', '9966332211', 'fgdfg@dfg.jhkl', 'hjklkl.jkl.jhkl', '444555', '111222', NULL, NULL, '', '', 5000, 'reseller_2_1599543094.png', 1, 1, 1, '2020-09-08 11:01:34', '2020-09-11 02:31:53'),
-(3, 1, 0, 'dfghsdfg sdfgsdfg sdfg', 'sd dfg sdfgsg', 101, 22, NULL, 2652, '111444', '', '9966332211', '123456', '9966332211', 'fggf@ghj.kkk', 'fgvjh.ghjk.lll', '222', '111', NULL, NULL, '', '', 10000, 'reseller_3_1600511162.png', 1, 2, 2, '2020-09-19 15:56:02', '2020-09-19 10:26:02');
+INSERT INTO `smm_reseller` (`reseller_id`, `company_id`, `branch_id`, `reseller_name`, `reseller_address`, `country_id`, `state_id`, `district_id`, `city_id`, `reseller_pincode`, `reseller_statecode`, `reseller_mobile`, `reseller_password`, `reseller_mobile2`, `reseller_email`, `reseller_website`, `template_id`, `reseller_pan_no`, `reseller_gst_no`, `reseller_vat_no`, `reseller_cst_no`, `reseller_lic1`, `reseller_lic2`, `reseller_op_crd_balance`, `reseller_logo`, `reseller_status`, `reseller_addedby`, `reseller_added_type`, `reseller_created_at`, `reseller_updated_at`) VALUES
+(2, 1, 1, 'Reseller 111', 'sdfgsdfg', 101, 22, NULL, 2652, '222333', '', '9876543210', '123456', '9966332211', 'fgdfg@dfg.jhkl', 'http://localhost/smm_reseller/', 3, '444555', '111222', NULL, NULL, '', '', 5000, 'reseller_2_1599543094.png', 1, 1, 1, '2020-09-08 11:01:34', '2020-09-24 08:01:43'),
+(3, 1, 0, 'Reseller 222', 'sd dfg sdfgsg', 101, 22, NULL, 2652, '111444', '', '9966332211', '123456', '9966332211', 'fggf@ghj.kkk', 'fgvjh.ghjk.lll', 1, '222', '111', NULL, NULL, '', '', 10000, 'reseller_3_1600511162.png', 1, 2, 2, '2020-09-19 15:56:02', '2020-09-24 07:03:34');
 
 -- --------------------------------------------------------
 
@@ -7953,6 +8039,7 @@ CREATE TABLE `smm_task` (
   `task_descr` text NOT NULL,
   `task_status` int(11) NOT NULL DEFAULT 1,
   `task_addedby` int(11) DEFAULT 0,
+  `task_addedby_type` int(11) NOT NULL DEFAULT 1,
   `task_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `task_updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -7961,8 +8048,9 @@ CREATE TABLE `smm_task` (
 -- Dumping data for table `smm_task`
 --
 
-INSERT INTO `smm_task` (`task_id`, `company_id`, `task_company`, `task_category_id`, `task_title`, `task_start_date`, `task_end_date`, `task_est_hour`, `project_id`, `task_piority`, `task_assign_to`, `task_status_id`, `task_descr`, `task_status`, `task_addedby`, `task_created_at`, `task_updated_at`) VALUES
-(2, 1, '1', 1, 'jfgjh h fgjh fgjh jghj j', '01-08-2020', '31-08-2020', '50', 2, '', '1,13', 4, '<p>sdfsdfsd sdfsdf sdfsdf</p>', 4, 1, '2020-08-30 08:49:56', '2020-09-20 08:43:18');
+INSERT INTO `smm_task` (`task_id`, `company_id`, `task_company`, `task_category_id`, `task_title`, `task_start_date`, `task_end_date`, `task_est_hour`, `project_id`, `task_piority`, `task_assign_to`, `task_status_id`, `task_descr`, `task_status`, `task_addedby`, `task_addedby_type`, `task_created_at`, `task_updated_at`) VALUES
+(2, 1, '1', 1, 'jfgjh h fgjh fgjh jghj j', '01-08-2020', '30-09-2020', '50', 2, '', '1,13', 4, '<p>sdfsdfsd sdfsdf sdfsdf</p>', 4, 1, 1, '2020-08-30 08:49:56', '2020-09-23 06:30:40'),
+(3, 1, '', 1, 'sdfghdh xdfgh', '23-09-2020', '30-09-2020', '10', 2, 'Low', '', 0, '', 0, 2, 2, '2020-09-23 12:17:08', '2020-09-23 06:47:08');
 
 -- --------------------------------------------------------
 
@@ -7988,7 +8076,8 @@ CREATE TABLE `smm_task_file` (
 --
 
 INSERT INTO `smm_task_file` (`task_file_id`, `company_id`, `task_id`, `task_file_name`, `task_file_descr`, `task_file_image`, `task_file_status`, `task_file_addedby`, `task_file_created_at`, `task_file_updated_at`) VALUES
-(1, 1, 2, 'jgfjh', '', 'task_file_2_1_1599396851.png', 1, 0, '2020-09-06 18:24:11', '2020-09-06 12:54:11');
+(1, 1, 2, 'jgfjh', '', 'task_file_2_1_1599396851.png', 1, 0, '2020-09-06 18:24:11', '2020-09-06 12:54:11'),
+(2, 1, 3, 'hhh', '', 'task_file_3_1_1600843628.jpg', 1, 0, '2020-09-23 12:17:08', '2020-09-23 06:47:08');
 
 -- --------------------------------------------------------
 
@@ -8010,7 +8099,7 @@ CREATE TABLE `smm_task_status` (
 --
 
 INSERT INTO `smm_task_status` (`task_status_id`, `company_id`, `task_status_name`, `task_status_status`, `task_status_addedby`, `task_status_created_at`) VALUES
-(4, 1, 'Not Started', 1, 1, '2020-09-01 02:04:40');
+(4, 1, 'Open', 1, 1, '2020-09-01 02:04:40');
 
 -- --------------------------------------------------------
 
@@ -8093,7 +8182,10 @@ CREATE TABLE `smm_testimonial` (
 
 INSERT INTO `smm_testimonial` (`testimonial_id`, `company_id`, `testimonial_name`, `testimonial_desc`, `testimonial_no`, `testimonial_date`, `testimonial_person`, `testimonial_designation`, `testimonial_image`, `testimonial_status`, `testimonial_addedby`, `testimonial_addedby_type`, `testimonial_created_at`, `testimonial_updated_at`) VALUES
 (2, 1, 'dfgh dfghdfgh', 'dfgh dfghdfgh dfh', '1', '09-09-2020', 'fghfgh dfgh', 'dfgh', 'testimonial_2_1599638039.jpg', 1, 1, 1, '2020-09-09 07:53:59', '2020-09-09 07:53:59'),
-(3, 1, 'dfgh dfghdfgh', 'dfgh dfghdfghdfgh', '2', '14-09-2020', 'fghfgh dfgh', 'dfgh ', 'testimonial_3_1600592731.jpg', 1, 2, 2, '2020-09-20 09:05:31', '2020-09-20 09:05:31');
+(3, 1, 'dfgh dfghdfgh', 'dfgh dfghdfghdfgh', '2', '14-09-2020', 'fghfgh dfgh', 'dfgh ', 'testimonial_3_1600592731.jpg', 1, 2, 2, '2020-09-20 09:05:31', '2020-09-20 09:05:31'),
+(4, 1, 'qwert werty werty', 'wert wert ety tyt ertyertu uuy etyu', '3', '24-09-2020', 'Demo 111', 'Asdf Ghjkl', 'testimonial_4_1600932201.png', 1, 2, 2, '2020-09-24 07:23:21', '2020-09-24 07:23:21'),
+(5, 1, 'fgjhfh fjhh fgjh', 'fgjhfgjh fgjhfgjhdfyj fghjyt  fgjhuk mkjk', '4', '24-09-2020', 'chjghj fjhfgjh', 'jhfgjh fjh', 'testimonial_5_1600932222.png', 1, 2, 2, '2020-09-24 07:23:41', '2020-09-24 07:23:41'),
+(6, 1, 'jh jh dfjhuert ety dghd', 'dfgh dfgh dfgh dfghdfghdh', '5', '25-09-2020', 'dgjhfg dfjg', 'djh jh', 'testimonial_6_1600932506.jpg', 1, 2, 2, '2020-09-24 07:28:25', '2020-09-24 07:28:25');
 
 -- --------------------------------------------------------
 
@@ -8114,7 +8206,7 @@ CREATE TABLE `smm_ticket` (
   `ticket_priority` varchar(20) NOT NULL,
   `ticket_end_date` varchar(20) NOT NULL,
   `ticket_descr` text NOT NULL,
-  `ticket_image` varchar(150) NOT NULL,
+  `ticket_image` varchar(350) NOT NULL,
   `ticket_status` int(11) NOT NULL DEFAULT 1,
   `ticket_addedby` int(11) DEFAULT 0,
   `ticket_addedby_type` int(11) NOT NULL DEFAULT 1 COMMENT '1=Admin, 2=Reseller',
@@ -8127,9 +8219,11 @@ CREATE TABLE `smm_ticket` (
 --
 
 INSERT INTO `smm_ticket` (`ticket_id`, `company_id`, `ticket_no`, `ticket_date`, `ticket_department`, `ticket_title`, `department_id`, `employee_id`, `project_id`, `ticket_priority`, `ticket_end_date`, `ticket_descr`, `ticket_image`, `ticket_status`, `ticket_addedby`, `ticket_addedby_type`, `ticket_created_at`, `ticket_updated_at`) VALUES
-(1, 1, '2', '09-09-2020', '1', 'fgdfg', 2, 6, 2, 'Medium', '11-12-2020', 'dfgsdfg sdfg', 'ticket_1_1598693183.jpg', 1, 1, 1, '2020-08-29 14:56:23', '2020-09-09 08:08:53'),
-(2, 1, '1', '01-09-2020', '1', 'cjhgfj', 2, 6, 5, 'Low', '01-09-2020', '<p><br></p>', 'ticket_2_1598926302.jpg', 1, 1, 1, '2020-09-01 07:41:42', '2020-09-20 08:51:03'),
-(3, 1, '44', '20-09-2020', '', 'jklhjlkljhl', 0, NULL, 2, '', '', '<p>hjklhjkl fgjhh fgjh</p>', 'ticket_3_1600591648.png', 1, 2, 2, '2020-09-20 14:17:28', '2020-09-20 08:47:28');
+(1, 1, '1', '09-09-2020', '1', 'fgdfg', 2, 6, 2, 'Medium', '11-12-2020', 'dfgsdfg sdfg', 'ticket_1_1598693183.jpg', 1, 1, 1, '2020-08-29 14:56:23', '2020-09-23 06:28:45'),
+(2, 1, '2', '01-09-2020', '1', 'cjhgfj', 2, 6, 5, 'Low', '01-09-2020', '<p><br></p>', 'ticket_2_1598926302.jpg', 1, 1, 1, '2020-09-01 07:41:42', '2020-09-23 06:28:48'),
+(3, 1, '3', '20-09-2020', '', 'jklhjlkljhl', 0, NULL, 2, '', '', '<p>hjklhjkl fgjhh fgjh</p>', 'ticket_3_1600591648.png', 1, 2, 2, '2020-09-20 14:17:28', '2020-09-23 06:28:42'),
+(4, 1, '4', '24-09-2020', '', 'ghdfgh dfgh', 0, NULL, 2, '', '', '<p>fghfgh dfgh dfgh dfgh dfgh</p>', '', 1, 2, 2, '2020-09-24 14:56:23', '2020-09-24 09:26:23'),
+(5, 1, '5', '24-09-2020', '', 'ghdfg dfgh dfgh', 0, NULL, 2, '', '', '<p>dfgh dfgh dfghdfgh</p>', 'http://localhost/smm_reseller/assets/images/ticket/ticket_5_1600939807.jpg', 1, 2, 2, '2020-09-24 15:00:07', '2020-09-24 09:30:07');
 
 -- --------------------------------------------------------
 
@@ -8332,7 +8426,7 @@ CREATE TABLE `smm_web_setting` (
   `web_setting_id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `reseller_id` int(11) NOT NULL,
-  `branch_id` int(11) NOT NULL,
+  `template_id` int(11) NOT NULL DEFAULT 1,
   `web_setting_name` varchar(250) NOT NULL,
   `web_setting_address` text NOT NULL,
   `country_id` int(11) DEFAULT NULL,
@@ -8348,8 +8442,12 @@ CREATE TABLE `smm_web_setting` (
   `web_setting_meta_title` text NOT NULL,
   `web_setting_meta_keyword` text NOT NULL,
   `web_setting_meta_descr` text NOT NULL,
+  `web_setting_about_info` text NOT NULL,
+  `web_setting_contact_info` text NOT NULL,
   `web_setting_logo` varchar(150) NOT NULL,
   `web_setting_favicon` varchar(150) NOT NULL,
+  `web_setting_addedby_type` int(11) NOT NULL DEFAULT 2 COMMENT '1-=Admin, 2=Reseller',
+  `web_setting_addedby` int(11) NOT NULL DEFAULT 0,
   `web_setting_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `web_setting_updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -8358,9 +8456,10 @@ CREATE TABLE `smm_web_setting` (
 -- Dumping data for table `smm_web_setting`
 --
 
-INSERT INTO `smm_web_setting` (`web_setting_id`, `company_id`, `reseller_id`, `branch_id`, `web_setting_name`, `web_setting_address`, `country_id`, `state_id`, `district_id`, `city_id`, `web_setting_pincode`, `web_setting_statecode`, `web_setting_mobile`, `web_setting_mobile2`, `web_setting_email`, `web_setting_website`, `web_setting_meta_title`, `web_setting_meta_keyword`, `web_setting_meta_descr`, `web_setting_logo`, `web_setting_favicon`, `web_setting_created_at`, `web_setting_updated_at`) VALUES
-(2, 1, 2, 1, 'dsfgsdfg', 'sdfgsdfg', 101, 22, NULL, 2652, '222333', '', '9876543210', '9966332211', 'fgdfg@dfg.jhkl', 'hjklkl.jkl.jhkl', 'dfghfgh,fgjhfgjh,fhj', 'fgjh,fghj,fgjk,jk', 'fgjhfghj fgjhh fgjhfgjhfgjh fgjhfgjh', 'web_setting_logo2_1600601746.jpg', 'web_setting_favicon2_1600601746.jpg', '2020-09-08 11:01:34', '2020-09-20 11:35:46'),
-(3, 1, 3, 0, 'dfghsdfg sdfgsdfg sdfg', 'sd dfg sdfgsg', 101, 22, NULL, 2652, '111444', '', '9966332211', '9966332211', 'fggf@ghj.kkk', 'fgvjh.ghjk.lll', '', '', '', 'web_setting_3_1600511162.png', '', '2020-09-19 15:56:02', '2020-09-20 11:19:44');
+INSERT INTO `smm_web_setting` (`web_setting_id`, `company_id`, `reseller_id`, `template_id`, `web_setting_name`, `web_setting_address`, `country_id`, `state_id`, `district_id`, `city_id`, `web_setting_pincode`, `web_setting_statecode`, `web_setting_mobile`, `web_setting_mobile2`, `web_setting_email`, `web_setting_website`, `web_setting_meta_title`, `web_setting_meta_keyword`, `web_setting_meta_descr`, `web_setting_about_info`, `web_setting_contact_info`, `web_setting_logo`, `web_setting_favicon`, `web_setting_addedby_type`, `web_setting_addedby`, `web_setting_created_at`, `web_setting_updated_at`) VALUES
+(2, 1, 2, 3, 'dsfgsdfg', 'sdfgsdfg', 101, 22, NULL, 2652, '222333', '', '9876543210', '9966332211', 'fgdfg@dfg.jhkl', 'hjklkl.jkl.jhkl', 'dfghfgh,fgjhfgjh,fhj', 'fgjh,fghj,fgjk,jk', 'fgjhfghj fgjhh fgjhfgjhfgjh fgjhfgjh', '<p>sdghdh dfghdfghd dfghdfgh</p>', '<p>dfgh dfghdf dfghdfghdfgh</p>', 'web_setting_logo2_1600944579.png', 'web_setting_favicon2_1600944556.png', 2, 0, '2020-09-08 11:01:34', '2020-09-24 11:21:05'),
+(3, 1, 3, 1, 'dfghsdfg sdfgsdfg sdfg', 'sd dfg sdfgsg', 101, 22, NULL, 2652, '111444', '', '9966332211', '9966332211', 'fggf@ghj.kkk', 'fgvjh.ghjk.lll', '', '', '', '', '', 'web_setting_3_1600511162.png', '', 2, 0, '2020-09-19 15:56:02', '2020-09-23 01:56:32'),
+(4, 1, 0, 1, 'SMM', 'sdfg sdfg sdfg', 101, 22, NULL, 2652, '112233', '', '9876543210', '9876543210', 'ddd@eee.ccom', 'sdfg.ghjk.ccc', 'sdfgsdfg sdfgsdfg', 'sdfg sdfgsdfg sdfgdfgs s', 'sdfg sdfg sdfgsdgsdfg', '<p>sdfgsdfg sdfg sdfg sdfgsdfg sdfgsdg</p>', '<p>sdfgsgb sdfghnerty rtycbnhgf dfg ndfgh dgh</p>', 'web_setting_logo_4_1600826695.png', 'web_setting_comfavicon_4_1600827163.png', 1, 1, '2020-09-23 07:27:13', '2020-09-23 02:15:43');
 
 -- --------------------------------------------------------
 
@@ -10974,6 +11073,24 @@ ALTER TABLE `smm_project_file`
   ADD PRIMARY KEY (`project_file_id`);
 
 --
+-- Indexes for table `smm_project_revision`
+--
+ALTER TABLE `smm_project_revision`
+  ADD PRIMARY KEY (`project_revision_id`);
+
+--
+-- Indexes for table `smm_project_revision_category`
+--
+ALTER TABLE `smm_project_revision_category`
+  ADD PRIMARY KEY (`project_revision_category_id`);
+
+--
+-- Indexes for table `smm_project_revision_file`
+--
+ALTER TABLE `smm_project_revision_file`
+  ADD PRIMARY KEY (`project_revision_file_id`);
+
+--
 -- Indexes for table `smm_promotion`
 --
 ALTER TABLE `smm_promotion`
@@ -11366,7 +11483,7 @@ ALTER TABLE `smm_invoice`
 -- AUTO_INCREMENT for table `smm_invoice_item`
 --
 ALTER TABLE `smm_invoice_item`
-  MODIFY `invoice_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `invoice_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `smm_item_company`
@@ -11492,13 +11609,31 @@ ALTER TABLE `smm_project`
 -- AUTO_INCREMENT for table `smm_project_del_phase`
 --
 ALTER TABLE `smm_project_del_phase`
-  MODIFY `project_del_phase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `project_del_phase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `smm_project_file`
 --
 ALTER TABLE `smm_project_file`
-  MODIFY `project_file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `project_file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `smm_project_revision`
+--
+ALTER TABLE `smm_project_revision`
+  MODIFY `project_revision_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `smm_project_revision_category`
+--
+ALTER TABLE `smm_project_revision_category`
+  MODIFY `project_revision_category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `smm_project_revision_file`
+--
+ALTER TABLE `smm_project_revision_file`
+  MODIFY `project_revision_file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `smm_promotion`
@@ -11570,13 +11705,13 @@ ALTER TABLE `smm_slider`
 -- AUTO_INCREMENT for table `smm_task`
 --
 ALTER TABLE `smm_task`
-  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `task_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `smm_task_file`
 --
 ALTER TABLE `smm_task_file`
-  MODIFY `task_file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `task_file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `smm_task_status`
@@ -11600,13 +11735,13 @@ ALTER TABLE `smm_termination_type`
 -- AUTO_INCREMENT for table `smm_testimonial`
 --
 ALTER TABLE `smm_testimonial`
-  MODIFY `testimonial_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `testimonial_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `smm_ticket`
 --
 ALTER TABLE `smm_ticket`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `smm_time_log`
@@ -11654,7 +11789,7 @@ ALTER TABLE `smm_warning_type`
 -- AUTO_INCREMENT for table `smm_web_setting`
 --
 ALTER TABLE `smm_web_setting`
-  MODIFY `web_setting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `web_setting_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `state`

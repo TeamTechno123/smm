@@ -185,6 +185,12 @@
               </a>
             </li>
             <li class="nav-item">
+              <a <?php if(isset($update_package_category)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Product/package_category" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Package Category</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a <?php if(isset($update_package)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Product/package" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Package</p>
@@ -487,6 +493,12 @@
                 <p>Reseller</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a <?php if(isset($update_web_setup_request)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Master/web_setup_request" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Web Setup Request</p>
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -570,7 +582,7 @@
           </ul>
         </li>
 
-        <li class="nav-item has-treeview">
+        <!-- <li class="nav-item has-treeview">
           <a href="#" class="nav-link head">
             <i class="nav-icon fas fa-tags"></i>
             <p>
@@ -586,7 +598,7 @@
               </a>
             </li>
           </ul>
-        </li>
+        </li> -->
 
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link head">
@@ -704,7 +716,7 @@
           </ul>
         </li> -->
 
-        <!-- <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview">
           <a href="#" class="nav-link head">
             <i class="nav-icon fas fa-cog"></i>
             <p>
@@ -714,14 +726,14 @@
           </a>
           <ul class="nav nav-treeview" style="display: none;">
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="#" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Email Template</p>
               </a>
-            </li>
+            </li> -->
           </ul>
-        </li> -->
+        </li>
 
 
 

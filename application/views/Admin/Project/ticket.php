@@ -100,7 +100,7 @@
                         <div class="form-group col-md-4">
                         <?php if(isset($ticket_info) && $ticket_info['ticket_image']){ ?>
                             <input type="hidden" name="old_ticket_image" value="<?php echo $ticket_info['ticket_image']; ?>">
-                            <img width="150px" src="<?php echo base_url(); ?>assets/images/ticket/<?php echo $ticket_info['ticket_image']; ?>" alt="">
+                            <img width="150px" src="<?php echo $ticket_info['ticket_image']; ?>" alt="">
                         <?php } ?>
                         </div>
 
@@ -160,8 +160,10 @@
                         <td class="d-none"><?php echo $i; ?></td>
                         <td>
                           <div class="btn-group">
+                          <?php if($list->ticket_addedby_type == 2){ ?>
                             <a href="<?php echo base_url() ?>Project/edit_ticket/<?php echo $list->ticket_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
                             <a href="<?php echo base_url() ?>Project/delete_ticket/<?php echo $list->ticket_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Ticket');"><i class="fa fa-trash text-danger"></i></a>
+                          <?php } ?>
                           </div>
                         </td>
                         <td><?php echo $list->ticket_title; ?></td>
