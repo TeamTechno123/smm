@@ -302,6 +302,19 @@ class Emp_Master extends CI_Controller{
     $this->load->view('Emp_Panel/Include/footer', $data);
   }
 
+  /**************************     Tasks Information      ********************************/
+  public function tasks(){
+    $smm_emp_id = $this->session->userdata('smm_emp_id');
+    $smm_emp_company_id = $this->session->userdata('smm_emp_company_id');
+    if($smm_emp_id == '' || $smm_emp_company_id == ''){ header('location:'.base_url().'Employee/Emp_User'); }
+
+    $data['page'] = 'Tasks Information';
+    $this->load->view('Emp_Panel/Include/head', $data);
+    $this->load->view('Emp_Panel/Include/navbar', $data);
+    $this->load->view('Emp_Panel/Emp_Master/tasks', $data);
+    $this->load->view('Emp_Panel/Include/footer', $data);
+  }
+
 
 
 /********************************* Reseller ***********************************/

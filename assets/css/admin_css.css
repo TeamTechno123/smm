@@ -239,6 +239,10 @@ input[type=number] {
   color: #777;
 }
 
+.tw-800{
+  width: 800px;
+}
+
 .scroll{
-  overflow-x: auto;
+  overflow-x: auto;  
 }

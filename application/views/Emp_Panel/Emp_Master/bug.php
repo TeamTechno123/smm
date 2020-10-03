@@ -67,21 +67,7 @@
                    
    
                   </div>
-                  <div class="card-footer clearfix" style="display: block;">
-                    <div class="row">
-                      <div class="col-md-6 text-left">
-                        
-                      </div>
-                      <div class="col-md-6 text-right">
-                        <a href="<?php echo base_url(); ?>Emp_Panel/Emp_User/dashboard" class="btn btn-sm btn-default px-4 mx-4">Cancel</a>
-                        <?php if(isset($update)){
-                          echo '<button class="btn btn-sm btn-primary float-right px-4">Update</button>';
-                        } else{
-                          echo '<button class="btn btn-sm btn-success float-right px-4">Save</button>';
-                        } ?>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </form>
               </div>
             </div>
@@ -90,6 +76,35 @@
           </div>
 
       </div>
+
+      <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card">          
+            <div class="card-body">
+                <hr>
+                <table id="example1" class="table table-bordered table-striped scroll" >
+                  <thead>
+                  <tr>
+                    <th>Action </th>
+                    <th>Bug Name</th>
+                    <th>Bug Status </th>                                                                          
+                  </tr>
+                  </thead>
+                  <tbody>
+                <tr>
+                  <td>#</td>
+                  <td>
+                    Fiona Grace (Software Developer )
+                  </td>
+                  <td>
+                    Fixed
+                  </td>
+                </tr>
+                </table>
+                <br>
+            </div>
+          </div>
+          </div>
     </section>
   </div>
 

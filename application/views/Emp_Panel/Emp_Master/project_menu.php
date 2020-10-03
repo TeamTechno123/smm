@@ -8,9 +8,7 @@
        <li class="nav-item">
         <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/progress" class="nav-link">Progress </a>
       </li>
-       <li class="nav-item">
-        <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/social" class="nav-link">Discussion</a>
-      </li>
+      
        <li class="nav-item">
         <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/timelog" class="nav-link">Time Log </a>
       </li>
@@ -18,7 +16,7 @@
         <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/bug" class="nav-link">Bug</a>
       </li>
       <li class="nav-item">
-        <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/experience" class="nav-link">Task</a>
+        <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/tasks" class="nav-link">Task</a>
       </li>
       <li class="nav-item">
         <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/file" class="nav-link">File</a>

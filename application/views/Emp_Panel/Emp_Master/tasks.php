@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-left mt-2">
-            <h4>Timelog</h4>
+            <h4>Tasks</h4>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
           <div class="col-md-12">
             <div class="card card-default">
               <div class="card-header">
-                <h3 class="card-title"> <?php if(isset($update)){ echo 'Update'; } else{ echo 'Add New'; } ?> Timelog</h3>
+                <h3 class="card-title"> <?php if(isset($update)){ echo 'Update'; } else{ echo 'Add New'; } ?> Tasks</h3>
                 <div class="card-tools">
                   <!-- <?php if(!isset($update)){
                     echo '<button type="button" class="btn btn-sm btn-primary" data-card-widget="collapse">Add New</button>';
@@ -37,30 +37,29 @@
                   <div class="row p-4">
 
                     <div class="col-md-8">
-                      <div class="card p-4">
-                      <div class="row">
-                        
-
-                            <div class="form-group col-md-12">
-                        <label>Note</label>
-                        <textarea class="form-control" rows="3" placeholder="Enter Note"></textarea>
-                      </div>
-
-                          
-
-                          
-                          <div class="col-md-12">
-                            <button class="btn btn-sm btn-success float-right px-4">Save</button>
-                          </div>
-                        </div>
+                      <div class="card p-4 scroll">
+                      
+                        <table id="example1" class="table table-bordered table-striped  tw-800" >
+                              <thead>
+                              <tr>
+                                <th>Action </th>
+                                <th>Title</th>
+                                <th>End Date </th>        
+                                <th>Status</th>  
+                                <th>Assign To</th>
+                                <th>Created By</th>
+                                <th>Progress</th>                                                      
+                              </tr>
+                              </thead>
+                              <tbody>
+                           
+                            </table>
                       </div>
                     </div>
 
                     <div class="col-md-4">
                        <?php include('project_details.php'); ?>
                     </div>
-                   
-   
                   </div>
                   
                 </form>
@@ -71,6 +70,17 @@
           </div>
 
       </div>
+
+      <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card">          
+            <div class="card-body">
+                <hr>
+                
+                <br>
+            </div>
+          </div>
+          </div>
     </section>
   </div>
 

@@ -71,21 +71,7 @@
                    
    
                   </div>
-                  <div class="card-footer clearfix" style="display: block;">
-                    <div class="row">
-                      <div class="col-md-6 text-left">
-                        
-                      </div>
-                      <div class="col-md-6 text-right">
-                        <a href="<?php echo base_url(); ?>Emp_Panel/Emp_User/dashboard" class="btn btn-sm btn-default px-4 mx-4">Cancel</a>
-                        <?php if(isset($update)){
-                          echo '<button class="btn btn-sm btn-primary float-right px-4">Update</button>';
-                        } else{
-                          echo '<button class="btn btn-sm btn-success float-right px-4">Save</button>';
-                        } ?>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </form>
               </div>
             </div>
