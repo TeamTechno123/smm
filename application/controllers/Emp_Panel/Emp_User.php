@@ -400,6 +400,10 @@ class Emp_User extends CI_Controller{
 
 
 
+/**************************      Experience Information      ********************************/
+  public function invoice(){
+    $this->load->view('Emp_Panel/Emp_User/invoice');
+  }
 
 
 }
