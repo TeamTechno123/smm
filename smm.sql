@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2020 at 07:07 AM
+-- Generation Time: Oct 03, 2020 at 07:05 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -6378,6 +6378,35 @@ INSERT INTO `smm_bank_account` (`bank_account_id`, `company_id`, `bank_account_n
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `smm_become_reseller`
+--
+
+CREATE TABLE `smm_become_reseller` (
+  `become_reseller_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `become_reseller_name` varchar(350) NOT NULL,
+  `become_reseller_possition` int(11) NOT NULL,
+  `become_reseller_descr` text NOT NULL,
+  `become_reseller_image` varchar(250) NOT NULL,
+  `become_reseller_status` int(11) NOT NULL DEFAULT 1,
+  `become_reseller_addedby` int(11) DEFAULT 1,
+  `become_reseller_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `become_reseller_updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `smm_become_reseller`
+--
+
+INSERT INTO `smm_become_reseller` (`become_reseller_id`, `company_id`, `become_reseller_name`, `become_reseller_possition`, `become_reseller_descr`, `become_reseller_image`, `become_reseller_status`, `become_reseller_addedby`, `become_reseller_created_at`, `become_reseller_updated_at`) VALUES
+(1, 1, '', 1, 'Demo 111', 'http://localhost/smm/assets/images/master/become_reseller_1_1601622945.jpeg', 1, 1, '2020-10-02 12:45:45', '2020-10-02 07:15:45'),
+(2, 1, '', 2, 'zdfghdsfh sgh', 'http://localhost/smm/assets/images/master/become_reseller_2_1601623201.jpg', 1, 1, '2020-10-02 12:50:01', '2020-10-02 07:20:01'),
+(3, 1, '', 3, 'dfgh dfghdfgh', 'http://localhost/smm/assets/images/master/become_reseller_3_1601623214.jpeg', 1, 1, '2020-10-02 12:50:14', '2020-10-02 07:20:14'),
+(4, 1, '', 4, 'dfgh dfghdfgh', 'http://localhost/smm/assets/images/master/become_reseller_4_1601623230.jpg', 1, 1, '2020-10-02 12:50:30', '2020-10-02 07:20:30');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `smm_blog`
 --
 
@@ -6401,9 +6430,9 @@ CREATE TABLE `smm_blog` (
 --
 
 INSERT INTO `smm_blog` (`blog_id`, `company_id`, `blog_author`, `blog_date`, `blog_name`, `blog_descr`, `blog_image`, `blog_status`, `blog_addedby`, `blog_addedby_type`, `blog_created_at`, `blog_updated_at`) VALUES
-(1, 1, 'Demo Aut', '29-09-2020', 'sdfsda fasdf', '<p>asdf asdfasdf</p><p>asdfasdf asdf</p><p>asdf asdfasdf</p><p>asdfasdfasdf</p>', 'blog_1_1601362897.JPEG', 1, 3, 2, '2020-09-29 12:31:37', '2020-09-30 07:23:00'),
-(2, 1, 'Demo 111', '01-09-2020', 'This Is Demo Blog 1', '<p><span style=\"color: rgb(33, 37, 41); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; text-align: center;\">enim eiusmod high life accusamus terry richardson ad squid. raw denim aesthetic synth nesciunt</span></p>', 'blog_2_1601449594.jpg', 1, 3, 2, '2020-09-30 12:36:34', '2020-09-30 07:06:34'),
-(3, 1, 'Demo1234', '03-09-2020', 'This Is Demo Blog 2', '<p><span style=\"color: rgb(33, 37, 41); font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"; text-align: center;\">enim eiusmod high life accusamus terry richardson ad squid. raw denim aesthetic synth nesciunt</span></p>', 'blog_3_1601612302.png', 1, 3, 2, '2020-09-30 12:38:03', '2020-10-02 04:18:22');
+(1, 1, 'Demo Aut', '29-09-2020', 'sdfsda fasdf', '<p>asdf asdfasdf</p><p>asdfasdf asdf</p><p>asdf asdfasdf</p><p>asdfasdfasdf</p>', 'http://localhost/smm_reseller/assets/images/blog/blog_1_1601615801.jpg', 1, 3, 2, '2020-09-29 12:31:37', '2020-10-02 05:16:41'),
+(2, 1, 'Demo 111', '01-09-2020', 'This Is Demo Blog 1', '<p><span style=\"color: rgb(33, 37, 41); font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"; text-align: center;\">enim eiusmod high life accusamus terry richardson ad squid. raw denim aesthetic synth nesciunt</span></p>', 'http://localhost/smm_reseller/assets/images/blog/blog_2_1601615790.jpg', 1, 3, 2, '2020-09-30 12:36:34', '2020-10-02 05:16:30'),
+(3, 1, 'Demo1234', '03-09-2020', 'This Is Demo Blog 2', '<p><span style=\"color: rgb(33, 37, 41); font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"; text-align: center;\">enim eiusmod high life accusamus terry richardson ad squid. raw denim aesthetic synth nesciunt</span></p>', 'http://localhost/smm_reseller/assets/images/blog/blog_3_1601615710.jpeg', 1, 3, 2, '2020-09-30 12:38:03', '2020-10-02 05:15:10');
 
 -- --------------------------------------------------------
 
@@ -7100,6 +7129,7 @@ CREATE TABLE `smm_invoice` (
   `package_name` varchar(250) NOT NULL,
   `invoice_client_name` varchar(250) NOT NULL,
   `invoice_client_address` text NOT NULL,
+  `invoice_client_pincode` varchar(20) NOT NULL,
   `country_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL,
   `city_id` int(11) NOT NULL,
@@ -7121,17 +7151,17 @@ CREATE TABLE `smm_invoice` (
 -- Dumping data for table `smm_invoice`
 --
 
-INSERT INTO `smm_invoice` (`invoice_id`, `company_id`, `invoice_no`, `invoice_no_prefix`, `invoice_date`, `order_id`, `client_id`, `reseller_id`, `project_id`, `package_id`, `reseller_package_id`, `package_name`, `invoice_client_name`, `invoice_client_address`, `country_id`, `state_id`, `city_id`, `invoice_client_mobile`, `invoice_client_email`, `gst_slab_per`, `invoice_basic_amt`, `invoice_gst_amt`, `invoice_net_amt`, `invoice_note`, `invoice_status`, `invoice_addedby`, `invoice_addedby_type`, `invoice_created_at`, `invoice_updated_at`) VALUES
-(1, 1, 1, '', '27-09-2020', 1, 6, 3, 0, 4, 4, 'Demo Package 2', 'Reseller Level3', 'zsdfgsdfg sdfgsdfg', 101, 22, 2652, '9876543211', 'demo@email.com', 5, 28571.43, 1428.57, 30000, '', 1, 0, 3, '2020-09-27 14:29:50', '2020-09-27 08:59:50'),
-(2, 1, 1, '', '27-09-2020', 0, 3, 2, 0, 4, 4, 'Demo Package 2', 'Reseller 222', 'sd dfg sdfgsg', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 5, 22857.14, 1142.86, 24000, '', 1, 0, 4, '2020-09-27 14:29:50', '2020-09-27 09:06:52'),
-(3, 1, 1, '', '27-09-2020', 0, 2, 0, 0, 4, 1, 'Demo Package 2', 'Reseller 111', 'sdfgsdfg', 101, 22, 2652, '9876543210', 'fgdfg@dfg.jhkl', 5, 19047.62, 952.38, 20000, '', 1, 0, 4, '2020-09-27 14:29:51', '2020-09-27 09:06:49'),
-(4, 1, 2, '', '27-09-2020', 2, 6, 3, 0, 4, 4, 'Demo Package 2', 'Reseller Level3', 'zsdfgsdfg sdfgsdfg', 101, 22, 2652, '9876543211', 'demo@email.com', 5, 28571.43, 1428.57, 30000, '', 1, 0, 3, '2020-09-27 14:36:03', '2020-09-27 09:06:03'),
-(5, 1, 2, '', '27-09-2020', 0, 3, 2, 0, 4, 4, 'Demo Package 2', 'Reseller 222', 'sd dfg sdfgsg', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 5, 22857.14, 1142.86, 24000, '', 1, 0, 4, '2020-09-27 14:36:03', '2020-09-27 09:06:03'),
-(6, 1, 2, '', '27-09-2020', 0, 2, 0, 0, 4, 1, 'Demo Package 2', 'Reseller 111', 'sdfgsdfg', 101, 22, 2652, '9876543210', 'fgdfg@dfg.jhkl', 5, 19047.62, 952.38, 20000, '', 1, 0, 4, '2020-09-27 14:36:03', '2020-09-27 09:06:03'),
-(7, 1, 3, 'INV-', '29-09-2020', 3, 3, 2, 0, 4, 1, 'Demo Package 2', 'Reseller 222', 'sd dfg sdfgsg', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 5, 22857.14, 1142.86, 24000, '', 1, 0, 3, '2020-09-29 13:07:47', '2020-09-29 07:37:47'),
-(8, 1, 3, 'INV-', '29-09-2020', 0, 2, 0, 0, 4, 1, 'Demo Package 2', 'Reseller 111', 'sdfgsdfg', 101, 22, 2652, '9876543210', 'fgdfg@dfg.jhkl', 5, 19047.62, 952.38, 20000, '', 1, 0, 4, '2020-09-29 13:07:47', '2020-09-29 07:37:47'),
-(9, 1, 4, 'INV-', '29-09-2020', 4, 3, 2, 0, 4, 1, 'Demo Package 2', 'Reseller 222', 'sd dfg sdfgsg', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 5, 22857.14, 1142.86, 24000, '', 1, 0, 3, '2020-09-29 16:37:38', '2020-09-29 11:07:38'),
-(10, 1, 4, 'INV-', '29-09-2020', 0, 2, 0, 0, 4, 1, 'Demo Package 2', 'Reseller 111', 'sdfgsdfg', 101, 22, 2652, '9876543210', 'fgdfg@dfg.jhkl', 5, 19047.62, 952.38, 20000, '', 1, 0, 4, '2020-09-29 16:37:38', '2020-09-29 11:07:38');
+INSERT INTO `smm_invoice` (`invoice_id`, `company_id`, `invoice_no`, `invoice_no_prefix`, `invoice_date`, `order_id`, `client_id`, `reseller_id`, `project_id`, `package_id`, `reseller_package_id`, `package_name`, `invoice_client_name`, `invoice_client_address`, `invoice_client_pincode`, `country_id`, `state_id`, `city_id`, `invoice_client_mobile`, `invoice_client_email`, `gst_slab_per`, `invoice_basic_amt`, `invoice_gst_amt`, `invoice_net_amt`, `invoice_note`, `invoice_status`, `invoice_addedby`, `invoice_addedby_type`, `invoice_created_at`, `invoice_updated_at`) VALUES
+(1, 1, 1, '', '27-09-2020', 1, 6, 3, 0, 4, 4, 'Demo Package 2', 'Reseller Level3', 'zsdfgsdfg sdfgsdfg', '', 101, 22, 2652, '9876543211', 'demo@email.com', 5, 28571.43, 1428.57, 30000, '', 1, 0, 3, '2020-09-27 14:29:50', '2020-09-27 08:59:50'),
+(2, 1, 1, '', '27-09-2020', 0, 3, 2, 0, 4, 4, 'Demo Package 2', 'Reseller 222', 'sd dfg sdfgsg', '', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 5, 22857.14, 1142.86, 24000, '', 1, 0, 4, '2020-09-27 14:29:50', '2020-09-27 09:06:52'),
+(3, 1, 1, '', '27-09-2020', 0, 2, 0, 0, 4, 1, 'Demo Package 2', 'Reseller 111', 'sdfgsdfg', '', 101, 22, 2652, '9876543210', 'fgdfg@dfg.jhkl', 5, 19047.62, 952.38, 20000, '', 1, 0, 4, '2020-09-27 14:29:51', '2020-09-27 09:06:49'),
+(4, 1, 2, '', '27-09-2020', 2, 6, 3, 0, 4, 4, 'Demo Package 2', 'Reseller Level3', 'zsdfgsdfg sdfgsdfg', '', 101, 22, 2652, '9876543211', 'demo@email.com', 5, 28571.43, 1428.57, 30000, '', 1, 0, 3, '2020-09-27 14:36:03', '2020-09-27 09:06:03'),
+(5, 1, 2, '', '27-09-2020', 0, 3, 2, 0, 4, 4, 'Demo Package 2', 'Reseller 222', 'sd dfg sdfgsg', '', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 5, 22857.14, 1142.86, 24000, '', 1, 0, 4, '2020-09-27 14:36:03', '2020-09-27 09:06:03'),
+(6, 1, 2, '', '27-09-2020', 0, 2, 0, 0, 4, 1, 'Demo Package 2', 'Reseller 111', 'sdfgsdfg', '', 101, 22, 2652, '9876543210', 'fgdfg@dfg.jhkl', 5, 19047.62, 952.38, 20000, '', 1, 0, 4, '2020-09-27 14:36:03', '2020-09-27 09:06:03'),
+(7, 1, 3, 'INV-', '29-09-2020', 3, 3, 2, 0, 4, 1, 'Demo Package 2', 'Reseller 222', 'sd dfg sdfgsg', '', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 5, 22857.14, 1142.86, 24000, '', 1, 0, 3, '2020-09-29 13:07:47', '2020-09-29 07:37:47'),
+(8, 1, 3, 'INV-', '29-09-2020', 0, 2, 0, 0, 4, 1, 'Demo Package 2', 'Reseller 111', 'sdfgsdfg', '', 101, 22, 2652, '9876543210', 'fgdfg@dfg.jhkl', 5, 19047.62, 952.38, 20000, '', 1, 0, 4, '2020-09-29 13:07:47', '2020-09-29 07:37:47'),
+(9, 1, 4, 'INV-', '29-09-2020', 4, 3, 2, 0, 4, 1, 'Demo Package 2', 'Reseller 222', 'sd dfg sdfgsg', '', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 5, 22857.14, 1142.86, 24000, '', 1, 0, 3, '2020-09-29 16:37:38', '2020-09-29 11:07:38'),
+(10, 1, 4, 'INV-', '29-09-2020', 0, 2, 0, 0, 4, 1, 'Demo Package 2', 'Reseller 111', 'sdfgsdfg', '', 101, 22, 2652, '9876543210', 'fgdfg@dfg.jhkl', 5, 19047.62, 952.38, 20000, '', 1, 0, 4, '2020-09-29 16:37:38', '2020-09-29 11:07:38');
 
 -- --------------------------------------------------------
 
@@ -7404,6 +7434,7 @@ CREATE TABLE `smm_order` (
   `reseller_id` int(11) NOT NULL COMMENT 'seller_reseller_id',
   `order_client_name` varchar(250) NOT NULL,
   `order_client_address` text NOT NULL,
+  `order_client_pincode` varchar(20) NOT NULL,
   `country_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL,
   `city_id` int(11) NOT NULL,
@@ -7428,11 +7459,11 @@ CREATE TABLE `smm_order` (
 -- Dumping data for table `smm_order`
 --
 
-INSERT INTO `smm_order` (`order_id`, `company_id`, `order_no`, `order_date`, `client_id`, `reseller_id`, `order_client_name`, `order_client_address`, `country_id`, `state_id`, `city_id`, `order_client_mobile`, `order_client_email`, `package_id`, `reseller_package_id`, `package_name`, `gst_slab_per`, `order_basic_amount`, `order_gst_amount`, `order_net_amount`, `order_status`, `payment_status`, `razorpay_payment_id`, `razorpay_order_id`, `order_addedby`, `order_added_date`) VALUES
-(1, 1, 1, '27-09-2020', 6, 3, 'Reseller Level3', 'zsdfgsdfg sdfgsdfg', 101, 22, 2652, '9876543211', 'demo@email.com', 4, 4, 'Demo Package 2', 5, 28571.43, 1428.57, 30000, 1, 1, '', '', 6, '2020-09-27 14:29:50'),
-(2, 1, 2, '27-09-2020', 6, 3, 'Reseller Level3', 'zsdfgsdfg sdfgsdfg', 101, 22, 2652, '9876543211', 'demo@email.com', 4, 4, 'Demo Package 2', 5, 28571.43, 1428.57, 30000, 1, 1, 'pay_Fhzy893Jcq8tVY', 'order_FhzxpAjCXcqqOs', 6, '2020-09-27 14:36:03'),
-(3, 1, 1, '29-09-2020', 3, 2, 'Reseller 222', 'sd dfg sdfgsg', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 4, 1, 'Demo Package 2', 5, 22857.14, 1142.86, 24000, 1, 1, 'pay_FilX9ZkErxMStx', 'order_FilWVsBkFHW7GR', 3, '2020-09-29 13:07:47'),
-(4, 1, 2, '29-09-2020', 3, 2, 'Reseller 222', 'sd dfg sdfgsg', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 4, 1, 'Demo Package 2', 5, 22857.14, 1142.86, 24000, 1, 1, 'pay_Fip6pfC14slit5', 'order_Fip6QQKBuHySst', 3, '2020-09-29 16:37:38');
+INSERT INTO `smm_order` (`order_id`, `company_id`, `order_no`, `order_date`, `client_id`, `reseller_id`, `order_client_name`, `order_client_address`, `order_client_pincode`, `country_id`, `state_id`, `city_id`, `order_client_mobile`, `order_client_email`, `package_id`, `reseller_package_id`, `package_name`, `gst_slab_per`, `order_basic_amount`, `order_gst_amount`, `order_net_amount`, `order_status`, `payment_status`, `razorpay_payment_id`, `razorpay_order_id`, `order_addedby`, `order_added_date`) VALUES
+(1, 1, 1, '27-09-2020', 6, 3, 'Reseller Level3', 'zsdfgsdfg sdfgsdfg', '', 101, 22, 2652, '9876543211', 'demo@email.com', 4, 4, 'Demo Package 2', 5, 28571.43, 1428.57, 30000, 1, 1, '', '', 6, '2020-09-27 14:29:50'),
+(2, 1, 2, '27-09-2020', 6, 3, 'Reseller Level3', 'zsdfgsdfg sdfgsdfg', '', 101, 22, 2652, '9876543211', 'demo@email.com', 4, 4, 'Demo Package 2', 5, 28571.43, 1428.57, 30000, 1, 1, 'pay_Fhzy893Jcq8tVY', 'order_FhzxpAjCXcqqOs', 6, '2020-09-27 14:36:03'),
+(3, 1, 1, '29-09-2020', 3, 2, 'Reseller 222', 'sd dfg sdfgsg', '', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 4, 1, 'Demo Package 2', 5, 22857.14, 1142.86, 24000, 1, 1, 'pay_FilX9ZkErxMStx', 'order_FilWVsBkFHW7GR', 3, '2020-09-29 13:07:47'),
+(4, 1, 2, '29-09-2020', 3, 2, 'Reseller 222', 'sd dfg sdfgsg', '', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 4, 1, 'Demo Package 2', 5, 22857.14, 1142.86, 24000, 1, 1, 'pay_Fip6pfC14slit5', 'order_Fip6QQKBuHySst', 3, '2020-09-29 16:37:38');
 
 -- --------------------------------------------------------
 
@@ -8043,7 +8074,7 @@ CREATE TABLE `smm_reseller` (
 --
 
 INSERT INTO `smm_reseller` (`reseller_id`, `company_id`, `branch_id`, `reseller_name`, `reseller_address`, `country_id`, `state_id`, `district_id`, `city_id`, `reseller_pincode`, `reseller_statecode`, `reseller_mobile`, `reseller_password`, `reseller_mobile2`, `reseller_email`, `reseller_website`, `reseller_pan_no`, `reseller_gst_no`, `reseller_vat_no`, `reseller_cst_no`, `reseller_lic1`, `reseller_lic2`, `reseller_op_crd_balance`, `reseller_logo`, `reseller_invoice_prefix`, `reseller_invoice_logo`, `reseller_bank`, `reseller_bank_branch`, `reseller_bank_acc_no`, `reseller_bank_ifsc`, `reseller_status`, `reseller_addedby`, `reseller_added_type`, `reseller_is_online_request`, `reseller_approve`, `reseller_created_at`, `reseller_updated_at`) VALUES
-(2, 1, 0, 'Reseller 111', 'sdfgsdfg', 101, 22, NULL, 2652, '222333', '', '9876543210', '123456', '9966332211', 'fgdfg@dfg.jhkl', 'http://localhost/smm_reseller/', '444555', '111222', NULL, NULL, '', '', 5000, 'reseller_2_1599543094.png', 'INV-', '', '', '', '', '', 1, 1, 1, 0, 1, '2020-09-08 11:01:34', '2020-10-02 04:03:13'),
+(2, 1, 0, 'Reseller 111', 'sdfgsdfg', 101, 22, NULL, 2652, '222333', '', '9876543210', '123456', '9966332211', 'fgdfg@dfg.jhkl', 'http://localhost/smm_reseller/', '444555', '111222', NULL, NULL, '', '', 5000, 'reseller_2_1599543094.png', 'INV-', 'http://localhost/smm_reseller/assets/images/reseller/invoice_logo_3_1601362051.jpg', '', '', '', '', 1, 1, 1, 0, 1, '2020-09-08 11:01:34', '2020-10-02 12:22:45'),
 (3, 1, 0, 'Reseller 222', 'sd dfg sdfgsg', 101, 22, NULL, 2652, '111444', '', '9966332211', '123456', '9966332211', 'fggf@ghj.kkk', 'http://localhost/smm_reseller2/', '222', '111', NULL, NULL, '', '', 10000, 'http://localhost/smm_reseller/assets/images/reseller/reseller_3_1601363908.jpg', 'Demo-', 'http://localhost/smm_reseller/assets/images/reseller/invoice_logo_3_1601362051.jpg', 'azsdsdfg', 'sdfgh', '34563456', '3456', 1, 2, 2, 0, 1, '2020-09-19 15:56:02', '2020-10-02 04:03:26'),
 (6, 1, 0, 'Reseller Level3', 'zsdfgsdfg sdfgsdfg', 101, 22, NULL, 2652, '', '', '9876543211', '123456', '9966332211', 'demo@email.com', '', '5678', '5678', NULL, NULL, '', '', 0, 'http://localhost/smm_reseller/assets/images/reseller/reseller_6_1601173984.png', 'INV-', '', '', '', '', '', 1, 3, 2, 1, 0, '2020-09-27 08:01:48', '2020-09-27 02:33:04');
 
@@ -8062,6 +8093,7 @@ CREATE TABLE `smm_reseller_coupon` (
   `reseller_coupon_code` varchar(250) NOT NULL,
   `reseller_coupon_amt` double NOT NULL,
   `reseller_coupon_per_user` int(11) NOT NULL,
+  `reseller_coupon_descr` text NOT NULL,
   `reseller_coupon_status` int(11) NOT NULL DEFAULT 1,
   `reseller_coupon_added_date` datetime NOT NULL DEFAULT current_timestamp(),
   `reseller_coupon_updated_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -8071,8 +8103,8 @@ CREATE TABLE `smm_reseller_coupon` (
 -- Dumping data for table `smm_reseller_coupon`
 --
 
-INSERT INTO `smm_reseller_coupon` (`reseller_coupon_id`, `company_id`, `reseller_id`, `package_id`, `reseller_coupon_date`, `reseller_coupon_code`, `reseller_coupon_amt`, `reseller_coupon_per_user`, `reseller_coupon_status`, `reseller_coupon_added_date`, `reseller_coupon_updated_date`) VALUES
-(1, 1, 3, 4, '30-09-2020', 'ASDF123', 100, 0, 1, '2020-09-30 11:31:48', '2020-09-30 06:01:48');
+INSERT INTO `smm_reseller_coupon` (`reseller_coupon_id`, `company_id`, `reseller_id`, `package_id`, `reseller_coupon_date`, `reseller_coupon_code`, `reseller_coupon_amt`, `reseller_coupon_per_user`, `reseller_coupon_descr`, `reseller_coupon_status`, `reseller_coupon_added_date`, `reseller_coupon_updated_date`) VALUES
+(1, 1, 3, 4, '30-09-2020', 'ASDF123', 100, 0, 'SDfsdf', 1, '2020-09-30 11:31:48', '2020-10-02 08:10:48');
 
 -- --------------------------------------------------------
 
@@ -8677,7 +8709,7 @@ CREATE TABLE `smm_web_setting` (
 
 INSERT INTO `smm_web_setting` (`web_setting_id`, `company_id`, `reseller_id`, `template_id`, `web_setting_name`, `web_setting_address`, `country_id`, `state_id`, `district_id`, `city_id`, `web_setting_pincode`, `web_setting_statecode`, `web_setting_mobile`, `web_setting_mobile2`, `web_setting_email`, `web_setting_website`, `web_setting_meta_title`, `web_setting_meta_keyword`, `web_setting_meta_descr`, `web_setting_about_info`, `web_setting_contact_info`, `web_setting_logo`, `web_setting_favicon`, `web_setting_addedby_type`, `web_setting_addedby`, `web_setting_created_at`, `web_setting_updated_at`) VALUES
 (2, 1, 2, 3, 'dsfgsdfg', 'sdfgsdfg', 101, 22, NULL, 2652, '222333', '', '9876543210', '9966332211', 'fgdfg@dfg.jhkl', 'hjklkl.jkl.jhkl', 'dfghfgh,fgjhfgjh,fhj', 'fgjh,fghj,fgjk,jk', 'fgjhfghj fgjhh fgjhfgjhfgjh fgjhfgjh', '<p>sdghdh dfghdfghd dfghdfgh</p>', '<p>dfgh dfghdf dfghdfghdfgh</p>', 'web_setting_logo2_1600944579.png', 'web_setting_favicon2_1600944556.png', 2, 0, '2020-09-08 11:01:34', '2020-09-24 11:21:05'),
-(3, 1, 3, 2, 'dfghsdfg sdfgsdfg sdfg', 'sd dfg sdfgsg', 101, 22, NULL, 2652, '111444', '', '9966332211', '9966332211', 'fggf@ghj.kkk', 'http://localhost/smm_reseller/', 'dfgsdfg sdfg', 'asdfgsdfg', 'sdfgsd sdg', '<p>sdf asdf asf asf asdfas asdf asfafasdf</p>', '<p>SDasf asdfr asdf asdf dfasdfasdf</p>', 'http://localhost/smm_reseller/assets/images/web_setting/web_setting_logo3_1601611972.png', 'http://localhost/smm_reseller/assets/images/web_setting/web_setting_favicon3_1601611972.png', 2, 0, '2020-09-19 15:56:02', '2020-10-02 04:12:52'),
+(3, 1, 3, 2, 'dfghsdfg sdfgsdfg sdfg', 'sd dfg sdfgsg', 101, 22, NULL, 2652, '111444', '', '9966332211', '9966332211', 'fggf@ghj.kkk', 'http://localhost/smm_reseller/', 'dfgsdfg sdfg', 'asdfgsdfg', 'sdfgsd sdg', '<p>sdf asdf asf asf asdfas asdf asfafasdf</p>', '<p>SDasf asdfr asdf asdf dfasdfasdf</p>', 'http://localhost/smm_reseller/assets/images/web_setting/web_setting_logo3_1601611972.png', 'http://localhost/smm_reseller/assets/images/web_setting/web_setting_favicon3_1601611972.png', 2, 0, '2020-09-19 15:56:02', '2020-10-02 05:26:39'),
 (4, 1, 0, 1, 'SMM', 'sdfg sdfg sdfg', 101, 22, NULL, 2652, '112233', '', '9876543210', '9876543210', 'ddd@eee.ccom', 'sdfg.ghjk.ccc', 'sdfgsdfg sdfgsdfg', 'sdfg sdfgsdfg sdfgdfgs s', 'sdfg sdfg sdfgsdgsdfg', '<p>sdfgsdfg sdfg sdfg sdfgsdfg sdfgsdg</p>', '<p>sdfgsgb sdfghnerty rtycbnhgf dfg ndfgh dgh</p>', 'web_setting_logo_4_1600826695.png', 'web_setting_comfavicon_4_1600827163.png', 1, 1, '2020-09-23 07:27:13', '2020-09-23 02:15:43'),
 (6, 1, 6, 2, 'Reseller Level3', 'drth dfghdgh', 101, 22, NULL, 2652, '999888', '', '9876543211', '9966332211', 'sdfg@fgjh.jjj', '', 'cghj', 'fgj', 'fgjh', '<p>fgjh fgjfgjh</p>', '<p>fgjh fgjhfgjh fgjh</p>', 'web_setting_logo6_1601174081.png', 'web_setting_favicon6_1601174081.png', 2, 0, '2020-09-27 08:01:48', '2020-09-27 02:34:41');
 
@@ -11037,6 +11069,12 @@ ALTER TABLE `smm_bank_account`
   ADD PRIMARY KEY (`bank_account_id`);
 
 --
+-- Indexes for table `smm_become_reseller`
+--
+ALTER TABLE `smm_become_reseller`
+  ADD PRIMARY KEY (`become_reseller_id`);
+
+--
 -- Indexes for table `smm_blog`
 --
 ALTER TABLE `smm_blog`
@@ -11624,6 +11662,12 @@ ALTER TABLE `smm_award_type`
 --
 ALTER TABLE `smm_bank_account`
   MODIFY `bank_account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `smm_become_reseller`
+--
+ALTER TABLE `smm_become_reseller`
+  MODIFY `become_reseller_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `smm_blog`

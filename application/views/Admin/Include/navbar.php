@@ -130,6 +130,12 @@
                 <p>Office Shifts</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a <?php if(isset($update_become_reseller)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Company/become_reseller" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Become Reseller</p>
+              </a>
+            </li>
             <!-- <li class="nav-item">
               <a <?php if(isset($update_branch)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Company/branch" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>

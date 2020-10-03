@@ -732,7 +732,134 @@ class Company extends CI_Controller{
     header('location:'.base_url().'Company/office_shift');
   }
 
+/*********************************** Become Reseller *********************************/
 
+  // Add Become Reseller....
+  public function become_reseller(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('become_reseller_possition', 'Become Reseller Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $become_reseller_status = $this->input->post('become_reseller_status');
+      if(!isset($become_reseller_status)){ $become_reseller_status = '1'; }
+      $save_data = $_POST;
+      $save_data['become_reseller_status'] = $become_reseller_status;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['become_reseller_addedby'] = $smm_user_id;
+      $become_reseller_id = $this->Master_Model->save_data('smm_become_reseller', $save_data);
+
+      if($_FILES['become_reseller_image']['name']){
+        $time = time();
+        $image_name = 'become_reseller_'.$become_reseller_id.'_'.$time;
+        $config['upload_path'] = 'assets/images/master/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['file_name'] = $image_name;
+        $filename = $_FILES['become_reseller_image']['name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $this->upload->initialize($config); // if upload library autoloaded
+        if ($this->upload->do_upload('become_reseller_image') && $become_reseller_id && $image_name && $ext && $filename){
+          $become_reseller_image_up['become_reseller_image'] =  base_url().'assets/images/master/'.$image_name.'.'.$ext;
+          $this->Master_Model->update_info('become_reseller_id', $become_reseller_id, 'smm_become_reseller', $become_reseller_image_up);
+          $this->session->set_flashdata('upload_success','File Uploaded Successfully');
+        }
+        else{
+          $error = $this->upload->display_errors();
+          $this->session->set_flashdata('upload_error',$error);
+        }
+      }
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Company/become_reseller');
+    }
+
+    $data['become_reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','become_reseller_id','DESC','smm_become_reseller');
+    $data['page'] = 'Become Reseller';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Company/become_reseller', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update Become Reseller...
+  public function edit_become_reseller($become_reseller_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('become_reseller_possition', 'Become Reseller Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $become_reseller_status = $this->input->post('become_reseller_status');
+      if(!isset($become_reseller_status)){ $become_reseller_status = '1'; }
+      $update_data = $_POST;
+      unset($update_data['old_become_reseller_img']);
+      $update_data['become_reseller_status'] = $become_reseller_status;
+      $update_data['become_reseller_addedby'] = $smm_user_id;
+      $this->Master_Model->update_info('become_reseller_id', $become_reseller_id, 'smm_become_reseller', $update_data);
+
+      if($_FILES['become_reseller_image']['name']){
+        $time = time();
+        $image_name = 'become_reseller_'.$become_reseller_id.'_'.$time;
+        $config['upload_path'] = 'assets/images/master/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['file_name'] = $image_name;
+        $filename = $_FILES['become_reseller_image']['name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $this->upload->initialize($config); // if upload library autoloaded
+        if ($this->upload->do_upload('become_reseller_image') && $become_reseller_id && $image_name && $ext && $filename){
+          $become_reseller_image_up['become_reseller_image'] =  base_url().'assets/images/master/'.$image_name.'.'.$ext;
+          $this->Master_Model->update_info('become_reseller_id', $become_reseller_id, 'smm_become_reseller', $become_reseller_image_up);
+          if($_POST['old_become_reseller_img']){
+            $unlink_image = str_replace(base_url(), "",$_POST['old_become_reseller_img']);
+            unlink($unlink_image);
+          }
+          $this->session->set_flashdata('upload_success','File Uploaded Successfully');
+        }
+        else{
+          $error = $this->upload->display_errors();
+          $this->session->set_flashdata('upload_error',$error);
+        }
+      }
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Company/become_reseller');
+    }
+
+    $become_reseller_info = $this->Master_Model->get_info_arr('become_reseller_id',$become_reseller_id,'smm_become_reseller');
+    if(!$become_reseller_info){ header('location:'.base_url().'Company/become_reseller'); }
+    $data['update'] = 'update';
+    $data['update_become_reseller'] = 'update';
+    $data['become_reseller_info'] = $become_reseller_info[0];
+    $data['act_link'] = base_url().'Company/edit_become_reseller/'.$become_reseller_id;
+
+    $data['become_reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','become_reseller_id','DESC','smm_become_reseller');
+    $data['page'] = 'Edit Become Reseller';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Company/become_reseller', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  //Delete Become Reseller...
+  public function delete_become_reseller($become_reseller_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+    $become_reseller_info = $this->Master_Model->get_info_arr_fields('become_reseller_image, become_reseller_id', 'become_reseller_id', $become_reseller_id, 'smm_become_reseller');
+    if($become_reseller_info){
+      $become_reseller_image = $become_reseller_info[0]['become_reseller_image'];
+      if($become_reseller_image){
+        $unlink_image = str_replace(base_url(), "",$become_reseller_image);
+        unlink($unlink_image);
+      }
+    }
+    $this->Master_Model->delete_info('become_reseller_id', $become_reseller_id, 'smm_become_reseller');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Company/become_reseller');
+  }
 
 /****************************************************************************************/
 /*                                 Coupon Menu Forms                                   */
