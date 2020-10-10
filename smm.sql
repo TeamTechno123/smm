@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2020 at 07:29 AM
+-- Generation Time: Oct 10, 2020 at 01:35 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.10
 
@@ -7556,7 +7556,7 @@ INSERT INTO `smm_order` (`order_id`, `company_id`, `project_id`, `order_no`, `or
 (1, 1, 0, 1, '06-10-2020', '', '12-10-2020', 2, 0, 'Reseller 111', 'sdfgsdfg', '222333', 101, 22, 2652, '9876543210', 'fgdfg@dfg.jhkl', 4, 0, 'Demo Package 2', 5, 19047.62, 952.38, 20000, 0, 2, 1, '', 1, 'pay_FlVFKqqapL16R9', 'order_FlVEgMxBN1927W', 2, '2020-10-06 11:08:50'),
 (2, 1, 0, 1, '07-10-2020', '13-10-2020', '07-12-7400', 3, 2, 'Reseller 222', 'sd dfg sdfgsg', '111444', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 4, 1, 'Demo Package 2', 5, 22857.14, 1142.86, 24000, 0, 1, 1, '', 0, 'pay_FmOTJIRQPwEzSU', 'order_FmOSzGUwRXqrv1', 3, '2020-10-06 11:12:35'),
 (3, 1, 7, 2, '06-10-2020', '', '09-10-2020', 3, 2, 'Reseller 222', 'sd dfg sdfgsg', '111444', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 4, 1, 'Demo Package 2', 5, 22857.14, 1142.86, 24000, 0, 1, 1, '', 0, 'pay_FlVdMCejfRDI7F', 'order_FlVd24f3JZ0gil', 3, '2020-10-06 11:31:31'),
-(4, 1, 0, 3, '09-10-2020', '09-10-2020', '08-12-2020', 3, 2, 'Reseller 222', 'sd dfg sdfgsg', '111444', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 4, 1, 'Demo Package 2', 5, 22857.14, 1142.86, 23950, 50, 1, 1, '', 0, 'pay_FmoJMZIdZe5qwI', 'order_FmoITtMyPpwELq', 3, '2020-10-09 18:27:01'),
+(4, 1, 8, 3, '09-10-2020', '09-10-2020', '08-12-2020', 3, 2, 'Reseller 222', 'sd dfg sdfgsg', '111444', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 4, 1, 'Demo Package 2', 5, 22857.14, 1142.86, 23950, 50, 1, 1, '', 0, 'pay_FmoJMZIdZe5qwI', 'order_FmoITtMyPpwELq', 3, '2020-10-09 18:27:01'),
 (8, 1, 0, 4, '09-10-2020', '09-10-2020', '08-12-2020', 3, 2, 'Reseller 222', 'sd dfg sdfgsg', '111444', 101, 22, 2652, '9966332211', 'fggf@ghj.kkk', 4, 1, 'Demo Package 2', 5, 22857.14, 1142.86, 23950, 50, 1, 1, '', 0, 'pay_FmosEwRHhqiCCS', 'order_Fmos00q9uIbbzo', 3, '2020-10-09 18:59:48');
 
 -- --------------------------------------------------------
@@ -7923,7 +7923,8 @@ CREATE TABLE `smm_project` (
 INSERT INTO `smm_project` (`project_id`, `company_id`, `order_id`, `project_name`, `project_no`, `project_date`, `project_po_no`, `project_phase_no`, `client_id`, `project_company`, `project_start_date`, `project_end_date`, `project_budget_hours`, `project_budget_amount`, `project_piority`, `project_member`, `project_revisions`, `project_progress`, `project_descr`, `project_summery`, `project_status`, `project_addedby`, `project_created_at`, `project_updated_at`) VALUES
 (2, 1, 0, 'dsfgsdfg', 1, '03-09-2020', 2, 3, 2, 'fgdfg', '23-09-2020', '06-10-2020', '4', 50000, 'High', '15,17', '555', 35, '<p>sdfg sdfg</p>', 'sdfg sdfgsd g', 0, 1, '2020-08-29 11:04:48', '2020-10-06 11:21:44'),
 (5, 1, 0, 'rrr ttt yyy', 2, '01-09-2020', 0, NULL, 3, '', '23-09-2020', '30-09-2020', '100', 0, 'Low', '15', '222', 20, '<p><b style=\"color: rgb(255, 0, 0);\">Lorem ipsum</b></p><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p><br></p>', '', 4, 1, '2020-09-09 17:56:03', '2020-10-07 07:57:30'),
-(7, 1, 3, 'Demo Package 2', 3, '08-10-2020', 0, NULL, 3, '', '06-10-2020', '05-12-2020', '24', 24000, 'Medium', '15', '5', 0, '<p>Package: Demo Package 2</p><p>sdg sdfg sdfg sdgsdgsdg sdg</p>', '', 0, 1, '2020-10-08 13:07:55', '2020-10-08 07:37:55');
+(7, 1, 3, 'Demo Package 2', 3, '08-10-2020', 0, NULL, 3, '', '06-10-2020', '05-12-2020', '24', 24000, 'Medium', '15', '5', 0, '<p>Package: Demo Package 2</p><p>sdg sdfg sdfg sdgsdgsdg sdg</p>', '', 0, 1, '2020-10-08 13:07:55', '2020-10-08 07:37:55'),
+(8, 1, 4, 'Demo Package Project', 4, '10-10-2020', 0, NULL, 3, '', '09-10-2020', '08-12-2020', '25', 23950, 'Medium', '15', '5', 20, '<p>Package: Demo Package 2</p><p>sdg sdfg sdfg sdgsdgsdg sdg</p>', '', 1, 1, '2020-10-10 16:59:12', '2020-10-10 11:29:12');
 
 -- --------------------------------------------------------
 
@@ -8491,7 +8492,7 @@ CREATE TABLE `smm_task` (
 
 INSERT INTO `smm_task` (`task_id`, `company_id`, `task_company`, `task_category_id`, `task_title`, `task_start_date`, `task_end_date`, `task_est_hour`, `project_id`, `task_priority`, `task_progress`, `task_assign_to`, `task_status_id`, `task_descr`, `task_status`, `task_addedby`, `task_addedby_type`, `task_created_at`, `task_updated_at`) VALUES
 (2, 1, '1', 1, 'jfgjh h fgjh fgjh jghj j', '01-08-2020', '30-09-2020', '50', 2, '', 0, '15,17', 4, '<p>sdfsdfsd sdfsdf sdfsdf</p>', 4, 1, 1, '2020-08-30 08:49:56', '2020-10-07 10:44:59'),
-(3, 1, '', 1, 'sdfghdh xdfgh', '23-09-2020', '30-09-2020', '10', 2, 'Medium', 45, '15', 0, '<p>xhdfgh dfghdgh dfghdf hdfgh</p>', 3, 1, 2, '2020-09-23 12:17:08', '2020-10-07 12:35:22');
+(3, 1, '', 1, 'sdfghdh xdfgh', '23-09-2020', '30-09-2020', '10', 2, 'High', 50, '15', 0, '<p>xhdfgh dfghdgh dfghdf hdfgh</p>', 3, 1, 2, '2020-09-23 12:17:08', '2020-10-10 08:52:41');
 
 -- --------------------------------------------------------
 
@@ -8508,6 +8509,7 @@ CREATE TABLE `smm_task_file` (
   `task_file_image` varchar(150) NOT NULL,
   `task_file_status` int(11) NOT NULL DEFAULT 1,
   `task_file_addedby` int(11) DEFAULT 0,
+  `task_file_addedby_type` int(11) NOT NULL DEFAULT 1 COMMENT '1=Admin, 2=Employee',
   `task_file_created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `task_file_updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -8516,11 +8518,12 @@ CREATE TABLE `smm_task_file` (
 -- Dumping data for table `smm_task_file`
 --
 
-INSERT INTO `smm_task_file` (`task_file_id`, `company_id`, `task_id`, `task_file_name`, `task_file_descr`, `task_file_image`, `task_file_status`, `task_file_addedby`, `task_file_created_at`, `task_file_updated_at`) VALUES
-(1, 1, 2, 'jgfjh', '', 'task_file_2_1_1599396851.png', 1, 0, '2020-09-06 18:24:11', '2020-09-06 12:54:11'),
-(2, 1, 3, 'hhh', '', 'task_file_3_1_1600843628.jpg', 1, 0, '2020-09-23 12:17:08', '2020-09-23 06:47:08'),
-(3, 1, 3, 'fgsdfg', '', 'task_file_3_3_1602073022.png', 1, 1, '2020-10-07 17:47:02', '2020-10-07 12:17:02'),
-(4, 1, 3, 'sdfsdf', '', 'task_file_4_3_1602074066.jpg', 1, 1, '2020-10-07 18:04:26', '2020-10-07 12:34:26');
+INSERT INTO `smm_task_file` (`task_file_id`, `company_id`, `task_id`, `task_file_name`, `task_file_descr`, `task_file_image`, `task_file_status`, `task_file_addedby`, `task_file_addedby_type`, `task_file_created_at`, `task_file_updated_at`) VALUES
+(1, 1, 2, 'jgfjh', '', 'task_file_2_1_1599396851.png', 1, 0, 1, '2020-09-06 18:24:11', '2020-09-06 12:54:11'),
+(2, 1, 3, 'hhh', '', 'task_file_3_1_1600843628.jpg', 1, 0, 1, '2020-09-23 12:17:08', '2020-09-23 06:47:08'),
+(3, 1, 3, 'fgsdfg', '', 'task_file_3_3_1602073022.png', 1, 1, 1, '2020-10-07 17:47:02', '2020-10-07 12:17:02'),
+(4, 1, 3, 'sdfsdf', '', 'task_file_4_3_1602074066.jpg', 1, 1, 1, '2020-10-07 18:04:26', '2020-10-07 12:34:26'),
+(5, 1, 3, 'Emp Demo', '', 'task_file_5_3_1602319978.png', 1, 15, 2, '2020-10-10 14:22:58', '2020-10-10 08:52:58');
 
 -- --------------------------------------------------------
 
@@ -8686,6 +8689,7 @@ CREATE TABLE `smm_time_log` (
   `time_log_end_time` varchar(25) NOT NULL,
   `time_log_start_date` varchar(25) NOT NULL,
   `time_log_end_date` varchar(25) NOT NULL,
+  `time_log_hrs` varchar(50) NOT NULL,
   `time_log_memo` text NOT NULL,
   `time_log_status` int(11) NOT NULL DEFAULT 1,
   `time_log_addedby` int(11) DEFAULT 0,
@@ -8698,9 +8702,11 @@ CREATE TABLE `smm_time_log` (
 -- Dumping data for table `smm_time_log`
 --
 
-INSERT INTO `smm_time_log` (`time_log_id`, `company_id`, `project_id`, `employee_id`, `time_log_start_time`, `time_log_end_time`, `time_log_start_date`, `time_log_end_date`, `time_log_memo`, `time_log_status`, `time_log_addedby`, `time_log_addedby_type`, `time_log_created_at`, `time_log_updated_at`) VALUES
-(1, 1, 5, 15, '10:33 AM', '11:33 AM', '01-09-2020', '17-09-2020', 'zdsfzsd asdf asdf asdfasdf', 1, 1, 1, '2020-09-17 10:33:52', '2020-10-06 12:24:47'),
-(4, 1, 2, 15, '5:53 PM', '5:53 PM', '06-10-2020', '06-10-2020', 'dsfsd', 1, 1, 1, '2020-10-06 17:53:09', '2020-10-06 12:23:09');
+INSERT INTO `smm_time_log` (`time_log_id`, `company_id`, `project_id`, `employee_id`, `time_log_start_time`, `time_log_end_time`, `time_log_start_date`, `time_log_end_date`, `time_log_hrs`, `time_log_memo`, `time_log_status`, `time_log_addedby`, `time_log_addedby_type`, `time_log_created_at`, `time_log_updated_at`) VALUES
+(1, 1, 5, 15, '10:33 AM', '11:33 AM', '01-09-2020', '17-09-2020', '', 'zdsfzsd asdf asdf asdfasdf', 1, 1, 1, '2020-09-17 10:33:52', '2020-10-06 12:24:47'),
+(4, 1, 2, 15, '9:00 AM', '6:00 PM', '06-10-2020', '06-10-2020', '9', 'dsfsd', 1, 1, 1, '2020-10-06 17:53:09', '2020-10-10 08:58:35'),
+(5, 1, 2, 15, '2:03 PM', '8:03 PM', '10-10-2020', '10-10-2020', '6', 'SDfsdf', 1, 1, 2, '2020-10-10 14:03:49', '2020-10-10 08:57:45'),
+(6, 1, 7, 15, '2:26 PM', '7:26 PM', '10-10-2020', '10-10-2020', '5', 'dfgsdfg sdfgdfg sdfgsdfgdfg', 1, 1, 1, '2020-10-10 14:26:44', '2020-10-10 08:56:44');
 
 -- --------------------------------------------------------
 
@@ -12207,7 +12213,7 @@ ALTER TABLE `smm_prof_course`
 -- AUTO_INCREMENT for table `smm_project`
 --
 ALTER TABLE `smm_project`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `smm_project_del_phase`
@@ -12339,7 +12345,7 @@ ALTER TABLE `smm_task`
 -- AUTO_INCREMENT for table `smm_task_file`
 --
 ALTER TABLE `smm_task_file`
-  MODIFY `task_file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `task_file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `smm_task_status`
@@ -12375,7 +12381,7 @@ ALTER TABLE `smm_ticket`
 -- AUTO_INCREMENT for table `smm_time_log`
 --
 ALTER TABLE `smm_time_log`
-  MODIFY `time_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `time_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `smm_transfer`

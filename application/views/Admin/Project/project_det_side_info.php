@@ -77,14 +77,14 @@
         </div>
      </div>
 
-     <div class="timeline-block timeline-block-left">
+     <!-- <div class="timeline-block timeline-block-left">
         <div class="marker"></div>
         <div class="timeline-content">
            <h5>Order Placed</h5>
            <span></span>
            <p></p>
         </div>
-     </div>
+     </div> -->
 
      <div class="timeline-block timeline-block-right">
         <div class="marker"></div>
@@ -95,14 +95,14 @@
         </div>
      </div>
 
-     <div class="timeline-block timeline-block-left">
+     <!-- <div class="timeline-block timeline-block-left">
         <div class="marker"></div>
         <div class="timeline-content">
            <h5>Order-Processing</h5>
            <span></span>
            <p></p>
         </div>
-     </div>
+     </div> -->
 
      <div class="timeline-block timeline-block-right">
         <div class="marker"></div>

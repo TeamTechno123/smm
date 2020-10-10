@@ -124,6 +124,7 @@ class Project extends CI_Controller{
       $data['descr'] = '<p>Package: '.$package_info[0]['package_name'].'</p>'.$package_info[0]['package_descr'];
 
       $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'reseller_id',$order_info[0]['client_id'],'','','','','reseller_name','ASC','smm_reseller');
+      $data['order_id'] = $order_id;
     } else{
       $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_name','ASC','smm_reseller');
     }
@@ -344,9 +345,25 @@ class Project extends CI_Controller{
       $save_data['project_id'] = $project_id;
       $save_data['company_id'] = $smm_company_id;
       $save_data['time_log_addedby'] = $smm_user_id;
-      $user_id = $this->Master_Model->save_data('smm_time_log', $save_data);
 
-      $this->session->set_flashdata('save_success','success');
+      $start_date = $_POST['time_log_start_date'];
+      $start_time = $_POST['time_log_start_time'];
+      $end_date = $_POST['time_log_end_date'];
+      $end_time = $_POST['time_log_end_time'];
+
+      $start = $start_date.' '.$start_time;
+      $end = $end_date.' '.$end_time;
+      $timestamp1 = strtotime($start);
+      $timestamp2 = strtotime($end);
+      $hour = abs($timestamp2 - $timestamp1)/(60*60);
+      $hour = round($hour);
+      if($hour <= 0){
+        $this->session->set_flashdata('invalid_time','error');
+      } else{
+        $save_data['time_log_hrs'] = $hour;
+        $time_log_id = $this->Master_Model->save_data('smm_time_log', $save_data);
+        $this->session->set_flashdata('save_success','success');
+      }
       header('location:'.base_url().'Project/project_det_time_log');
     }
 
@@ -1244,9 +1261,29 @@ class Project extends CI_Controller{
       $save_data['time_log_status'] = $time_log_status;
       $save_data['company_id'] = $smm_company_id;
       $save_data['time_log_addedby'] = $smm_user_id;
-      $user_id = $this->Master_Model->save_data('smm_time_log', $save_data);
 
-      $this->session->set_flashdata('save_success','success');
+      $start_date = $_POST['time_log_start_date'];
+      $start_time = $_POST['time_log_start_time'];
+      $end_date = $_POST['time_log_end_date'];
+      $end_time = $_POST['time_log_end_time'];
+
+      $start = $start_date.' '.$start_time;
+      $end = $end_date.' '.$end_time;
+      $timestamp1 = strtotime($start);
+      $timestamp2 = strtotime($end);
+      $hour = abs($timestamp2 - $timestamp1)/(60*60);
+      $hour = round($hour);
+      if($hour <= 0){
+        $this->session->set_flashdata('invalid_time','error');
+      } else{
+        $save_data['time_log_hrs'] = $hour;
+        $time_log_id = $this->Master_Model->save_data('smm_time_log', $save_data);
+        $this->session->set_flashdata('save_success','success');
+      }
+
+      // $user_id = $this->Master_Model->save_data('smm_time_log', $save_data);
+
+      // $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Project/time_log');
     }
     $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
@@ -1274,9 +1311,26 @@ class Project extends CI_Controller{
       $update_data = $_POST;
       $update_data['time_log_status'] = $time_log_status;
       $update_data['time_log_addedby'] = $smm_user_id;
-      $this->Master_Model->update_info('time_log_id', $time_log_id, 'smm_time_log', $update_data);
 
-      $this->session->set_flashdata('update_success','success');
+      $start_date = $_POST['time_log_start_date'];
+      $start_time = $_POST['time_log_start_time'];
+      $end_date = $_POST['time_log_end_date'];
+      $end_time = $_POST['time_log_end_time'];
+
+      $start = $start_date.' '.$start_time;
+      $end = $end_date.' '.$end_time;
+      $timestamp1 = strtotime($start);
+      $timestamp2 = strtotime($end);
+      $hour = abs($timestamp2 - $timestamp1)/(60*60);
+      $hour = round($hour);
+      if($hour <= 0){
+        $this->session->set_flashdata('invalid_time','error');
+      } else{
+        $update_data['time_log_hrs'] = $hour;
+        $this->Master_Model->update_info('time_log_id', $time_log_id, 'smm_time_log', $update_data);
+        $this->session->set_flashdata('update_success','success');
+      }
+
       header('location:'.base_url().'Project/time_log');
     }
 

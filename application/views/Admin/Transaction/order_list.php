@@ -31,11 +31,11 @@
                     <th class="wt_30">#</th>
                     <th class="wt_50">Order No</th>
                     <th class="wt_50">Invoice No</th>
-                    <th class="wt_75">Date</th>
+                    <th class="wt_50">Date</th>
                     <th>Reseller(Client)</th>
                     <th>Referral Reseller</th>
                     <th>Package Name</th>
-                    <th class="wt_75">Amount</th>
+                    <th class="wt_50">Amount</th>
                     <th class="wt_50">Payment Status</th>
                     <th class="wt_50">Create Project</th>
                     <!-- <th class="wt_50">Cancel Order</th> -->
@@ -70,9 +70,9 @@
                         <td>
                           <?php if($list->project_id == 0){ ?>
                             <a href="<?php echo base_url(); ?>Project/project/<?php echo $list->order_id; ?>">Create</a>
-                          <?php } else{
-                            echo 'Created';
-                          } ?>
+                          <?php } else{ ?>
+                            <a class="text-success" href="<?php echo base_url() ?>Project/set_project_session/<?php echo $list->project_id; ?>">Project</a>
+                          <?php } ?>
 
                         </td>
                       </tr>

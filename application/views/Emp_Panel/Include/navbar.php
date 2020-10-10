@@ -119,17 +119,23 @@
               </a>
             </li>
             <li class="nav-item">
+              <a  href="<?php echo base_url(); ?>Emp_Panel/Emp_Project/task" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Task</p>
+              </a>
+            </li>
+            <!-- <li class="nav-item">
               <a  href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/progress" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Projects</p>
               </a>
-            </li>
-            <li class="nav-item">
+            </li> -->
+            <!-- <li class="nav-item">
               <a  href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/tasks" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Tasks</p>
               </a>
-            </li>
+            </li> -->
 
              <li class="nav-item">
               <a  href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/timelog" class="nav-link">

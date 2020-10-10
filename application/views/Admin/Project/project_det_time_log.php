@@ -60,13 +60,13 @@
                         <div class="form-group col-md-2 ">
                           <label>Start Date</label>
                           <div class="input-group time" id="date1" data-target-input="nearest">
-                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="time_log_start_date"  value="<?php if(isset($time_log_info)){ echo $time_log_info['time_log_start_date']; } ?>" data-target="#date1" data-toggle="datetimepicker" placeholder="End Time" required>
+                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="time_log_start_date"  value="<?php if(isset($time_log_info)){ echo $time_log_info['time_log_start_date']; } ?>" data-target="#date1" data-toggle="datetimepicker" placeholder="Start Date" required>
                           </div>
                         </div>
                         <div class="form-group col-md-2 ">
                           <label>End Date</label>
                           <div class="input-group time" id="date2" data-target-input="nearest">
-                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="time_log_end_date"  value="<?php if(isset($time_log_info)){ echo $time_log_info['time_log_end_date']; } ?>" data-target="#date2" data-toggle="datetimepicker" placeholder="End Time" required>
+                            <input type="text" class="form-control form-control-sm datetimepicker-input" name="time_log_end_date"  value="<?php if(isset($time_log_info)){ echo $time_log_info['time_log_end_date']; } ?>" data-target="#date2" data-toggle="datetimepicker" placeholder="End Date" required>
                           </div>
                         </div>
                         <div class="form-group col-md-12">
@@ -121,8 +121,8 @@
                                     <td><?php if($employee_info) { echo $employee_info[0]['employee_name'].' '.$employee_info[0]['employee_lname']; } ?></td>
                                     <td><?php echo $list->time_log_start_date; ?></td>
                                     <td><?php echo $list->time_log_end_date; ?></td>
-                                    <td><?php //echo $list->time_log_date; ?></td>
-                                    <!-- <td><?php echo $list->time_log_memo; ?></td> -->
+                                    <td><?php echo $list->time_log_hrs; ?></td>
+                                    <!-- <td><?php echo $list->time_log_hrs; ?></td> -->
 
                                   </tr>
                                 <?php } } ?>
@@ -149,3 +149,12 @@
 
 </body>
 </html>
+<script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.js"></script>
+<script type="text/javascript">
+  <?php if($this->session->flashdata('invalid_time')){ ?>
+    $(document).ready(function(){
+      toastr.error('Invalid Date or Time Entered');
+    });
+  <?php } ?>
+</script>

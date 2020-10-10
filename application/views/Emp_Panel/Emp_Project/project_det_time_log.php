@@ -121,8 +121,8 @@
                                     <td><?php if($employee_info) { echo $employee_info[0]['employee_name'].' '.$employee_info[0]['employee_lname']; } ?></td>
                                     <td><?php echo $list->time_log_start_date; ?></td>
                                     <td><?php echo $list->time_log_end_date; ?></td>
-                                    <td><?php //echo $list->time_log_date; ?></td>
-                                    <!-- <td><?php echo $list->time_log_memo; ?></td> -->
+                                    <td><?php echo $list->time_log_hrs; ?></td>
+                                    <!-- <td><?php echo $list->time_log_hrs; ?></td> -->
 
                                   </tr>
                                 <?php } } ?>
@@ -149,3 +149,12 @@
 
 </body>
 </html>
+<script src="<?php echo base_url(); ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.js"></script>
+<script type="text/javascript">
+  <?php if($this->session->flashdata('invalid_time')){ ?>
+    $(document).ready(function(){
+      toastr.error('Invalid Date or Time Entered');
+    });
+  <?php } ?>
+</script>

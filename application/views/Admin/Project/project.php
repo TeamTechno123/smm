@@ -42,7 +42,7 @@
                       </div>
                       <div class="form-group col-md-6 select_sm">
                         <label>Project Date</label>
-                        <input type="text" class="form-control form-control-sm" name="project_date" value="<?php if(isset($project_info)){ echo $project_info['project_date']; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Project Date" required >
+                        <input type="text" class="form-control form-control-sm" name="project_date" value="<?php if(isset($project_info)){ echo $project_info['project_date']; }  else{ echo date('d-m-Y');  } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Project Date" required >
                       </div>
                       <div class="form-group col-md-12 select_sm">
                         <label>Project Name</label>
@@ -59,9 +59,11 @@
                       <div class="form-group col-md-12 select_sm">
                         <label>Client(Customer)</label>
                         <select class="form-control select2" name="client_id" id="client_id" data-placeholder="Client(Customer)">
-                          <option value="">Select Client(Customer)</option>
-                          <?php if(isset($reseller_list)){ foreach ($reseller_list as $list) { ?>
-                          <option value="<?php echo $list->reseller_id; ?>" <?php if(isset($project_info) && $project_info['client_id'] == $list->reseller_id){ echo 'selected'; } ?>><?php echo $list->reseller_name; ?></option>
+                            <option value="">Select Client(Customer)</option>
+                          <?php if(isset($reseller_list) && !isset($order_id)){ foreach ($reseller_list as $list) { ?>
+                            <option value="<?php echo $list->reseller_id; ?>" <?php if(isset($project_info) && $project_info['client_id'] == $list->reseller_id){ echo 'selected'; } ?>><?php echo $list->reseller_name; ?></option>
+                          <?php } } elseif (isset($order_id)) { foreach ($reseller_list as $list) { ?>
+                            <option value="<?php echo $list->reseller_id; ?>" selected><?php echo $list->reseller_name; ?></option>
                           <?php } } ?>
                         </select>
                       </div>
@@ -104,7 +106,7 @@
                                 echo 'selected';
                               }
                             }
-                          } if($list->employee_status == 0){ echo ' disabled'; } ?>><?php echo $list->employee_name; ?></option>
+                          } if($list->employee_status == 0){ echo ' disabled'; } ?>><?php echo $list->employee_name.' '.$list->employee_lname; ?></option>
                           <?php } } ?>
                         </select>
                       </div>
@@ -186,7 +188,7 @@
                               </td>
                             </tr>
                           <?php $i++;  } } else{ ?>
-                            <tr>
+                            <!-- <tr>
                               <td>
                                 <input type="text" class="form-control form-control-sm" name="project_file_name[]" required>
                               </td>
@@ -194,7 +196,7 @@
                                 <input type="file"  class="form-control form-control-sm" name="project_file_image[]" required>
                               </td>
                               <td class="wt_50"></td>
-                            </tr>
+                            </tr> -->
                           <?php } ?>
                         </tbody>
                       </table>
@@ -243,7 +245,7 @@
                               </td>
                             </tr>
                           <?php $k++;  } } else{ ?>
-                            <tr>
+                            <!-- <tr>
                               <td>
                                 <input type="text" class="form-control form-control-sm" name="input[0][project_del_phase_descr]" value="" required>
                               </td>
@@ -254,7 +256,7 @@
                                 <input type="number" min="0" class="form-control form-control-sm  project_del_phase_amount" name="input[0][project_del_phase_amount]" value="" required>
                               </td>
                               <td class="wt_50"></td>
-                            </tr>
+                            </tr> -->
                           <?php } ?>
                         </tbody>
                       </table>
