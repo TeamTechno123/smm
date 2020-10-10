@@ -14,6 +14,18 @@
   </ul>
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
+    <?php
+      $wallet_amount = $this->Master_Model->get_sum($smm_res_company_id,'commission_amount','reseller_id',$smm_reseller_id,'','','','','smm_commission');
+      $redeem_amount = $this->Master_Model->get_sum($smm_res_company_id,'redeem_request_amount','reseller_id',$smm_reseller_id,'redeem_request_status','1','','','smm_redeem_request');
+      if(!$wallet_amount){ $wallet_amount = '0'; }
+      if(!$redeem_amount){ $redeem_amount = '0'; }
+      $wallet_balance = $wallet_amount - $redeem_amount;
+    ?>
+    <li class="nav-item">
+      <a class="nav-link" href="<?php echo base_url(); ?>Reseller/Res_Invoice/redeem_request">
+        Wallet Amount : <b>₹<?php echo $wallet_balance; ?></b>
+      </a>
+    </li>
     <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
           <i class="far fa-user"></i>
@@ -65,11 +77,11 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
         <?php if($reseller_info[0]['reseller_logo']){ ?>
-          <img src="<?php echo base_url() ?>assets/images/reseller/<?php echo $reseller_info[0]['reseller_logo'];  ?>" class="img-circle elevation-2" alt="User Image">
+          <img src="<?php echo $reseller_info[0]['reseller_logo'];  ?>" class="img-circle elevation-2" alt="User Image">
         <?php } ?>
       </div>
       <div class="info">
-        <a href="#" class="d-block"><?php echo $reseller_info[0]['reseller_name']; ?></a>
+        <a href="<?php echo base_url(); ?>Reseller/Res_User/profile" class="d-block"><?php echo $reseller_info[0]['reseller_name']; ?></a>
       </div>
     </div>
     <!-- Sidebar Menu -->
@@ -81,6 +93,32 @@
             <i class="nav-icon fas fa-th"></i>
             <p>
               Dashboard
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="<?php echo base_url(); ?>Reseller/Res_User/become_reseller" class="nav-link head">
+            <i class="nav-icon fas fa-user"></i>
+            <p>
+              Become Reseller
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a target="_blank" href="https://vcclhosting.com/" class="nav-link head">
+            <i class="nav-icon fas fa-tags"></i>
+            <p>
+              Buy Domain & Hosting
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="<?php echo base_url(); ?>Reseller/Res_Master/web_setup_request" class="nav-link head">
+            <i class="nav-icon fas fa-globe"></i>
+            <p>
+              Website Setup Request
             </p>
           </a>
         </li>
@@ -106,13 +144,19 @@
                 <p>My Packages</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a <?php if(isset($update_reseller_coupon)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Package/reseller_coupon" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Coupon</p>
+              </a>
+            </li>
 
           </ul>
         </li>
 
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link head">
-            <i class="nav-icon fas fa-user"></i>
+            <i class="nav-icon fas fa-users"></i>
             <p>
               Reseller Section
               <i class="right fas fa-angle-left"></i>
@@ -129,10 +173,46 @@
         </li>
 
         <li class="nav-item">
-          <a href="<?php echo base_url(); ?>Reseller/Res_Master/order_list" class="nav-link head">
+          <a href="<?php echo base_url(); ?>Reseller/Res_Invoice/order_list" class="nav-link head">
             <i class="nav-icon fas fa-th"></i>
             <p>Order</p>
           </a>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link head">
+            <i class="nav-icon fas fa-list"></i>
+            <p>
+              Invoice
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>Reseller/Res_Invoice/invoice_setting" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Invoice Setting</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>Reseller/Res_Invoice/invoice_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Invoice List(By Admin)</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>Reseller/Res_Invoice/invoice_to_cust_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Invoice List(To Customer)</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?php echo base_url(); ?>Reseller/Res_Invoice/commission_list" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Commission</p>
+              </a>
+            </li>
+          </ul>
         </li>
 
         <li class="nav-item has-treeview">
@@ -173,34 +253,20 @@
         </li>
 
 
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link head">
-            <i class="nav-icon fas fa-list"></i>
+
+
+        <li class="nav-item">
+          <a target="_blank" href="<?php echo base_url(); ?>Reseller/Res_Invoice/redeem_request" class="nav-link head">
+            <i class="nav-icon far fa-money-bill-alt"></i>
             <p>
-              Invoice
-              <i class="right fas fa-angle-left"></i>
+              Redeem Request
             </p>
           </a>
-          <ul class="nav nav-treeview" style="display: none;">
-            <li class="nav-item">
-              <a <?php if(isset($update_invoice_list)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Invoice/invoice_list" <?php } ?> class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Invoice List(Admin)</p>
-              </a>
-            </li>
-            <!-- <li class="nav-item">
-              <a <?php if(isset($update_invoice)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Invoice/invoice" <?php } ?> class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Add Invoice</p>
-              </a>
-            </li> -->
-
-          </ul>
         </li>
 
         <li class="nav-item">
           <a href="<?php echo base_url(); ?>Reseller/Res_Master/announcement" class="nav-link head">
-            <i class="nav-icon fas fa-th"></i>
+            <i class="nav-icon fas fa-bullhorn"></i>
             <p>Announcement</p>
           </a>
         </li>
@@ -220,16 +286,22 @@
                 <p>Web Setting</p>
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a <?php if(isset($update_slider)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Master/slider" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Slider</p>
               </a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a <?php if(isset($update_testimonial)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Master/testimonial" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Testimonial</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a <?php if(isset($update_blog)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Reseller/Res_Master/blog" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Blog</p>
               </a>
             </li>
           </ul>

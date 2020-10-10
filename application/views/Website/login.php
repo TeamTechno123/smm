@@ -63,11 +63,11 @@
         </div>
         <div class="col-md-6 text-right">
           <p class="mb-1">
-            <a href="<?php echo base_url(); ?>Sign-Up">Sign Up </a>
+            <a href="<?php echo base_url(); ?>SignUp">Sign Up </a>
           </p>
         </div>
       </div>
-      
+
       <div class="alert alert-danger p-2 msg_invalid" style="display:none" role="alert">
         Invalid Information
       </div>

@@ -18,7 +18,7 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12">
+          <!-- <div class="col-md-12 ">
             <div class="card <?php if(!isset($update)){ echo 'collapsed-card'; } ?> card-default">
               <div class="card-header">
                 <h3 class="card-title"> <?php if(isset($update)){ echo 'Update'; } else{ echo 'Add New'; } ?> Invoice</h3>
@@ -30,7 +30,6 @@
                   } ?>
                 </div>
               </div>
-              <!--  -->
               <div class="card-body px-0 py-0" <?php if(isset($update)){ echo 'style="display: block;"'; } else{ echo 'style="display: none;"'; } ?>>
                 <form class="input_form m-0" id="form_action" role="form" action="" method="post" enctype="multipart/form-data">
                   <div class="row p-4">
@@ -99,7 +98,6 @@
                                   <option value="<?php echo $list2->package_id; ?>" <?php if($list->package_id == $list2->package_id){ echo 'selected'; } if($list2->package_status == 0){ echo 'disabled'; } ?> gst_slab_per="<?php echo $list2->gst_slab_per; ?>" package_cost="<?php echo $list2->package_cost; ?>" ><?php echo $list2->package_name; ?></option>
                                   <?php } } ?>
                                 </select>
-                                <!-- <input type="text" class="form-control form-control-sm" name="input[<?php echo $k; ?>][invoice_item_name]" value="<?php echo $list->invoice_item_name; ?>" > -->
                               </td>
                               <td class="wt_125">
                                 <input type="number" min="1" step="1" class="form-control form-control-sm invoice_item_qty" name="input[<?php echo $k; ?>][invoice_item_qty]" value="<?php echo $list->invoice_item_qty; ?>" >
@@ -125,7 +123,6 @@
                                   <option value="<?php echo $list->package_id; ?>" <?php if($list->package_status == 0){ echo 'disabled'; } ?> gst_slab_per="<?php echo $list->gst_slab_per; ?>"  package_cost="<?php echo $list->package_cost; ?>"><?php echo $list->package_name; ?></option>
                                   <?php } } ?>
                                 </select>
-                                <!-- <input type="text" class="form-control form-control-sm" name="input[0][invoice_item_name]" value="" > -->
                               </td>
                               <td class="wt_125">
                                 <input type="number" min="1" step="1" class="form-control form-control-sm invoice_item_qty" name="input[0][invoice_item_qty]" value="" >
@@ -185,10 +182,7 @@
                   <div class="card-footer clearfix" style="display: block;">
                     <div class="row">
                       <div class="col-md-6 text-left">
-                        <!-- <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" name="invoice_status" id="invoice_status" value="0" <?php if(isset($invoice_info) && $invoice_info['invoice_status'] == 0){ echo 'checked'; } ?>>
-                          <label for="invoice_status" class="custom-control-label">Disable This Invoice</label>
-                        </div> -->
+
                       </div>
                       <div class="col-md-6 text-right">
                         <a href="<?php echo base_url(); ?>Finance/invoice" class="btn btn-sm btn-default px-4 mx-4">Cancel</a>
@@ -203,7 +197,7 @@
                 </form>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="col-md-12">
             <div class="card">
@@ -215,34 +209,36 @@
                   <thead>
                   <tr>
                     <th class="d-none">#</th>
-                    <th class="wt_50">Action</th>
+                    <!-- <th class="wt_50">Action</th> -->
                     <th class="wt_50">Invoice No</th>
-                    <th class="">Reseller</th>
-                    <th class="">Project</th>
+                    <th class="">Client (Reseller)</th>
+                    <th class="">Package</th>
                     <th class="wt_75">Date</th>
                     <!-- <th class="wt_75">Basic Amt</th> -->
                     <!-- <th class="wt_75">GST Amt</th> -->
                     <th class="wt_75">Total Amt</th>
                     <th class="wt_50">Status</th>
+                    <th class="wt_50">Print</th>
                   </tr>
                   </thead>
                   <tbody>
                     <?php if(isset($invoice_list)){
                     $i=0; foreach ($invoice_list as $list) { $i++;
-                      $reseller_info = $this->Master_Model->get_info_arr_fields3('reseller_name', '', 'reseller_id', $list->reseller_id, '', '', '', '', 'smm_reseller');
-                      $project_info = $this->Master_Model->get_info_arr_fields3('project_name', '', 'project_id', $list->project_id, '', '', '', '', 'smm_project');
+                      $reseller_info = $this->Master_Model->get_info_arr_fields3('reseller_name', '', 'reseller_id', $list->client_id, '', '', '', '', 'smm_reseller');
+                      $package_info = $this->Master_Model->get_info_arr_fields3('package_name', '', 'package_id', $list->package_id, '', '', '', '', 'smm_package');
+
                     ?>
                       <tr>
                         <td class="d-none"><?php echo $i; ?></td>
-                        <td>
+                        <!-- <td>
                           <div class="btn-group">
                             <a href="<?php echo base_url() ?>Finance/edit_invoice/<?php echo $list->invoice_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
                             <a href="<?php echo base_url() ?>Finance/delete_invoice/<?php echo $list->invoice_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Invoice');"><i class="fa fa-trash text-danger"></i></a>
                           </div>
-                        </td>
-                        <td><?php echo $list->invoice_no; ?></td>
+                        </td> -->
+                        <td><?php echo $list->invoice_no_prefix.''.$list->invoice_no; ?></td>
                         <td><?php if($reseller_info){ echo $reseller_info[0]['reseller_name']; } ?></td>
-                        <td><?php if($project_info){ echo $project_info[0]['project_name']; } ?></td>
+                        <td><?php if($package_info){ echo $package_info[0]['package_name']; } ?></td>
                         <td><?php echo $list->invoice_date; ?></td>
                         <!-- <td><?php echo $list->invoice_basic_amt; ?></td> -->
                         <!-- <td><?php echo $list->invoice_gst_amt; ?></td> -->
@@ -250,6 +246,9 @@
                         <td>
                           <?php if($list->invoice_status == 0){ echo '<span class="text-danger">UnPaid</span>'; }
                             else{ echo '<span class="text-success">Paid</span>'; } ?>
+                        </td>
+                        <td>
+                          <a  target="_blank" href="<?php echo base_url() ?>Finance/admin_invoice_print/<?php echo $list->invoice_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-print text-primary"></i></a>
                         </td>
                       </tr>
                     <?php } } ?>

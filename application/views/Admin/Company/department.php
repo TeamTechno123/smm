@@ -24,7 +24,7 @@
                   <?php if(!isset($update)){
                     echo '<button type="button" class="btn btn-sm btn-primary" data-card-widget="collapse">Add New</button>';
                   } else{
-                    echo '<a href="<?php base_url(); ?>Company/department" type="button" class="btn btn-sm btn-outline-info">Cancel Edit</a>';
+                    echo '<a href="'.base_url().'Company/department" type="button" class="btn btn-sm btn-outline-info">Cancel Edit</a>';
                   } ?>
                 </div>
               </div>
@@ -47,10 +47,11 @@
                     </div>
                     <div class="form-group col-md-8 offset-md-2 select_sm">
                       <label>Department Head</label>
-                      <select class="form-control select2" name="user_id" id="user_id" data-placeholder="Select Department Head" required>
+                      <select class="form-control select2" name="employee_id" id="employee_id" data-placeholder="Select Department Head" required>
                         <option value="">Select Department Head</option>
-                        <?php if(isset($user_list)){ foreach ($user_list as $list) { ?>
-                        <option value="<?php echo $list->user_id; ?>" <?php if(isset($department_info) && $department_info['user_id'] == $list->user_id){ echo 'selected'; } ?>><?php echo $list->user_name; ?></option>
+                        <option value="-1">Admin</option>
+                        <?php if(isset($employee_list)){ foreach ($employee_list as $list) { ?>
+                        <option value="<?php echo $list->employee_id; ?>" <?php if(isset($department_info) && $department_info['employee_id'] == $list->employee_id){ echo 'selected'; } ?>><?php echo $list->employee_name; ?></option>
                         <?php } } ?>
                       </select>
                     </div>
@@ -98,7 +99,7 @@
                   <tbody>
                     <?php if(isset($department_list)){
                        $i=0; foreach ($department_list as $list) { $i++;
-                      $user_details = $this->Master_Model->get_info_arr_fields('user_name','user_id', $list->user_id, 'user');
+                      $employee_details = $this->Master_Model->get_info_arr_fields('employee_name','employee_id', $list->employee_id, 'smm_employee');
                       // $role_details = $this->Master_Model->get_info_arr_fields('role_name','role_id', $list->role_id, 'role');
                     ?>
                       <tr>
@@ -110,7 +111,7 @@
                           </div>
                         </td>
                         <td><?php echo $list->department_name; ?></td>
-                        <td><?php if($user_details){ echo $user_details[0]['user_name']; } ?></td>
+                        <td><?php if($employee_details){ echo $employee_details[0]['employee_name']; } else{ echo 'Admin'; } ?></td>
 
                         <td>
                           <?php if($list->department_status == 0){ echo '<span class="text-danger">Inactive</span>'; }

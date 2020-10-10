@@ -28,22 +28,20 @@ class Emp_User extends CI_Controller{
       } else{
         $mobile = $this->input->post('mobile');
         $password = $this->input->post('password');
-        $login = $this->Reseller_Model->check_login($mobile, $password);
+        $login = $this->Employee_Model->check_login($mobile, $password);
         if($login == null){
           $this->session->set_flashdata('msg','login_error');
           header('location:'.base_url().'Emp_Panel/Emp_User');
         } else{
-          $this->session->set_userdata('smm_emp_id', $login[0]['reseller_id']);
+          $this->session->set_userdata('smm_emp_id', $login[0]['employee_id']);
           $this->session->set_userdata('smm_emp_company_id', $login[0]['company_id']);
-          $this->session->set_userdata('smm_addedby_type', $login[0]['reseller_added_type']);
-          $this->session->set_userdata('smm_addedby', $login[0]['reseller_addedby']);
-          // $this->session->set_userdata('branch_id', $login[0]['branch_id']);
+          $this->session->set_userdata('smm_emp_role_id', $login[0]['role_id']);
           header('location:'.base_url().'Emp_Panel/Emp_User/dashboard');
         }
       }
     }
     else{
-      header('location:'.base_url().'Employee/Emp_User/dashboard');
+      header('location:'.base_url().'Emp_Panel/Emp_User/logout');
     }
   }
 
@@ -56,7 +54,8 @@ class Emp_User extends CI_Controller{
     $smm_emp_id = $this->session->userdata('smm_emp_id');
     $smm_emp_company_id = $this->session->userdata('smm_emp_company_id');
     if($smm_emp_id == '' || $smm_emp_company_id == ''){ header('location:'.base_url().'Employee/Emp_User'); }
-
+    $employee_info = $this->Master_Model->get_info_arr_fields('employee_name, employee_lname, designation_id, employee_emp_id, office_shift_id, employee_image','employee_id', $smm_emp_id, 'smm_employee');
+    $designation_info = $this->Master_Model->get_info_arr_fields('*','designation_id', $employee_info[0]['designation_id'], 'smm_designation');
     // $data['reseller_cnt'] = $this->Master_Model->get_sum($smm_emp_company_id,'reseller_id','reseller_added_type','2','reseller_addedby',$smm_emp_id,'','','smm_reseller');
     //
     // $data['reseller_cnt'] = $this->Master_Model->get_count('reseller_id',$smm_emp_company_id,'reseller_added_type','2','reseller_addedby',$smm_emp_id,'','','smm_reseller');
@@ -65,6 +64,8 @@ class Emp_User extends CI_Controller{
     // $data['testimonial_cnt'] = $this->Master_Model->get_count('testimonial_id',$smm_emp_company_id,'testimonial_addedby_type','2','testimonial_addedby',$smm_emp_id,'','','smm_testimonial');
 
     // $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_emp_company_id,'','','','','','','project_id','ASC','smm_project');
+    $data['employee_info'] = $employee_info[0];
+    $data['designation_info'] = $designation_info[0];
     $data['page'] = 'Employee Dashboard';
     $this->load->view('Emp_Panel/Include/head', $data);
     $this->load->view('Emp_Panel/Include/navbar', $data);

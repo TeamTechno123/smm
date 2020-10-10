@@ -47,7 +47,7 @@
                           <select class="form-control select2 form-control-sm" name="project_id" id="project_id" data-placeholder="Select Project" required>
                             <option value="">Select Project</option>
                             <?php if(isset($project_list)){ foreach ($project_list as $list) { ?>
-                            <option value="<?php echo $list->project_id; ?>" <?php if(isset($ticket_info) && $ticket_info['project_id'] == $list->project_id){ echo 'selected'; } if($list->project_status == '0'){ echo 'disabled'; } ?>><?php echo $list->project_name; ?></option>
+                            <option value="<?php echo $list->project_id; ?>" <?php if(isset($ticket_info) && $ticket_info['project_id'] == $list->project_id){ echo 'selected'; } ?>><?php echo $list->project_name; ?></option>
                             <?php } } ?>
                           </select>
                         </div>

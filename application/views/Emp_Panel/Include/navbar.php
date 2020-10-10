@@ -3,7 +3,7 @@
   $smm_emp_company_id = $this->session->userdata('smm_emp_company_id');
   // $smm_role_id = $this->session->userdata('smm_role_id');
   $company_info = $this->Master_Model->get_info_arr_fields('company_name, company_shortname, company_logo','company_id', $smm_emp_company_id, 'company');
-  $reseller_info = $this->Master_Model->get_info_arr_fields('reseller_name, reseller_logo','reseller_id', $smm_emp_id, 'smm_reseller');
+  $employee_info = $this->Master_Model->get_info_arr_fields('employee_name, employee_lname, employee_image','employee_id', $smm_emp_id, 'smm_employee');
 ?>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   <!-- Left navbar links -->
@@ -17,7 +17,7 @@
     <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
           <i class="far fa-user"></i>
-          <?php echo $reseller_info[0]['reseller_name']; ?>
+          <?php echo $employee_info[0]['employee_name'].' '.$employee_info[0]['employee_lname']; ?>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <!-- <div class="dropdown-item"> -->
@@ -64,12 +64,12 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <?php if($reseller_info[0]['reseller_logo']){ ?>
-          <img src="<?php echo base_url() ?>assets/images/reseller/<?php echo $reseller_info[0]['reseller_logo'];  ?>" class="img-circle elevation-2" alt="User Image">
+        <?php if($employee_info[0]['employee_image']){ ?>
+          <img src="<?php echo base_url() ?>assets/images/employee/<?php echo $employee_info[0]['employee_image'];  ?>" class="img-circle elevation-2" alt="User Image">
         <?php } ?>
       </div>
       <div class="info">
-        <a href="#" class="d-block"><?php echo $reseller_info[0]['reseller_name']; ?></a>
+        <a href="#" class="d-block"><?php echo $employee_info[0]['employee_name'].' '.$employee_info[0]['employee_lname']; ?></a>
       </div>
     </div>
     <!-- Sidebar Menu -->
@@ -112,6 +112,12 @@
             </p>
           </a>
           <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+              <a  href="<?php echo base_url(); ?>Emp_Panel/Emp_Project/project" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Projects</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a  href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/progress" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>

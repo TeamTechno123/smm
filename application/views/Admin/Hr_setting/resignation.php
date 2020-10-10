@@ -41,7 +41,7 @@
                             <select class="form-control select2 form-control-sm" name="employee_id" id="employee_id" data-placeholder="Select Employee" required>
                               <option value="">Select Employee</option>
                               <?php if(isset($employee_list)){ foreach ($employee_list as $list) { ?>
-                              <option value="<?php echo $list->user_id; ?>" <?php if(isset($resignation_info) && $resignation_info['employee_id'] == $list->user_id){ echo 'selected'; } if($list->user_status == '0'){ echo 'disabled'; } ?>><?php echo $list->user_name.' '.$list->user_lname; ?></option>
+                              <option value="<?php echo $list->employee_id; ?>" <?php if(isset($resignation_info) && $resignation_info['employee_id'] == $list->employee_id){ echo 'selected'; } if($list->employee_status == '0'){ echo 'disabled'; } ?>><?php echo $list->employee_name.' '.$list->employee_lname; ?></option>
                               <?php } } ?>
                             </select>
                           </div>
@@ -108,7 +108,7 @@
                     <?php if(isset($resignation_list)){
                      $i=0; foreach ($resignation_list as $list) { $i++;
                        // $department_info = $this->Master_Model->get_info_arr_fields3('department_name', '', 'department_id', $list->department_id, '', '', '', '', 'smm_department');
-                       $user_info = $this->Master_Model->get_info_arr_fields3('user_name,user_lname', '', 'user_id', $list->employee_id, '', '', '', '', 'user');
+                       $employee_info = $this->Master_Model->get_info_arr_fields3('employee_name,employee_lname', '', 'employee_id', $list->employee_id, '', '', '', '', 'smm_employee');
                     ?>
                     <tr>
                       <td class="d-none"><?php echo $i; ?></td>
@@ -118,7 +118,7 @@
                           <a href="<?php echo base_url() ?>Hr_setting/delete_resignation/<?php echo $list->resignation_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Resignation Information');"><i class="fa fa-trash text-danger"></i></a>
                         </div>
                       </td>
-                      <td><?php if($user_info) { echo $user_info[0]['user_name'].' '.$user_info[0]['user_lname']; } ?></td>
+                      <td><?php if($employee_info) { echo $employee_info[0]['employee_name'].' '.$employee_info[0]['employee_lname']; } ?></td>
                       <td><?php echo $list->resignation_date; ?></td>
                       <td><?php echo $list->resignation_notice_date; ?></td>
                       <!-- <td>

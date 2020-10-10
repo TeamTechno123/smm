@@ -118,6 +118,19 @@
                           <label>Discription</label>
                           <textarea class="textarea form-control form-control-sm" rows="3" name="package_descr" id="package_descr" placeholder="Enter Discription" required><?php if(isset($package_info)){ echo $package_info['package_descr']; } ?></textarea>
                         </div>
+                        <div class="col-md-6">
+                          <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" name="package_is_refundable" id="package_is_refundable" value="1" <?php if(isset($package_info) && $package_info['package_is_refundable'] == 1){ echo 'checked'; } ?>>
+                            <label for="package_is_refundable" class="custom-control-label">Package Refundable</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="custom-control custom-checkbox">
+                            <input class="custom-control-input" type="checkbox" name="package_is_renewable" id="package_is_renewable" value="1" <?php if(isset($package_info) && $package_info['package_is_renewable'] == 1){ echo 'checked'; } ?>>
+                            <label for="package_is_renewable" class="custom-control-label">Package Renewable</label>
+                          </div>
+                        </div>
+
                       </div>
                     </div>
 
