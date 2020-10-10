@@ -168,6 +168,7 @@ class Company extends CI_Controller{
     $data['branch_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','branch_name','ASC','smm_branch');
     $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_id','ASC','user');
     $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','department_id','ASC','smm_department');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['page'] = 'Edit Department';
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);

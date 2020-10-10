@@ -42,7 +42,7 @@
                         </div>
                       </div>
                       <div class="form-group col-md-12 ">
-                        <label>Discription</label>
+                        <label>Description</label>
                         <textarea class="textarea form-control form-control-sm" name="policy_desc" id="policy_desc" rows="3" required><?php if(isset($policy_info)){ echo $policy_info['policy_desc']; } ?></textarea>
                       </div>
                       <div class="form-group col-md-4">

@@ -740,6 +740,92 @@
 
 
 
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link head">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Report
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview" style="display: none;">
+
+            <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/order_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Order Report</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/invoice_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Invoice Report</p>
+              </a>
+            </li>
+
+             <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/payslip_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Payslip Report</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/attendance_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Attendance Report</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/project_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Project Report</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/task_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Task Report</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/employee_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Employee Report</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/account_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Account Statement </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/expence_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Expence Report </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Report/income_report" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Income Report </p>
+              </a>
+            </li>
+
+
+          </ul>
+        </li>
+
+
+
 
 
 

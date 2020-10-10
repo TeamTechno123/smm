@@ -42,11 +42,11 @@
                           </div>
                           <div class="form-group col-md-6 ">
                             <label>Start Date</label>
-                            <input type="text" class="form-control form-control-sm" name="announcement_start_date" value="<?php if(isset($announcement_info)){ echo $announcement_info['announcement_start_date']; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Announcement Start Date" required>
+                            <input type="text" class="form-control form-control-sm" name="announcement_start_date" value="<?php if(isset($announcement_info)){ echo $announcement_info['announcement_start_date']; } ?>" id="min_date1" data-target="#min_date1" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Announcement Start Date" required>
                           </div>
                           <div class="form-group col-md-6 ">
                             <label>End Date</label>
-                            <input type="text" class="form-control form-control-sm" name="announcement_end_date" value="<?php if(isset($announcement_info)){ echo $announcement_info['announcement_end_date']; } ?>" id="date2" data-target="#date2" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Announcement End Date" required>
+                            <input type="text" class="form-control form-control-sm" name="announcement_end_date" value="<?php if(isset($announcement_info)){ echo $announcement_info['announcement_end_date']; } ?>" id="min_date2" data-target="#min_date2" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Announcement End Date" required>
                           </div>
                           <!-- <div class="form-group col-md-12 select_sm">
                             <label>Branch</label>
@@ -86,13 +86,13 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group col-md-12 ">
-                          <label>Discription</label>
+                          <label>Description</label>
                           <textarea class="textarea form-control form-control-sm" name="announcement_desc" id="announcement_desc" rows="3" required><?php if(isset($announcement_info)){ echo $announcement_info['announcement_desc']; } ?></textarea>
                         </div>
-                        <div class="form-group col-md-12 ">
+                        <!-- <div class="form-group col-md-12 ">
                           <label>Summery</label>
-                          <textarea class="form-control form-control-sm" name="announcement_summery" id="announcement_summery" rows="3" required><?php if(isset($announcement_info)){ echo $announcement_info['announcement_summery']; } ?></textarea>
-                        </div>
+                          <textarea class="form-control form-control-sm" name="announcement_summery" id="announcement_summery" rows="3" ><?php if(isset($announcement_info)){ echo $announcement_info['announcement_summery']; } ?></textarea>
+                        </div> -->
 
                       </div>
 

@@ -51,8 +51,8 @@
                         </select>
                       </div>
                       <div class="form-group col-md-6 ">
-                        <label>Sess</label>
-                        <input type="number" min="0" max="100" class="form-control form-control-sm" name="gst_slab_sess" id="gst_slab_sess" value="<?php if(isset($gst_slab_info)){ echo $gst_slab_info['gst_slab_sess']; } ?>" placeholder="Enter Sess" required>
+                        <label>Cess</label>
+                        <input type="number" min="0" max="100" class="form-control form-control-sm" name="gst_slab_sess" id="gst_slab_sess" value="<?php if(isset($gst_slab_info)){ echo $gst_slab_info['gst_slab_sess']; } ?>" placeholder="Enter Cess" required>
                       </div>
                     </div>
                     <div class="card-footer clearfix" style="display: block;">

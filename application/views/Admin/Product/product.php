@@ -59,7 +59,7 @@
                     </div>
                     <div class="form-group col-md-6">
                       <label>HSN / SAC Code</label>
-                      <input type="text" class="form-control form-control-sm" name="product_hsn_code" id="product_hsn_code" value="<?php if(isset($product_info)){ echo $product_info['product_hsn_code']; } ?>"  placeholder="Enter HSN / SAC Code" required >
+                      <input type="number"  min="1000" max="99999999" step="1" class="form-control form-control-sm" name="product_hsn_code" id="product_hsn_code" value="<?php if(isset($product_info)){ echo $product_info['product_hsn_code']; } ?>"  placeholder="Enter HSN / SAC Code" required >
                     </div>
 
 
