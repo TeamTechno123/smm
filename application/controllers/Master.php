@@ -10,12 +10,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     public function index(){
 
     }
-
-
-
-
-
-
 /********************************* Order Status ***********************************/
 
   // Add Order Status...

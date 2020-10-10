@@ -98,7 +98,7 @@
       <td   colspan="6" >
 
           <div class="" style="text-align:center;">
-                          <h3 style="font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif; font-size:28px; font-weight:bold; text-transform:uppercase; margin-top:5px; margin-bottom:3px;" > Lawprotectors</h3>
+                          <h3 style="font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif; font-size:28px; font-weight:bold; text-transform:uppercase; margin-top:5px; margin-bottom:3px;" > SMM Resellor</h3>
                             <p style="margin-bottom:5px; line-height:20px; font-family: Calibri, Candara, Segoe, 'Segoe UI'; font-size: 16px; margin-top:5px;" > <b> Rajarampuri Kolhapur</p>
                             <p  style="margin-bottom:5px; font-family: Calibri, Candara, Segoe, 'Segoe UI'; font-size: 16px;">Mobile No: 9876543210 &nbsp; | &nbsp; Email : abc@gmail.com</p>
                             <p  style="margin-bottom:5px; font-family: Calibri, Candara, Segoe, 'Segoe UI'; font-size: 16px;"> GST No: ABCD1234FGHT &nbsp; | &nbsp; Website : www.abc.com </p>
@@ -109,7 +109,7 @@
     <tr>
       <td colspan="4" Width="60%" >
         <p>To</p>
-        <p> <b>Law Protectors IPR Consultant LLP</b>  </p>
+        <p> <b>Swapnil Kamble</b>  </p>
         <p> <b>Address</b> : “Dhumal Niwas” Behind Kamla Nehru Hospital, Near Barne School,Pune</p>
       </td>
       <td colspan="2" Width="40%" valign="top">
@@ -179,11 +179,11 @@
     </style>
     <tr>
       <th style="width: 10px; text-align:center;">Sr.No.</th>
-      <th style="text-align:center;"> DESCRIPTION</th>
-      <th style="text-align:center;">HSN/SAC</th>
+      <th style="text-align:center;"> Item</th>
+      <th style="text-align:center;">Tax Rate</th>
       <th style="text-align:center;" Width="9%" >QTY </th>
-      <th style="text-align:center;" >RATE</th>
-      <th style="text-align:center;" >TOTAL</th>
+      <th style="text-align:center;" >Price</th>
+      <th style="text-align:center;" >SUB TOTAL</th>
     </tr>
     <tr>
       <td style="text-align:center;">1</td>
@@ -199,7 +199,7 @@
         <p><b>Total</b> : 1000</p> <hr style="margin-left:-10px;">
         <p><b>CGST 9% </b> : 100</p>  <hr style="margin-left:-10px;">
         <p><b>SGST 9%</b> : 100</p>  <hr style="margin-left:-10px;">
-        <p><b>Rounding</b> : 000 </p>  <hr style="margin-left:-10px;">
+        <p><b>IGST 18%</b> : 200 </p>  <hr style="margin-left:-10px;">
         <p><b>Total Amount</b> : 1200 </p>
       </td>
     </tr>
