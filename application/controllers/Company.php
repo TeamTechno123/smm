@@ -129,7 +129,7 @@ class Company extends CI_Controller{
       header('location:'.base_url().'Company/department');
     }
     $data['branch_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','branch_name','ASC','smm_branch');
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_id','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','department_id','ASC','smm_department');
     $data['page'] = 'Department';
     $this->load->view('Admin/Include/head', $data);
@@ -743,10 +743,10 @@ class Company extends CI_Controller{
 
     $this->form_validation->set_rules('become_reseller_possition', 'Become Reseller Name', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      $become_reseller_status = $this->input->post('become_reseller_status');
-      if(!isset($become_reseller_status)){ $become_reseller_status = '1'; }
+      // $become_reseller_status = $this->input->post('become_reseller_status');
+      // if(!isset($become_reseller_status)){ $become_reseller_status = '1'; }
       $save_data = $_POST;
-      $save_data['become_reseller_status'] = $become_reseller_status;
+      // $save_data['become_reseller_status'] = $become_reseller_status;
       $save_data['company_id'] = $smm_company_id;
       $save_data['become_reseller_addedby'] = $smm_user_id;
       $become_reseller_id = $this->Master_Model->save_data('smm_become_reseller', $save_data);
@@ -789,13 +789,13 @@ class Company extends CI_Controller{
     $smm_role_id = $this->session->userdata('smm_role_id');
     if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
 
-    $this->form_validation->set_rules('become_reseller_possition', 'Become Reseller Name', 'trim|required');
+    $this->form_validation->set_rules('become_reseller_descr', 'Become Reseller Name', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      $become_reseller_status = $this->input->post('become_reseller_status');
-      if(!isset($become_reseller_status)){ $become_reseller_status = '1'; }
+      // $become_reseller_status = $this->input->post('become_reseller_status');
+      // if(!isset($become_reseller_status)){ $become_reseller_status = '1'; }
       $update_data = $_POST;
       unset($update_data['old_become_reseller_img']);
-      $update_data['become_reseller_status'] = $become_reseller_status;
+      // $update_data['become_reseller_status'] = $become_reseller_status;
       $update_data['become_reseller_addedby'] = $smm_user_id;
       $this->Master_Model->update_info('become_reseller_id', $become_reseller_id, 'smm_become_reseller', $update_data);
 
@@ -860,6 +860,90 @@ class Company extends CI_Controller{
     $this->session->set_flashdata('delete_success','success');
     header('location:'.base_url().'Company/become_reseller');
   }
+
+/********************************** Mail Setting Information *********************************/
+
+  // // Add Mail Setting...
+  // public function mail_setting(){
+  //   $smm_user_id = $this->session->userdata('smm_user_id');
+  //   $smm_company_id = $this->session->userdata('smm_company_id');
+  //   $smm_role_id = $this->session->userdata('smm_role_id');
+  //   if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+  //
+  //   $this->form_validation->set_rules('mail_setting_type', 'Mail Setting Name', 'trim|required');
+  //   if ($this->form_validation->run() != FALSE) {
+  //     $mail_setting_status = $this->input->post('mail_setting_status');
+  //     if(!isset($mail_setting_status)){ $mail_setting_status = '1'; }
+  //     $save_data = $_POST;
+  //     $save_data['mail_setting_status'] = $mail_setting_status;
+  //     $save_data['company_id'] = $smm_company_id;
+  //     $save_data['mail_setting_addedby'] = $smm_user_id;
+  //     $user_id = $this->Master_Model->save_data('smm_mail_setting', $save_data);
+  //
+  //     $this->session->set_flashdata('save_success','success');
+  //     header('location:'.base_url().'Company/mail_setting');
+  //   }
+  //
+  //   $data['mail_setting_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','mail_setting_id','ASC','smm_mail_setting');
+  //   $data['page'] = 'Mail Setting';
+  //   $this->load->view('Admin/Include/head', $data);
+  //   $this->load->view('Admin/Include/navbar', $data);
+  //   $this->load->view('Admin/Company/mail_setting', $data);
+  //   $this->load->view('Admin/Include/footer', $data);
+  // }
+
+  // Edit/Update Mail Setting...
+  public function edit_mail_setting($mail_setting_id = null){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('mail_setting_type', 'Mail Setting Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+
+      // $mail_setting_status = $this->input->post('mail_setting_status');
+      // if(!isset($mail_setting_status)){ $mail_setting_status = '1'; }
+      $update_data = $_POST;
+      // $update_data['mail_setting_status'] = $mail_setting_status;
+      $update_data['mail_setting_addedby'] = $smm_user_id;
+      $this->Master_Model->update_info('mail_setting_id', $mail_setting_id, 'smm_mail_setting', $update_data);
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Company/edit_mail_setting/'.$mail_setting_id);
+    }
+
+    $mail_setting_info = $this->Master_Model->get_info_arr('mail_setting_id',$mail_setting_id,'smm_mail_setting');
+    if(!$mail_setting_info){ header('location:'.base_url().'Company/mail_setting'); }
+    $data['update'] = 'update';
+    $data['update_mail_setting'] = 'update';
+    $data['mail_setting_info'] = $mail_setting_info[0];
+    $data['act_link'] = base_url().'Company/edit_mail_setting/'.$mail_setting_id;
+
+    $data['mail_setting_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','mail_setting_id','ASC','smm_mail_setting');
+    $data['page'] = 'Edit Mail Setting';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Company/mail_setting', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // //Delete Mail Setting...
+  // public function delete_mail_setting($mail_setting_id){
+  //   $smm_user_id = $this->session->userdata('smm_user_id');
+  //   $smm_company_id = $this->session->userdata('smm_company_id');
+  //   $smm_role_id = $this->session->userdata('smm_role_id');
+  //   if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+  //   $this->Master_Model->delete_info('mail_setting_id', $mail_setting_id, 'smm_mail_setting');
+  //   $this->session->set_flashdata('delete_success','success');
+  //   header('location:'.base_url().'Company/mail_setting');
+  // }
+
+
+
+
+
+
 
 /****************************************************************************************/
 /*                                 Coupon Menu Forms                                   */

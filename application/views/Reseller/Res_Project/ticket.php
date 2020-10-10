@@ -98,7 +98,7 @@
                         <div class="form-group col-md-4">
                         <?php if(isset($ticket_info) && $ticket_info['ticket_image']){ ?>
                             <input type="hidden" name="old_ticket_image" value="<?php echo $ticket_info['ticket_image']; ?>">
-                            <img width="150px" src="<?php echo base_url(); ?>assets/images/ticket/<?php echo $ticket_info['ticket_image']; ?>" alt="">
+                            <img width="150px" src="<?php echo $ticket_info['ticket_image']; ?>" alt="">
                         <?php } ?>
                         </div>
 

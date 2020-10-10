@@ -557,13 +557,23 @@ class Product extends CI_Controller{
 
     $this->form_validation->set_rules('package_name', 'Package Name', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      $package_status = $this->input->post('package_status');
-      if(!isset($package_status)){ $package_status = '1'; }
+
       $save_data = $_POST;
       unset($save_data['files']);
       unset($save_data['input']);
       unset($save_data['package_feature_name']);
+      $package_status = $this->input->post('package_status');
+      if(!isset($package_status)){ $package_status = '1'; }
       $save_data['package_status'] = $package_status;
+
+      $package_is_refundable = $this->input->post('package_is_refundable');
+      if(!isset($package_is_refundable)){ $package_is_refundable = '0'; }
+      $save_data['package_is_refundable'] = $package_is_refundable;
+
+      $package_is_renewable = $this->input->post('package_is_renewable');
+      if(!isset($package_is_renewable)){ $package_is_renewable = '0'; }
+      $save_data['package_is_renewable'] = $package_is_renewable;
+
       $save_data['company_id'] = $smm_company_id;
       $save_data['package_addedby'] = $smm_user_id;
       $package_id = $this->Master_Model->save_data('smm_package', $save_data);
@@ -654,14 +664,25 @@ class Product extends CI_Controller{
 
     $this->form_validation->set_rules('package_name', 'Package Name', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      $package_status = $this->input->post('package_status');
-      if(!isset($package_status)){ $package_status = '1'; }
+
       $update_data = $_POST;
       unset($update_data['files']);
       unset($update_data['input']);
       unset($update_data['old_package_image']);
       unset($update_data['package_feature_name']);
+      
+      $package_status = $this->input->post('package_status');
+      if(!isset($package_status)){ $package_status = '1'; }
       $update_data['package_status'] = $package_status;
+
+      $package_is_refundable = $this->input->post('package_is_refundable');
+      if(!isset($package_is_refundable)){ $package_is_refundable = '0'; }
+      $save_data['package_is_refundable'] = $package_is_refundable;
+
+      $package_is_renewable = $this->input->post('package_is_renewable');
+      if(!isset($package_is_renewable)){ $package_is_renewable = '0'; }
+      $save_data['package_is_renewable'] = $package_is_renewable;
+
       $update_data['package_addedby'] = $smm_user_id;
       $this->Master_Model->update_info('package_id', $package_id, 'smm_package', $update_data);
 

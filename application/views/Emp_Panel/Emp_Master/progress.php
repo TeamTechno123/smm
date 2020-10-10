@@ -20,7 +20,7 @@
         <div class="row">
         <div class="col-md-12">
            <?php include('project_menu.php'); ?>
-        </div>         
+        </div>
           <div class="col-md-12">
             <div class="card card-default">
               <div class="card-header">
@@ -39,7 +39,7 @@
                     <div class="col-md-8">
                       <div class="card p-4">
                       <div class="row">
-                        
+
                           <div class="col-sm-6">
                           <div class="progress">
                             <div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
@@ -69,15 +69,15 @@
                     <div class="col-md-4">
                        <?php include('project_details.php'); ?>
                     </div>
-                   
-   
+
+
                   </div>
-                  
+
                 </form>
               </div>
             </div>
 
-            
+
           </div>
 
       </div>

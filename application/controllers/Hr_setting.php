@@ -1892,7 +1892,7 @@ class Hr_setting extends CI_Controller{
       header('location:'.base_url().'Hr_setting/holiday');
     }
     $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','department_status','1','department_name','ASC','smm_department');
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','user_status','1','user_name','ASC','user');
+    // $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','user_status','1','user_name','ASC','user');
 
     $data['holiday_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','holiday_id','DESC','smm_holiday');
     $data['page'] = 'Holiday';
@@ -1991,7 +1991,7 @@ class Hr_setting extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Hr_setting/award');
     }
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['award_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','award_type_name','ASC','smm_award_type');
 
     $data['award_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','award_id','DESC','smm_award');
@@ -2048,7 +2048,7 @@ class Hr_setting extends CI_Controller{
     $data['update_award'] = 'update';
     $data['award_info'] = $award_info[0];
     $data['act_link'] = base_url().'Hr_setting/edit_award/'.$award_id;
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['award_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','award_type_name','ASC','smm_award_type');
 
     $data['award_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','award_id','DESC','smm_award');
@@ -2097,7 +2097,7 @@ class Hr_setting extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Hr_setting/transfer');
     }
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','department_name','ASC','smm_department');
 
     $data['transfer_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','transfer_id','DESC','smm_transfer');
@@ -2134,7 +2134,7 @@ class Hr_setting extends CI_Controller{
     $data['update_transfer'] = 'update';
     $data['transfer_info'] = $transfer_info[0];
     $data['act_link'] = base_url().'Hr_setting/edit_transfer/'.$transfer_id;
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','department_name','ASC','smm_department');
 
     $data['transfer_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','transfer_id','DESC','smm_transfer');
@@ -2179,7 +2179,7 @@ class Hr_setting extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Hr_setting/resignation');
     }
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','department_name','ASC','smm_department');
 
     $data['resignation_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','resignation_id','DESC','smm_resignation');
@@ -2215,7 +2215,7 @@ class Hr_setting extends CI_Controller{
     $data['update_resignation'] = 'update';
     $data['resignation_info'] = $resignation_info[0];
     $data['act_link'] = base_url().'Hr_setting/edit_resignation/'.$resignation_id;
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','department_name','ASC','smm_department');
 
     $data['resignation_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','resignation_id','DESC','smm_resignation');
@@ -2261,7 +2261,7 @@ class Hr_setting extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Hr_setting/travel');
     }
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['travel_arr_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','travel_arr_type_name','ASC','smm_travel_arr_type');
 
     $data['travel_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','travel_id','DESC','smm_travel');
@@ -2297,7 +2297,7 @@ class Hr_setting extends CI_Controller{
     $data['update_travel'] = 'update';
     $data['travel_info'] = $travel_info[0];
     $data['act_link'] = base_url().'Hr_setting/edit_travel/'.$travel_id;
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['travel_arr_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','travel_arr_type_name','ASC','smm_travel_arr_type');
 
     $data['travel_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','travel_id','DESC','smm_travel');
@@ -2342,7 +2342,7 @@ class Hr_setting extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Hr_setting/promotion');
     }
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['designation_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','designation_name','ASC','smm_designation');
 
     $data['promotion_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','promotion_id','DESC','smm_promotion');
@@ -2378,7 +2378,7 @@ class Hr_setting extends CI_Controller{
     $data['update_promotion'] = 'update';
     $data['promotion_info'] = $promotion_info[0];
     $data['act_link'] = base_url().'Hr_setting/edit_promotion/'.$promotion_id;
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['designation_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','designation_name','ASC','smm_designation');
 
     $data['promotion_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','promotion_id','DESC','smm_promotion');
@@ -2443,7 +2443,7 @@ class Hr_setting extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Hr_setting/complaint');
     }
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     // $data['complaint_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','complaint_type_name','ASC','smm_complaint_type');
 
     $data['complaint_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','complaint_id','DESC','smm_complaint');
@@ -2500,7 +2500,7 @@ class Hr_setting extends CI_Controller{
     $data['update_complaint'] = 'update';
     $data['complaint_info'] = $complaint_info[0];
     $data['act_link'] = base_url().'Hr_setting/edit_complaint/'.$complaint_id;
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     // $data['complaint_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','complaint_type_name','ASC','smm_complaint_type');
 
     $data['complaint_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','complaint_id','DESC','smm_complaint');
@@ -2570,7 +2570,7 @@ class Hr_setting extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Hr_setting/warning');
     }
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['warning_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','warning_type_name','ASC','smm_warning_type');
 
     $data['warning_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','warning_id','DESC','smm_warning');
@@ -2627,7 +2627,7 @@ class Hr_setting extends CI_Controller{
     $data['update_warning'] = 'update';
     $data['warning_info'] = $warning_info[0];
     $data['act_link'] = base_url().'Hr_setting/edit_warning/'.$warning_id;
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['warning_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','warning_type_name','ASC','smm_warning_type');
 
     $data['warning_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','warning_id','DESC','smm_warning');
@@ -2696,7 +2696,7 @@ class Hr_setting extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Hr_setting/termination');
     }
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['termination_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','termination_type_name','ASC','smm_termination_type');
 
     $data['termination_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','termination_id','DESC','smm_termination');
@@ -2753,7 +2753,7 @@ class Hr_setting extends CI_Controller{
     $data['update_termination'] = 'update';
     $data['termination_info'] = $termination_info[0];
     $data['act_link'] = base_url().'Hr_setting/edit_termination/'.$termination_id;
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['termination_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','termination_type_name','ASC','smm_termination_type');
 
     $data['termination_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','termination_id','DESC','smm_termination');
@@ -2804,7 +2804,7 @@ class Hr_setting extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Hr_setting/employee_exit');
     }
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['employee_exit_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_exit_type_name','ASC','smm_employee_exit_type');
 
     $data['employee_exit_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_exit_id','DESC','smm_employee_exit');
@@ -2840,7 +2840,7 @@ class Hr_setting extends CI_Controller{
     $data['update_employee_exit'] = 'update';
     $data['employee_exit_info'] = $employee_exit_info[0];
     $data['act_link'] = base_url().'Hr_setting/edit_employee_exit/'.$employee_exit_id;
-    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','is_admin','0','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['employee_exit_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_exit_type_name','ASC','smm_employee_exit_type');
 
     $data['employee_exit_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_exit_id','DESC','smm_employee_exit');

@@ -177,8 +177,8 @@
                           </div>
                         </td>
                         <td><?php echo $list->project_revision_title; ?></td>
-                        <td><?php if($project_info){ echo $project_info[0]['project_name']; } ?></td>
                         <td><?php if($project_revision_category_info){ echo $project_revision_category_info[0]['project_revision_category_name']; } ?></td>
+                        <td><?php if($project_info){ echo $project_info[0]['project_name']; } ?></td>
                         <td><?php echo $list->project_revision_date; ?></td>
 
                       </tr>

@@ -23,27 +23,19 @@ class Res_Project extends CI_Controller{
   }
 
   // Edit/Update Project...
-  public function view_project($project_id){
+  public function project_details($project_id = null){
     $smm_reseller_id = $this->session->userdata('smm_reseller_id');
     $smm_res_company_id = $this->session->userdata('smm_res_company_id');
     if($smm_reseller_id == '' || $smm_res_company_id == ''){ header('location:'.base_url().'Reseller/Res_User'); }
 
     $project_info = $this->Master_Model->get_info_arr('project_id',$project_id,'smm_project');
     if(!$project_info){ header('location:'.base_url().'Reseller/Res_Project/project'); }
-    $data['update'] = 'update';
-    $data['update_project'] = 'update';
-    $data['project_info'] = $project_info[0];
-    $data['act_link'] = base_url().'Reseller/Res_Project/edit_project/'.$project_id;
-    $data['client_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'','','','','','','client_name','ASC','smm_client');
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'is_admin','0','','','','','user_name','ASC','user');
-    $data['project_file_list'] = $this->Master_Model->get_list_by_id3('','project_id',$project_id,'','','','','project_file_id','DESC','smm_project_file');
-    $data['project_del_phase_list'] = $this->Master_Model->get_list_by_id3('','project_id',$project_id,'','','','','project_del_phase_id','ASC','smm_project_del_phase');
 
-    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'','','','','','','project_id','ASC','smm_project');
-    $data['page'] = 'Edit Project';
+    $data['project_info'] = $project_info[0];
+    $data['page'] = 'Project Details';
     $this->load->view('Reseller/Include/head', $data);
     $this->load->view('Reseller/Include/navbar', $data);
-    $this->load->view('Reseller/Res_Project/project', $data);
+    $this->load->view('Reseller/Res_Project/project_details', $data);
     $this->load->view('Reseller/Include/footer', $data);
   }
 
@@ -77,7 +69,7 @@ class Res_Project extends CI_Controller{
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $this->upload->initialize($config); // if upload library autoloaded
         if ($this->upload->do_upload('ticket_image') && $ticket_id && $image_name && $ext && $filename){
-          $ticket_image_up['ticket_image'] =  $image_name.'.'.$ext;
+          $ticket_image_up['ticket_image'] =  base_url().'assets/images/ticket/'.$image_name.'.'.$ext;
           $this->Master_Model->update_info('ticket_id', $ticket_id, 'smm_ticket', $ticket_image_up);
           $this->session->set_flashdata('upload_success','File Uploaded Successfully');
         }
@@ -124,9 +116,9 @@ class Res_Project extends CI_Controller{
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         $this->upload->initialize($config); // if upload library autoloaded
         if ($this->upload->do_upload('ticket_image') && $ticket_id && $image_name && $ext && $filename){
-          $ticket_image_up['ticket_image'] =  $image_name.'.'.$ext;
+          $ticket_image_up['ticket_image'] =  base_url().'assets/images/ticket/'.$image_name.'.'.$ext;
           $this->Master_Model->update_info('ticket_id', $ticket_id, 'smm_ticket', $ticket_image_up);
-          if($_POST['old_ticket_img']){ unlink("assets/images/ticket/".$_POST['old_ticket_img']); }
+          if($_POST['old_ticket_img']){ unlink("".$_POST['old_ticket_img']); }
           $this->session->set_flashdata('upload_success','File Uploaded Successfully');
         }
         else{
@@ -218,7 +210,7 @@ class Res_Project extends CI_Controller{
           $this->upload->initialize($config);
           $task_file_name = $_POST['task_file_name'][$i];
           if($this->upload->do_upload('task_file_image') && $filename && $ext ){
-            $file_data['task_file_image'] = $image_name.'.'.$ext;
+            $file_data['task_file_image'] = base_url().'assets/images/task/'.$image_name.'.'.$ext;
             $file_data['task_id'] = $task_id;
             $file_data['company_id'] = $smm_res_company_id;
             $file_data['task_file_name'] = $task_file_name;
@@ -284,7 +276,7 @@ class Res_Project extends CI_Controller{
           $this->upload->initialize($config);
           $task_file_name = $_POST['task_file_name'][$i];
           if($this->upload->do_upload('task_file_image') && $filename && $ext ){
-            $file_data['task_file_image'] = $image_name.'.'.$ext;
+            $file_data['task_file_image'] = base_url().'assets/images/task/'.$image_name.'.'.$ext;
             $file_data['task_id'] = $task_id;
             $file_data['company_id'] = $smm_res_company_id;
             $file_data['task_file_name'] = $task_file_name;
@@ -327,7 +319,7 @@ class Res_Project extends CI_Controller{
     $task_file_info = $this->Master_Model->get_info_arr_fields('task_file_image, task_file_id', 'task_file_id', $task_file_id, 'smm_task_file');
     if($task_file_info){
       $task_file_image = $task_file_info[0]['task_file_image'];
-      if($task_file_image){ unlink("assets/images/task/".$task_file_image); }
+      if($task_file_image){ unlink("".$task_file_image); }
     }
     $this->Master_Model->delete_info('task_file_id', $task_file_id, 'smm_task_file');
   }
@@ -379,7 +371,7 @@ class Res_Project extends CI_Controller{
           $this->upload->initialize($config);
           $project_revision_file_name = $_POST['project_revision_file_name'][$i];
           if($this->upload->do_upload('project_revision_file_image') && $filename && $ext ){
-            $file_data['project_revision_file_image'] = $image_name.'.'.$ext;
+            $file_data['project_revision_file_image'] = base_url().'assets/images/project_revision/'.$image_name.'.'.$ext;
             $file_data['project_revision_id'] = $project_revision_id;
             $file_data['company_id'] = $smm_res_company_id;
             $file_data['project_revision_file_name'] = $project_revision_file_name;
@@ -445,7 +437,7 @@ class Res_Project extends CI_Controller{
           $this->upload->initialize($config);
           $project_revision_file_name = $_POST['project_revision_file_name'][$i];
           if($this->upload->do_upload('project_revision_file_image') && $filename && $ext ){
-            $file_data['project_revision_file_image'] = $image_name.'.'.$ext;
+            $file_data['project_revision_file_image'] = base_url().'assets/images/project_revision/'.$image_name.'.'.$ext;
             $file_data['project_revision_id'] = $project_revision_id;
             $file_data['company_id'] = $smm_res_company_id;
             $file_data['project_revision_file_name'] = $project_revision_file_name;
@@ -488,7 +480,7 @@ class Res_Project extends CI_Controller{
     $project_revision_file_info = $this->Master_Model->get_info_arr_fields('project_revision_file_image, project_revision_file_id', 'project_revision_file_id', $project_revision_file_id, 'smm_project_revision_file');
     if($project_revision_file_info){
       $project_revision_file_image = $project_revision_file_info[0]['project_revision_file_image'];
-      if($project_revision_file_image){ unlink("assets/images/project_revision/".$project_revision_file_image); }
+      if($project_revision_file_image){ unlink("".$project_revision_file_image); }
     }
     $this->Master_Model->delete_info('project_revision_file_id', $project_revision_file_id, 'smm_project_revision_file');
   }

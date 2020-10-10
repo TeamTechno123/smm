@@ -19,12 +19,12 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <div class="card <?php if(!isset($update)){ echo 'collapsed-card'; } ?>">
+            <div class="card <?php if(!isset($update)){ echo 'collapsed-card d-none'; } ?>">
               <div class="card-header">
                 <h3 class="card-title"> <?php if(isset($update)){ echo 'Update'; } else{ echo 'Add New'; } ?> Become Reseller</h3>
                 <div class="card-tools">
                   <?php if(!isset($update)){
-                    echo '<button type="button" class="btn btn-sm btn-primary" data-card-widget="collapse">Add New</button>';
+                    //echo '<button type="button" class="btn btn-sm btn-primary" data-card-widget="collapse">Add New</button>';
                   } else{
                     echo '<a href="'.base_url().'Company/become_reseller" type="button" class="btn btn-sm btn-outline-info" >Cancel Edit</a>';
                   } ?>
@@ -36,7 +36,7 @@
                     <div class="row p-4">
                       <div class="form-group col-md-12 select_sm">
                         <label>Image Possition</label>
-                        <select class="form-control select2 form-control-sm" name="become_reseller_possition" id="become_reseller_possition" data-placeholder="Select Image Possition">
+                        <select class="form-control select2 form-control-sm" name="become_reseller_possition" id="become_reseller_possition" data-placeholder="Select Image Possition" disabled>
                           <option value="">Select Image Possition</option>
                           <option value="1" <?php if(isset($become_reseller_info) && $become_reseller_info['become_reseller_possition'] == '1'){ echo 'selected'; } ?>>Banner Image</option>
                           <option value="2" <?php if(isset($become_reseller_info) && $become_reseller_info['become_reseller_possition'] == '2'){ echo 'selected'; } ?>>Step-1 Image</option>
@@ -63,10 +63,10 @@
                     <div class="card-footer clearfix" style="display: block;">
                       <div class="row">
                         <div class="col-md-6 text-left">
-                          <div class="custom-control custom-checkbox">
+                          <!-- <div class="custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" name="become_reseller_status" id="become_reseller_status" value="0" <?php if(isset($become_reseller_info) && $become_reseller_info['become_reseller_status'] == 0){ echo 'checked'; } ?>>
                             <label for="become_reseller_status" class="custom-control-label">Disable This Become Reseller</label>
-                          </div>
+                          </div> -->
                         </div>
                         <div class="col-md-6 text-right">
                           <a href="<?php echo base_url(); ?>Company/become_reseller" class="btn btn-sm btn-default px-4 mx-4">Cancel</a>
@@ -109,7 +109,7 @@
                       <td class="text-center">
                         <div class="btn-group">
                           <a href="<?php echo base_url() ?>Company/edit_become_reseller/<?php echo $list->become_reseller_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
-                          <a href="<?php echo base_url() ?>Company/delete_become_reseller/<?php echo $list->become_reseller_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Become Reseller Information');"><i class="fa fa-trash text-danger"></i></a>
+                          <!-- <a href="<?php echo base_url() ?>Company/delete_become_reseller/<?php echo $list->become_reseller_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Become Reseller Information');"><i class="fa fa-trash text-danger"></i></a> -->
                         </div>
                       </td>
                       <td><?php if($list->become_reseller_possition == 1){ echo "Banner Image"; }

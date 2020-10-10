@@ -41,7 +41,7 @@
                             <select class="form-control select2 form-control-sm" name="project_id" id="project_id" data-placeholder="Select project" required>
                               <option value="">Select project</option>
                               <?php if(isset($project_list)){ foreach ($project_list as $list) { ?>
-                              <option value="<?php echo $list->project_id; ?>" <?php if(isset($time_log_info) && $time_log_info['project_id'] == $list->project_id){ echo 'selected'; } if($list->project_status == '0'){ echo 'disabled'; } ?>><?php echo $list->project_name; ?></option>
+                              <option value="<?php echo $list->project_id; ?>" <?php if(isset($time_log_info) && $time_log_info['project_id'] == $list->project_id){ echo 'selected'; } ?>><?php echo $list->project_name; ?></option>
                               <?php } } ?>
                             </select>
                           </div>
@@ -49,8 +49,8 @@
                             <label>Employee</label>
                             <select class="form-control select2 form-control-sm" name="employee_id" id="employee_id" data-placeholder="Select Employee" required>
                               <option value="">Select Employee</option>
-                              <?php if(isset($user_list)){ foreach ($user_list as $list) { ?>
-                              <option value="<?php echo $list->user_id; ?>" <?php if(isset($time_log_info) && $time_log_info['employee_id'] == $list->user_id){ echo 'selected'; } if($list->user_status == '0'){ echo 'disabled'; } ?>><?php echo $list->user_name.' '.$list->user_lname; ?></option>
+                              <?php if(isset($employee_list)){ foreach ($employee_list as $list) { ?>
+                              <option value="<?php echo $list->employee_id; ?>" <?php if(isset($time_log_info) && $time_log_info['employee_id'] == $list->employee_id){ echo 'selected'; } if($list->employee_status == '0'){ echo 'disabled'; } ?>><?php echo $list->employee_name.' '.$list->employee_lname; ?></option>
                               <?php } } ?>
                             </select>
                           </div>
@@ -68,7 +68,7 @@
                           </div>
                           <div class="form-group col-md-6 ">
                             <label>Start Date</label>
-                            
+
                             <input type="text" class="form-control form-control-sm" name="time_log_start_date" value="<?php if(isset($time_log_info)){ echo $time_log_info['time_log_start_date']; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker"  data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Start Date" required>
                           </div>
                           <div class="form-group col-md-6 ">
@@ -132,7 +132,7 @@
                     <?php if(isset($time_log_list)){
                      $i=0; foreach ($time_log_list as $list) { $i++;
                        $project_info = $this->Master_Model->get_info_arr_fields3('project_name', '', 'project_id', $list->project_id, '', '', '', '', 'smm_project');
-                       $user_info = $this->Master_Model->get_info_arr_fields3('user_name,user_lname', '', 'user_id', $list->employee_id, '', '', '', '', 'user');
+                       $employee_info = $this->Master_Model->get_info_arr_fields3('employee_name,employee_lname', '', 'employee_id', $list->employee_id, '', '', '', '', 'smm_employee');
                     ?>
                     <tr>
                       <td class="d-none"><?php echo $i; ?></td>
@@ -143,7 +143,7 @@
                         </div>
                       </td>
                       <td><?php if($project_info) { echo $project_info[0]['project_name']; } ?></td>
-                      <td><?php if($user_info) { echo $user_info[0]['user_name'].' '.$user_info[0]['user_lname']; } ?></td>
+                      <td><?php if($employee_info) { echo $employee_info[0]['employee_name'].' '.$employee_info[0]['employee_lname']; } ?></td>
                       <td><?php echo $list->time_log_start_date; ?></td>
                       <td><?php echo $list->time_log_end_date; ?></td>
                       <td><?php //echo $list->time_log_date; ?></td>

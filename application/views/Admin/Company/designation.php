@@ -24,7 +24,7 @@
                   <?php if(!isset($update)){
                     echo '<button type="button" class="btn btn-sm btn-primary" data-card-widget="collapse">Add New</button>';
                   } else{
-                    echo '<a href="<?php base_url(); ?>Company/designation" type="button" class="btn btn-sm btn-outline-info">Cancel Edit</a>';
+                    echo '<a href="'.base_url().'Company/designation" type="button" class="btn btn-sm btn-outline-info">Cancel Edit</a>';
                   } ?>
                 </div>
               </div>

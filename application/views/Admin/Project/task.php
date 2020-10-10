@@ -61,7 +61,7 @@
                       </div>
                       <div class="form-group col-md-6">
                         <label>End Date</label>
-                        <input type="text" class="form-control form-control-sm" name="task_end_date" value="<?php if(isset($task_info)){ echo $task_info['task_end_date']; } ?>" id="min_date2" data-target="#min_date2" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="End Date" required >
+                        <input type="text" class="form-control form-control-sm" name="task_end_date" value="<?php if(isset($task_info)){ echo $task_info['task_end_date']; } ?>" id="date2" data-target="#date2" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="End Date" required >
                       </div>
                       <div class="form-group col-md-6">
                         <label>Estimated Hour</label>
@@ -69,11 +69,11 @@
                       </div>
                       <div class="form-group col-md-6 select_sm">
                         <label>Priority</label>
-                        <select class="form-control select2" name="task_piority" id="task_piority" data-placeholder="Priority">
+                        <select class="form-control select2" name="task_priority" id="task_priority" data-placeholder="Priority">
                           <option value="">Priority</option>
-                          <option value="Low" <?php if(isset($task_info) && $task_info['task_piority'] == 'Low'){ echo 'selected'; } ?>>Low</option>
-                          <option value="Medium" <?php if(isset($task_info) && $task_info['task_piority'] == 'Medium'){ echo 'selected'; } ?>>Medium</option>
-                          <option value="High" <?php if(isset($task_info) && $task_info['task_piority'] == 'High'){ echo 'selected'; } ?>>High</option>
+                          <option value="Low" <?php if(isset($task_info) && $task_info['task_priority'] == 'Low'){ echo 'selected'; } ?>>Low</option>
+                          <option value="Medium" <?php if(isset($task_info) && $task_info['task_priority'] == 'Medium'){ echo 'selected'; } ?>>Medium</option>
+                          <option value="High" <?php if(isset($task_info) && $task_info['task_priority'] == 'High'){ echo 'selected'; } ?>>High</option>
                         </select>
                       </div>
                       <div class="form-group col-md-6 select_sm">
@@ -89,16 +89,16 @@
                         <label>Assign to</label>
                         <select class="form-control select2 form-control-sm" multiple name="task_assign_to[]" id="task_assign_to" data-placeholder="Select Task Status" required>
                           <option value="">Select Task Status</option>
-                          <?php if(isset($user_list)){ foreach ($user_list as $list) { ?>
-                          <option value="<?php echo $list->user_id; ?>"
+                          <?php if(isset($employee_list)){ foreach ($employee_list as $list) { ?>
+                          <option value="<?php echo $list->employee_id; ?>"
                             <?php if(isset($task_info)){
                               $task_assign_to = $task_info['task_assign_to'];
                               $task_assign_to_arr = explode(',', $task_assign_to);
-                              foreach ($task_assign_to_arr as $asign_user_id) {
-                                if($asign_user_id == $list->user_id){ echo 'selected'; }
+                              foreach ($task_assign_to_arr as $asign_employee_id) {
+                                if($asign_employee_id == $list->employee_id){ echo 'selected'; }
                               }
                             } ?>
-                          ><?php echo $list->user_name; ?></option>
+                          ><?php echo $list->employee_name; ?></option>
                           <?php } } ?>
                         </select>
                       </div>
@@ -205,6 +205,7 @@
                     <th class="d-none">#</th>
                     <th class="wt_50">Action</th>
                     <th>Task Title</th>
+                    <th class="wt_100">Assigned To</th>
                     <th>Project</th>
                     <th class="wt_75">Start Date</th>
                     <th class="wt_75">End Date</th>
@@ -225,11 +226,28 @@
                             <a href="<?php echo base_url() ?>Project/delete_task/<?php echo $list->task_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Task');"><i class="fa fa-trash text-danger"></i></a>
                           </div>
                         </td>
-                        <td><?php echo $list->task_title; ?></td>
+                        <td>
+                          <a href="<?php echo base_url() ?>Project/set_task_session/<?php echo $list->task_id; ?>"><?php echo $list->task_title; ?></a>
+                        </td>
+                        <td class="wt_100">
+                          <div class="row px-1">
+                            <?php
+                              $task_assign_to = $list->task_assign_to;
+                              $task_assign_to = explode(',',$task_assign_to);
+                              $i=0;
+                              $employee_list = array();
+                              foreach ($task_assign_to as $task_assign_to_id) {
+                                $employee_info = $this->Master_Model->get_info_arr_fields('*', 'employee_id', $task_assign_to_id, 'smm_employee');
+                            ?>
+                            <div class="col-4 p-0">
+                              <img style="border-radius:50%;" width="30px" src="<?php echo base_url(); ?>assets/images/employee/<?php echo $employee_info[0]['employee_image']; ?>" alt="">
+                            </div>
+                            <?php  } ?>
+                          </div>
+                        </td>
                         <td><?php if($project_info){ echo $project_info[0]['project_name']; } ?></td>
                         <td><?php echo $list->task_start_date; ?></td>
                         <td><?php echo $list->task_end_date; ?></td>
-
                         <td><?php if($task_status_info){ echo $task_status_info[0]['task_status_name']; } ?></td>
 
                       </tr>

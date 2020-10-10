@@ -26,7 +26,7 @@ class Project extends CI_Controller{
 
 /********************************* Project ***********************************/
   // Add Project...
-  public function project(){
+  public function project($order_id = null){
     $smm_user_id = $this->session->userdata('smm_user_id');
     $smm_company_id = $this->session->userdata('smm_company_id');
     $smm_role_id = $this->session->userdata('smm_role_id');
@@ -44,10 +44,16 @@ class Project extends CI_Controller{
       unset($save_data['project_file_image']);
       unset($save_data['project_file_name']);
       $save_data['project_member'] = $project_member;
-      // $save_data['project_status'] = $project_status;
       $save_data['company_id'] = $smm_company_id;
       $save_data['project_addedby'] = $smm_user_id;
+      if($order_id){
+        $save_data['order_id'] = $order_id;
+      }
       $project_id = $this->Master_Model->save_data('smm_project', $save_data);
+      if($order_id){
+        $update_data['project_id'] = $project_id;
+        $this->Master_Model->update_info('order_id', $order_id, 'smm_order', $update_data);
+      }
 
       if(isset($_FILES['project_file_image']['name'])){
         $this->load->library('upload');
@@ -98,10 +104,31 @@ class Project extends CI_Controller{
       header('location:'.base_url().'Project/project');
     }
     $data['project_no'] = $this->Master_Model->get_count_no($smm_company_id, 'project_no', 'smm_project');
-    $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_name','ASC','smm_reseller');
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'is_admin','0','','','','','user_name','ASC','user');
 
-    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_id','ASC','smm_project');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
+
+    if($order_id){
+      $order_info = $this->Master_Model->get_info_arr_fields3('*', $smm_company_id, 'order_id', $order_id, 'project_id', '0', '', '', 'smm_order');
+      if(!$order_info){ header('location:'.base_url().'Transaction/order_list'); }
+      $package_info = $this->Master_Model->get_info_arr_fields3('*', $smm_company_id, 'package_id', $order_info[0]['package_id'], '', '', '', '', 'smm_package');
+      if(!$order_info){ header('location:'.base_url().'Transaction/order_list'); }
+      $data['from_order'] = 'true';
+      $data['start_date'] = $order_info[0]['order_date'];
+
+      $order_date = strtotime($order_info[0]['order_date']);
+      $end_date = strtotime("+".$package_info[0]['package_per_duration']." day", $order_date);
+      $end_date = date('d-m-Y', $end_date);
+      $data['end_date'] = $end_date;
+      $data['budget_amount'] = $order_info[0]['order_net_amount'];
+      $data['revisions'] = $package_info[0]['package_revisions'];
+      $data['descr'] = '<p>Package: '.$package_info[0]['package_name'].'</p>'.$package_info[0]['package_descr'];
+
+      $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'reseller_id',$order_info[0]['client_id'],'','','','','reseller_name','ASC','smm_reseller');
+    } else{
+      $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_name','ASC','smm_reseller');
+    }
+
+    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_id','DESC','smm_project');
     $data['page'] = 'Project';
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
@@ -199,11 +226,11 @@ class Project extends CI_Controller{
     $data['project_info'] = $project_info[0];
     $data['act_link'] = base_url().'Project/edit_project/'.$project_id;
     $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_name','ASC','smm_reseller');
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'is_admin','0','','','','','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['project_file_list'] = $this->Master_Model->get_list_by_id3('','project_id',$project_id,'','','','','project_file_id','DESC','smm_project_file');
     $data['project_del_phase_list'] = $this->Master_Model->get_list_by_id3('','project_id',$project_id,'','','','','project_del_phase_id','ASC','smm_project_del_phase');
 
-    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_id','ASC','smm_project');
+    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_id','DESC','smm_project');
     $data['page'] = 'Edit Project';
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
@@ -238,6 +265,559 @@ class Project extends CI_Controller{
     $this->session->set_flashdata('delete_success','success');
     header('location:'.base_url().'Project/project');
   }
+
+
+  /******************************** Project Details *****************************/
+
+  // Set Project Session...
+  public function set_project_session($project_id = null){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+    $project_info = $this->Master_Model->get_info_arr_fields('project_id', 'project_id', $project_id, 'smm_project');
+    if(!$project_info){
+      header('location:'.base_url().'Project/project');
+    } else{
+      $this->session->set_userdata('project_id', $project_id);
+      header('location:'.base_url().'Project/project_det_overview');
+    }
+  }
+
+  // Project Overview...
+  public function project_det_overview(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+    $data['page'] = 'Project Overview';
+
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_overview', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+
+  // Project Progress...
+  public function project_det_progress(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+    $this->form_validation->set_rules('project_status', 'Project Status', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $update_data = $_POST;
+      $this->Master_Model->update_info('project_id', $project_id, 'smm_project', $update_data);
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Project/project_det_progress');
+    }
+
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+    $data['page'] = 'Project Progress';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_progress', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+
+  // Project Time Log...
+  public function project_det_time_log(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+    $this->form_validation->set_rules('employee_id', 'Time Log Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $save_data = $_POST;
+      $save_data['project_id'] = $project_id;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['time_log_addedby'] = $smm_user_id;
+      $user_id = $this->Master_Model->save_data('smm_time_log', $save_data);
+
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Project/project_det_time_log');
+    }
+
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+
+    $project_member = $project_info[0]['project_member'];
+    $project_member = explode(',',$project_member);
+    $i=0;
+    $employee_list = array();
+    foreach ($project_member as $project_member_id) {
+      $employee_info = $this->Master_Model->get_info_arr_fields('*', 'employee_id', $project_member_id, 'smm_employee');
+      if($employee_info){
+        $employee_list[$i]['employee_id'] = $project_member_id;
+        $employee_list[$i]['employee_name'] = $employee_info[0]['employee_name'];
+        $employee_list[$i]['employee_lname'] = $employee_info[0]['employee_lname'];
+        $i++;
+      }
+    }
+
+    $data['page'] = 'Project Time Log';
+    $data['employee_list'] = $employee_list;
+    $data['time_log_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','time_log_id','ASC','smm_time_log');
+    $data['project_info'] = $project_info[0];
+
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_time_log', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Project Revision...
+  public function project_det_revision(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+
+    $data['page'] = 'Project Revision';
+    $data['project_revision_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','project_revision_id','ASC','smm_project_revision');
+    $data['project_info'] = $project_info[0];
+
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_revision', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+
+  // Project Task...
+  public function project_det_task(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+
+    $this->form_validation->set_rules('task_title', 'Task Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $save_data = $_POST;
+      unset($save_data['task_assign_to']);
+      unset($save_data['task_file_name']);
+      unset($save_data['task_file_image']);
+      unset($save_data['input']);
+
+      $task_assign_to=implode(',', $_POST['task_assign_to']);
+      $save_data['task_assign_to'] = $task_assign_to;
+      // $save_data['task_status'] = $task_status;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['task_addedby'] = $smm_user_id;
+      $task_id = $this->Master_Model->save_data('smm_task', $save_data);
+
+      if(isset($_FILES['task_file_image']['name'])){
+        $this->load->library('upload');
+        $files = $_FILES;
+        $cpt = count($_FILES['task_file_image']['name']);
+        for($i=0; $i<$cpt; $i++)
+        {
+          $j = $i+1;
+          $time = time();
+          $image_name = 'task_file_'.$task_id.'_'.$j.'_'.$time;
+          $_FILES['task_file_image']['name']= $files['task_file_image']['name'][$i];
+          $_FILES['task_file_image']['type']= $files['task_file_image']['type'][$i];
+          $_FILES['task_file_image']['tmp_name']= $files['task_file_image']['tmp_name'][$i];
+          $_FILES['task_file_image']['error']= $files['task_file_image']['error'][$i];
+          $_FILES['task_file_image']['size']= $files['task_file_image']['size'][$i];
+          $config['upload_path'] = 'assets/images/task/';
+          $config['allowed_types'] = 'gif|jpg|jpeg|png|pdf|docx|doc';
+          $config['file_name'] = $image_name;
+          $config['overwrite']     = FALSE;
+          $filename = $files['task_file_image']['name'][$i];
+          $ext = pathinfo($filename, PATHINFO_EXTENSION);
+          $this->upload->initialize($config);
+          $task_file_name = $_POST['task_file_name'][$i];
+          if($this->upload->do_upload('task_file_image') && $filename && $ext ){
+            $file_data['task_file_image'] = base_url().'assets/images/task/'.$image_name.'.'.$ext;
+            $file_data['task_id'] = $task_id;
+            $file_data['company_id'] = $smm_company_id;
+            $file_data['task_file_name'] = $task_file_name;
+            $this->Master_Model->save_data('smm_task_file', $file_data);
+          }
+          else{
+            $error = $this->upload->display_errors();
+            $this->session->set_flashdata('status',$this->upload->display_errors());
+          }
+        }
+      }
+    }
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+
+    $project_member = $project_info[0]['project_member'];
+    $project_member = explode(',',$project_member);
+    $i=0;
+    $employee_list = array();
+    foreach ($project_member as $project_member_id) {
+      $employee_info = $this->Master_Model->get_info_arr_fields('*', 'employee_id', $project_member_id, 'smm_employee');
+      if($employee_info){
+        $employee_list[$i]['employee_id'] = $project_member_id;
+        $employee_list[$i]['employee_name'] = $employee_info[0]['employee_name'];
+        $employee_list[$i]['employee_lname'] = $employee_info[0]['employee_lname'];
+        $i++;
+      }
+    }
+
+    $data['employee_list'] = $employee_list;
+    $data['task_status_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','task_status_id','ASC','smm_task_status');
+
+    $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','task_id','ASC','smm_task');
+    $data['page'] = 'Project Task';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_task', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Project File...
+  public function project_det_file(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+
+    $this->form_validation->set_rules('project_file_name', 'Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+
+      $save_data = $_POST;
+      $save_data['project_id'] = $project_id;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['project_file_addedby'] = $smm_user_id;
+
+      $project_file_id = $this->Master_Model->save_data('smm_project_file', $save_data);
+
+      if($_FILES['project_file_image']['name']){
+        $time = time();
+        $image_name = 'project_file_'.$project_file_id.'_'.$project_id.'_'.$time;
+        $config['upload_path'] = 'assets/images/project/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|doc|docx';
+        $config['file_name'] = $image_name;
+        $filename = $_FILES['project_file_image']['name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $this->upload->initialize($config); // if upload library autoloaded
+        if ($this->upload->do_upload('project_file_image') && $project_file_id && $image_name && $ext && $filename){
+          $project_file_image_up['project_file_image'] =  $image_name.'.'.$ext;
+          $this->Master_Model->update_info('project_file_id', $project_file_id, 'smm_project_file', $project_file_image_up);
+          $this->session->set_flashdata('upload_success','File Uploaded Successfully');
+          $this->session->set_flashdata('save_success','success');
+        }
+        else{
+          $error = $this->upload->display_errors();
+          $this->session->set_flashdata('upload_error',$error);
+          $this->Master_Model->delete_info('project_file_id', $project_fil_id, 'smm_project_file');
+        }
+      }
+      header('location:'.base_url().'Project/project_det_file');
+    }
+
+
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['page'] = 'Project File';
+    $data['project_file_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','project_file_id','DESC','smm_project_file');
+    $data['project_info'] = $project_info[0];
+
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_file', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Project Milestone...
+  public function project_det_milestone(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+    $data['project_del_phase_list'] = $this->Master_Model->get_list_by_id3('','project_id',$project_id,'','','','','project_del_phase_id','ASC','smm_project_del_phase');
+
+    $data['page'] = 'Project Milestone';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_milestone', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Project Invoice...
+  public function project_det_invoice(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+    $order_id = $project_info[0]['order_id'];
+    $data['invoice_list'] = $this->Master_Model->get_list_by_id3('','','','order_id',$order_id,'','','invoice_id','ASC','smm_invoice');
+
+    $data['page'] = 'Project Invoice';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_invoice', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Project Discussion...
+  public function project_det_discussion(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+
+    $this->form_validation->set_rules('project_discussion_title', 'Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $save_data = $_POST;
+      $save_data['project_id'] = $project_id;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['project_discussion_date'] = date('d-m-Y');
+      $save_data['project_discussion_addedby'] = $smm_user_id;
+      unset($save_data['files']);
+      $project_discussion_id = $this->Master_Model->save_data('smm_project_discussion', $save_data);
+
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Project/project_det_discussion');
+    }
+
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+    $order_id = $project_info[0]['order_id'];
+    $data['project_discussion_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','project_discussion_id','ASC','smm_project_discussion');
+
+    $data['page'] = 'Project Discussion';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_discussion', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Project Discussion...
+  public function edit_project_det_discussion($project_discussion_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $project_id = $this->session->userdata('project_id');
+
+    $this->form_validation->set_rules('project_discussion_title', 'Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $update_data = $_POST;
+      $update_data['project_discussion_addedby_type'] = '1';
+      $update_data['project_discussion_addedby'] = $smm_user_id;
+      unset($update_data['files']);
+      $this->Master_Model->update_info('project_discussion_id', $project_discussion_id, 'smm_project_discussion', $update_data);
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Project/project_det_discussion');
+    }
+
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+    $order_id = $project_info[0]['order_id'];
+    $data['project_discussion_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','project_discussion_id','ASC','smm_project_discussion');
+
+    $project_discussion_info = $this->Master_Model->get_info_arr('project_discussion_id',$project_discussion_id,'smm_project_discussion');
+    if(!$project_discussion_info){ header('location:'.base_url().'Project/project_det_discussion'); }
+    $data['update'] = 'update';
+    $data['update_project_discussion'] = 'update';
+    $data['project_discussion_info'] = $project_discussion_info[0];
+
+    $data['page'] = 'Project Discussion';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/project_det_discussion', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  //Delete Order Status...
+  public function delete_project_det_discussion($project_discussion_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+    $this->Master_Model->delete_info('project_discussion_id', $project_discussion_id, 'smm_project_discussion');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Project/project_det_discussion');
+  }
+
+
+
+/******************************** Task Details *****************************/
+
+  // Set Task Session...
+  public function set_task_session($task_id = null){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+    $task_info = $this->Master_Model->get_info_arr_fields('task_id, project_id', 'task_id', $task_id, 'smm_task');
+    if(!$task_info){
+      header('location:'.base_url().'Project/task');
+    } else{
+      $this->session->set_userdata('task_id', $task_id);
+      $this->session->set_userdata('task_project_id', $task_info[0]['project_id']);
+      header('location:'.base_url().'Project/task_det_overview');
+    }
+  }
+
+  // Project Overview...
+  public function task_det_overview(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $task_id = $this->session->userdata('task_id');
+    $task_info = $this->Master_Model->get_info_arr_fields('*', 'task_id', $task_id, 'smm_task');
+    $data['task_info'] = $task_info[0];
+
+    $project_id = $this->session->userdata('task_project_id');
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+
+    $data['page'] = 'Task Overview';
+    // echo $project_id;
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/task_det_overview', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+// Project Progress...
+  public function task_det_progress(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $task_id = $this->session->userdata('task_id');
+
+    $this->form_validation->set_rules('task_status', 'Project Status', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $update_data = $_POST;
+      $this->Master_Model->update_info('task_id', $task_id, 'smm_task', $update_data);
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Project/task_det_progress');
+    }
+
+
+    $task_info = $this->Master_Model->get_info_arr_fields('*', 'task_id', $task_id, 'smm_task');
+    $data['task_info'] = $task_info[0];
+
+    $project_id = $this->session->userdata('task_project_id');
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+
+    $data['task_status_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','task_status_id','ASC','smm_task_status');
+
+    $data['page'] = 'Task Progress';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/task_det_progress', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+// Project File...
+  public function task_det_file(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $task_id = $this->session->userdata('task_id');
+
+    $this->form_validation->set_rules('task_file_name', 'Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+
+      $save_data = $_POST;
+      $save_data['task_id'] = $task_id;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['task_file_addedby'] = $smm_user_id;
+
+      $task_file_id = $this->Master_Model->save_data('smm_task_file', $save_data);
+
+      if($_FILES['task_file_image']['name']){
+        $time = time();
+        $image_name = 'task_file_'.$task_file_id.'_'.$task_id.'_'.$time;
+        $config['upload_path'] = 'assets/images/task/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif|pdf|doc|docx';
+        $config['file_name'] = $image_name;
+        $filename = $_FILES['task_file_image']['name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $this->upload->initialize($config); // if upload library autoloaded
+        if ($this->upload->do_upload('task_file_image') && $task_file_id && $image_name && $ext && $filename){
+          $task_file_image_up['task_file_image'] =  $image_name.'.'.$ext;
+          $this->Master_Model->update_info('task_file_id', $task_file_id, 'smm_task_file', $task_file_image_up);
+          $this->session->set_flashdata('upload_success','File Uploaded Successfully');
+          $this->session->set_flashdata('save_success','success');
+        }
+        else{
+          $error = $this->upload->display_errors();
+          $this->session->set_flashdata('upload_error',$error);
+          $this->Master_Model->delete_info('task_file_id', $task_file_id, 'smm_task_file');
+        }
+      }
+
+      header('location:'.base_url().'Project/task_det_file');
+    }
+
+
+    $task_info = $this->Master_Model->get_info_arr_fields('*', 'task_id', $task_id, 'smm_task');
+    $data['task_info'] = $task_info[0];
+
+    $project_id = $this->session->userdata('task_project_id');
+    $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
+    $data['project_info'] = $project_info[0];
+
+    $data['task_file_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'task_id',$task_id,'','','','','task_file_id','DESC','smm_task_file');
+    $data['page'] = 'Task File';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Project/task_det_file', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /********************************* Client ***********************************/
 
@@ -462,8 +1042,6 @@ class Project extends CI_Controller{
 
     $this->form_validation->set_rules('task_title', 'Task Name', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      // $task_status = $this->input->post('task_status');
-      // if(!isset($task_status)){ $task_status = '1'; }
       $save_data = $_POST;
       unset($save_data['task_assign_to']);
       unset($save_data['task_file_name']);
@@ -518,10 +1096,11 @@ class Project extends CI_Controller{
     }
     $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_id','DESC','smm_project');
     $data['task_status_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','task_status_id','ASC','smm_task_status');
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
 
     $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','task_id','DESC','smm_task');
     $data['page'] = 'Task';
+    // print_r($data['employee_list']);
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
     $this->load->view('Admin/Project/task', $data);
@@ -600,9 +1179,9 @@ class Project extends CI_Controller{
     // $task_category_type = $task_info[0]['task_category_type'];
     // $data['task_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'task_category_status','1','task_category_type',$task_category_type,'','','task_category_name','ASC','smm_task_category');
     // $data['gst_slab_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'gst_slab_status','1','','','','','gst_slab_per','ASC','smm_gst_slab');
-    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_status','1','','','','','project_id','DESC','smm_project');
-    $data['task_status_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'task_status_status','1','','','','','task_status_id','ASC','smm_task_status');
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','user_name','ASC','user');
+    $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_id','DESC','smm_project');
+    $data['task_status_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','task_status_id','ASC','smm_task_status');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['task_file_list'] = $this->Master_Model->get_list_by_id3('','task_id',$task_id,'','','','','task_file_id','DESC','smm_task_file');
 
     $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','task_id','DESC','smm_task');
@@ -670,7 +1249,7 @@ class Project extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Project/time_log');
     }
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','','','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_name','ASC','smm_project');
 
     $data['time_log_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','time_log_id','ASC','smm_time_log');
@@ -707,7 +1286,7 @@ class Project extends CI_Controller{
     $data['update_time_log'] = 'update';
     $data['time_log_info'] = $time_log_info[0];
     $data['act_link'] = base_url().'Project/edit_time_log/'.$time_log_id;
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','','','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
     $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_name','ASC','smm_project');
 
     $data['time_log_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','time_log_id','ASC','smm_time_log');

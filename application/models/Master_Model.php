@@ -260,6 +260,33 @@ class Master_Model extends CI_Model{
     return $value;
   }
 
+  //
+  public function get_count_no3($company_id, $field_name, $col1, $val1, $col2, $val2, $col3, $val3, $tbl_name){
+    $this->db->select('MAX('.$field_name.') as num');
+    if($company_id != ''){
+      $this->db->where('company_id', $company_id);
+    }
+    if($col1 != ''){
+      $this->db->where($col1, $val1);
+    }
+    if($col2 != ''){
+      $this->db->where($col2, $val2);
+    }
+    if($col3 != ''){
+      $this->db->where($col3, $val3);
+    }
+    $this->db->from($tbl_name);
+    $query = $this->db->get();
+    $result =  $query->result_array();
+    if($result){
+      $old_num = $result[0]['num'];
+    } else{
+      $old_num = 0;
+    }
+    $value = $old_num + 1;
+    return $value;
+  }
+
 /********************************************************************************************/
 
   public function package_list($company_id){

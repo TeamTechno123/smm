@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css//owl.theme.default.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;500;700&display=swap" rel="stylesheet">
-    <title>SMM</title> 
+    <title>SMM</title>
   </head>
   <body>
     <section class="home-nav">
@@ -22,12 +22,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link active" href="<?php echo base_url() ?>">Home <span class="sr-only">(current)</span></a>
         <a class="nav-item nav-link" href="<?php echo base_url() ?>Services">Services</a>
-        <a class="nav-item nav-link" href="#">What We Offer!</a>
-        <a class="nav-item nav-link" href="#">FAQ</a>
-        <a class="nav-item nav-link" href="#">Services</a>
-        <a class="nav-item nav-link" href="#"> <button type="button" class="btn btn-outline-light btn-sign f-12">Sign Up</button> </a>
+        <!-- <a class="nav-item nav-link" href="#">What We Offer!</a> -->
+        <a class="nav-item nav-link" href="<?php echo base_url() ?>FAQ">FAQ</a>
+        <a class="nav-item nav-link" href="<?php echo base_url() ?>Login">Login</a>
+        <a class="nav-item nav-link" href="<?php echo base_url() ?>SignUp"> <button type="button" class="btn btn-outline-light btn-sign f-12">Sign Up</button> </a>
       </div>
     </div>
 </nav>
@@ -65,13 +65,13 @@
         <div class="row">
           <div class="col-md-6" >
             <div class="sub-heading">
-              <h2> We Are Ranked # 1 </h2> 
-            <h2>Across the  world in</h2> 
-            <h2>Social media  </h2> 
+              <h2> We Are Ranked # 1 </h2>
+            <h2>Across the  world in</h2>
+            <h2>Social media  </h2>
             <h2>marketing Services</h2>
             <h2> What is Social Media /marketing </h2>
             </div>
-            
+
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
 
             <img class="about-img1" src="<?php echo base_url(); ?>assets/images/website/about1.png" width="100%" >
@@ -89,7 +89,7 @@
                 <h4  class="m-center">24*7 Support</h4>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui</p>
               </div>
-              
+
               <div class="col-md-6">
                 <img class="about-img1" src="<?php echo base_url(); ?>assets/images/website/time.png" width="100%" >
                 <h4  class="m-center">24*7 Support</h4>
@@ -103,11 +103,11 @@
               </div>
               </div>
             </div>
-            
+
         </div>
       </div>
 
-      
+
     </section>
 
     <section class="buy-section">
@@ -177,7 +177,7 @@
            <div class="col-md-6">
              <img class="right mm-10" src="<?php echo base_url(); ?>assets/images/website/rockit.png" width="100%">
            </div>
-           
+
         </div>
 
       </div>
@@ -204,7 +204,7 @@
            <div class="col-md-6">
             <img class="p-30" src="<?php echo base_url(); ?>assets/images/website/step2.png" width="100%">
           </div>
-           
+
          <div class="col-md-6">
             <img class="p-30" src="<?php echo base_url(); ?>assets/images/website/step3.png" width="100%">
           </div>
@@ -235,9 +235,9 @@
                         <div class="card-body">
                           <h5 class="card-title text-center">Michle</h5>
                           <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
-                          
+
                         </div>
-                      </div>   
+                      </div>
                 </div>
                 <div class="item">
                     <div class="card">
@@ -245,9 +245,9 @@
                         <div class="card-body">
                           <h5 class="card-title text-center">Michle</h5>
                           <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
-                          
+
                         </div>
-                      </div>    
+                      </div>
                 </div>
                 <div class="item">
                     <div class="card">
@@ -255,9 +255,9 @@
                         <div class="card-body">
                           <h5 class="card-title text-center">Michle</h5>
                           <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
-                          
+
                         </div>
-                      </div>    
+                      </div>
                 </div>
                 <div class="item">
                    <div class="card">
@@ -265,9 +265,9 @@
                         <div class="card-body">
                           <h5 class="card-title text-center">Michle</h5>
                           <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
-                          
+
                         </div>
-                      </div>  
+                      </div>
                 </div>
                 <div class="item">
                    <div class="card">
@@ -275,20 +275,20 @@
                         <div class="card-body">
                           <h5 class="card-title text-center">Michle</h5>
                           <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
-                          
+
                         </div>
-                      </div>   
-                </div>              
-            </div> 
+                      </div>
+                </div>
+            </div>
                    <!-- <div class="col-md-6">
                     <div class="card">
                         <img class="card-img-top p-30" src="<?php echo base_url(); ?>assets/images/website/michle.png " alt="Card image cap">
                         <div class="card-body">
                           <h5 class="card-title text-center">Michle</h5>
                           <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt you </p>
-                          
+
                         </div>
-                      </div>                      
+                      </div>
                   </div>
                   <div class="col-md-6">
                     <div class="card">
@@ -296,9 +296,9 @@
                         <div class="card-body">
                           <h5 class="card-title text-center">Stevan</h5>
                           <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth nesciunt </p>
-                          
+
                         </div>
-                      </div>                      
+                      </div>
                   </div>
 
                   <div class="col-md-6">
@@ -307,9 +307,9 @@
                         <div class="card-body">
                           <h5 class="card-title text-center">Peter</h5>
                           <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic </p>
-                          
+
                         </div>
-                      </div>                      
+                      </div>
                   </div>
 
                  <div class="col-md-6">
@@ -318,13 +318,13 @@
                         <div class="card-body">
                           <h5 class="card-title text-center">Vector</h5>
                           <p class="card-text text-center"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.  raw denim aesthetic synth </p>
-                          
+
                         </div>
-                      </div>                      
+                      </div>
                   </div> -->
                 </div>
             </div>
-           
+
           </div>
         </div>
       </section>
@@ -337,7 +337,7 @@
               <p>Anim pariatur cliche reprehenderit, enim eiusmod high life</p>
                 </div>
                 <div class="col-md-6 offset-md-3">
-                   <div class="input-group mb-3">                
+                   <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Enter Email" aria-label="Username" aria-describedby="basic-addon1">
                 <div class="input-group-append">
                     <button type="button" class="btn round  ml-minus btn-secondary btn-sm">Subcribe Now !</button>

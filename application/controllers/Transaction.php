@@ -7,10 +7,59 @@ class Transaction extends CI_Controller{
     date_default_timezone_set('Asia/Kolkata');
   }
 
-  public function index(){
+  /********************************* Order ***********************************/
 
-  }
+    // Order List...
+    public function order_list(){
+      $smm_user_id = $this->session->userdata('smm_user_id');
+      $smm_company_id = $this->session->userdata('smm_company_id');
+      $smm_role_id = $this->session->userdata('smm_role_id');
+      if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
 
+
+      $data['order_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','order_id','DESC','smm_order');
+      $data['page'] = 'Order List';
+      $this->load->view('Admin/Include/head', $data);
+      $this->load->view('Admin/Include/navbar', $data);
+      $this->load->view('Admin/Transaction/order_list', $data);
+      $this->load->view('Admin/Include/footer', $data);
+    }
+
+
+    // Order Cancel List...
+    public function order_cancel_list(){
+      $smm_user_id = $this->session->userdata('smm_user_id');
+      $smm_company_id = $this->session->userdata('smm_company_id');
+      $smm_role_id = $this->session->userdata('smm_role_id');
+      if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+
+      $data['order_cancel_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'order_status','2','','','','','order_id','DESC','smm_order');
+      $data['page'] = 'Order List';
+      $this->load->view('Admin/Include/head', $data);
+      $this->load->view('Admin/Include/navbar', $data);
+      $this->load->view('Admin/Transaction/order_cancel_list', $data);
+      $this->load->view('Admin/Include/footer', $data);
+    }
+
+    //  Cancel Order List...
+    public function cancel_order_approve(){
+      $smm_user_id = $this->session->userdata('smm_user_id');
+      $smm_company_id = $this->session->userdata('smm_company_id');
+      $smm_role_id = $this->session->userdata('smm_role_id');
+      if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+      $order_id = $_POST['order_id'];
+      $update_data['order_cancel_approve'] = $_POST['order_cancel_approve'];
+      $this->Master_Model->update_info('order_id', $order_id, 'smm_order', $update_data);
+
+      if($_POST['order_cancel_approve'] == '1'){
+        $update_data['project_status'] = '3';
+        $this->Master_Model->update_info('order_id', $order_id, 'smm_project', $update_data);
+      }
+
+      header('location:'.base_url().'Transaction/order_cancel_list');
+    }
 
 
 

@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12 text-left mt-2">
-            <h4>Profile</h4>
+            <h4>Website Setting</h4>
           </div>
         </div>
       </div>
@@ -96,8 +96,8 @@
                       <input type="email" class="form-control form-control-sm" name="web_setting_email" id="web_setting_email" value="<?php if(isset($web_setting_info)){ echo $web_setting_info['web_setting_email']; } ?>" placeholder="Email" required>
                     </div>
                     <div class="form-group col-md-6">
-                      <label>Website</label>
-                      <input type="text" class="form-control form-control-sm" name="web_setting_website" id="web_setting_website" value="<?php if(isset($web_setting_info)){ echo $web_setting_info['web_setting_website']; } ?>" placeholder="Website">
+                      <!-- <label>Website</label>
+                      <input type="text" class="form-control form-control-sm" name="web_setting_website" id="web_setting_website" value="<?php if(isset($web_setting_info)){ echo $web_setting_info['web_setting_website']; } ?>" placeholder="Website"> -->
                     </div>
 
                     <div class="form-group col-md-12">
@@ -113,9 +113,6 @@
                       <input type="text" class="form-control form-control-sm" name="web_setting_meta_descr" id="web_setting_meta_descr" value="<?php if(isset($web_setting_info)){ echo $web_setting_info['web_setting_meta_descr']; } ?>" >
                     </div>
 
-
-
-
                     <div class="form-group col-md-3">
                       <label>Website Logo</label>
                       <input type="file" class="form-control form-control-sm" name="web_setting_logo" id="web_setting_logo">
@@ -124,7 +121,7 @@
                     <div class="form-group col-md-3">
                       <?php if(isset($web_setting_info) && $web_setting_info['web_setting_logo']){ ?>
                         <input type="hidden" name="old_web_setting_logo" value="<?php echo $web_setting_info['web_setting_logo']; ?>">
-                        <img width="150px" src="<?php echo base_url(); ?>assets/images/web_setting/<?php echo $web_setting_info['web_setting_logo']; ?>" alt="">
+                        <img width="150px" src="<?php echo $web_setting_info['web_setting_logo']; ?>" alt="">
                       <?php } ?>
                     </div>
 
@@ -136,9 +133,51 @@
                     <div class="form-group col-md-3">
                       <?php if(isset($web_setting_info) && $web_setting_info['web_setting_favicon']){ ?>
                         <input type="hidden" name="old_web_setting_favicon" value="<?php echo $web_setting_info['web_setting_favicon']; ?>">
-                        <img width="150px" src="<?php echo base_url(); ?>assets/images/web_setting/<?php echo $web_setting_info['web_setting_favicon']; ?>" alt="">
+                        <img width="150px" src="<?php echo $web_setting_info['web_setting_favicon']; ?>" alt="">
                       <?php } ?>
                     </div>
+
+                    <div class="form-group col-md-12">
+                      <label>About Us information</label>
+                      <textarea class="textarea form-control form-control-sm" rows="3" name="web_setting_about_info" id="web_setting_about_info" placeholder="" required><?php if(isset($web_setting_info)){ echo $web_setting_info['web_setting_about_info']; } ?></textarea>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label>Contact Us information</label>
+                      <textarea class="textarea form-control form-control-sm" rows="3" name="web_setting_contact_info" id="web_setting_contact_info" placeholder="" required><?php if(isset($web_setting_info)){ echo $web_setting_info['web_setting_contact_info']; } ?></textarea>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <hr>
+                      <label>Select Website Template</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="template_1" name="template_id" value="1" <?php if(isset($web_setting_info) && $web_setting_info['template_id'] == '1'){ echo 'checked' ; } elseif(!isset($web_setting_info)){ echo 'checked' ; } ?> >
+                        <label for="template_1" class="custom-control-label">Template #1</label>
+                      </div><br>
+                      <div class="card">
+                        <img width="100%" src="<?php echo base_url(); ?>assets/images/web_setting/template_1.png" alt="">
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="template_2" name="template_id" value="2" <?php if(isset($web_setting_info) && $web_setting_info['template_id'] == '2'){ echo 'checked' ; } ?> >
+                        <label for="template_2" class="custom-control-label">Template #2</label>
+                      </div><br>
+                      <div class="card">
+                        <img width="100%" src="<?php echo base_url(); ?>assets/images/web_setting/template_2.png" alt="">
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <div class="custom-control custom-radio">
+                        <input class="custom-control-input" type="radio" id="template_3" name="template_id" value="3"  <?php if(isset($web_setting_info) && $web_setting_info['template_id'] == '3'){ echo 'checked' ; } ?> >
+                        <label for="template_3" class="custom-control-label">Template #3</label>
+                      </div><br>
+                      <div class="card">
+                        <img width="100%" src="<?php echo base_url(); ?>assets/images/web_setting/template_3.png" alt="">
+                      </div>
+                    </div>
+
+
 
                   </div>
                   <div class="card-footer clearfix" style="display: block;">

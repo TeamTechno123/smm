@@ -41,7 +41,7 @@
                             <select class="form-control select2 form-control-sm" name="employee_id" id="employee_id" data-placeholder="Select Employee" required>
                               <option value="">Select Employee</option>
                               <?php if(isset($employee_list)){ foreach ($employee_list as $list) { ?>
-                              <option value="<?php echo $list->user_id; ?>" <?php if(isset($award_info) && $award_info['employee_id'] == $list->user_id){ echo 'selected'; } if($list->user_status == '0'){ echo 'disabled'; } ?>><?php echo $list->user_name.' '.$list->user_lname; ?></option>
+                              <option value="<?php echo $list->employee_id; ?>" <?php if(isset($award_info) && $award_info['employee_id'] == $list->employee_id){ echo 'selected'; } if($list->employee_status == '0'){ echo 'disabled'; } ?>><?php echo $list->employee_name.' '.$list->employee_lname; ?></option>
                               <?php } } ?>
                             </select>
                           </div>
@@ -141,7 +141,7 @@
                     <?php if(isset($award_list)){
                      $i=0; foreach ($award_list as $list) { $i++;
                        $award_type_info = $this->Master_Model->get_info_arr_fields3('award_type_name', '', 'award_type_id', $list->award_type_id, '', '', '', '', 'smm_award_type');
-                       $user_info = $this->Master_Model->get_info_arr_fields3('user_name,user_lname', '', 'user_id', $list->employee_id, '', '', '', '', 'user');
+                       $employee_info = $this->Master_Model->get_info_arr_fields3('employee_name,employee_lname', '', 'employee_id', $list->employee_id, '', '', '', '', 'smm_employee');
                     ?>
                     <tr>
                       <td class="d-none"><?php echo $i; ?></td>
@@ -151,7 +151,7 @@
                           <a href="<?php echo base_url() ?>Hr_setting/delete_award/<?php echo $list->award_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Award Information');"><i class="fa fa-trash text-danger"></i></a>
                         </div>
                       </td>
-                      <td><?php if($user_info) { echo $user_info[0]['user_name'].' '.$user_info[0]['user_lname']; } ?></td>
+                      <td><?php if($employee_info) { echo $employee_info[0]['employee_name'].' '.$employee_info[0]['employee_lname']; } ?></td>
                       <td><?php if($award_type_info) { echo $award_type_info[0]['award_type_name']; } ?></td>
                       <td><?php echo $list->award_date; ?></td>
                       <td><img width="50px" src="<?php echo base_url() ?>assets/images/award/<?php echo $list->award_image;  ?>" alt="Award Image">

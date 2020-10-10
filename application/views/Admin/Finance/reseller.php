@@ -124,13 +124,13 @@
 
                     <div class="form-group col-md-4">
                       <label>Reseller Image</label>
-                      <input type="file" class="form-control form-control-sm" name="reseller_logo" id="reseller_logo">
+                      <input type="file" class="form-control form-control-sm valid_image" name="reseller_logo" id="reseller_logo">
                       <label>Select .jpg/.png/.jpeg file. size is less than 500kb</label>
                     </div>
                     <div class="form-group col-md-4">
                       <?php if(isset($reseller_info) && $reseller_info['reseller_logo']){ ?>
                         <input type="hidden" name="old_reseller_logo" value="<?php echo $reseller_info['reseller_logo']; ?>">
-                        <img width="150px" src="<?php echo base_url(); ?>assets/images/reseller/<?php echo $reseller_info['reseller_logo']; ?>" alt="">
+                        <img width="150px" src="<?php echo $reseller_info['reseller_logo']; ?>" alt="">
                       <?php } ?>
                     </div>
 
@@ -194,7 +194,7 @@
                         <td><?php echo $list->reseller_mobile; ?></td>
                         <td><?php echo $list->reseller_email; ?></td>
                         <td><?php if($city_info){ echo $city_info[0]['city_name']; } ?></td>
-                        <td><img width="50px" src="<?php echo base_url() ?>assets/images/reseller/<?php echo $list->reseller_logo;  ?>" alt="Group Image">
+                        <td><img width="50px" src="<?php echo $list->reseller_logo;  ?>" alt="Group Image">
                         <td>
                           <?php if($list->reseller_status == 0){ echo '<span class="text-danger">Inactive</span>'; }
                             else{ echo '<span class="text-success">Active</span>'; } ?>
