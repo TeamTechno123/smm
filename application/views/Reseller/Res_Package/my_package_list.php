@@ -107,7 +107,7 @@
                     <th class="bg-green" scope="col"> <i class="fas fa-tasks mr-2"></i> ID</th>
                     <th class="bg-green" scope="col"><i class="fas fa-tasks mr-2"></i>  SERVICE</th>
                     <th class="bg-green" scope="col"><i class="far fa-chart-bar mr-2"></i>RATE</th>
-                    <th class="bg-green" scope="col" style="max-width:150px;"><i class="fas fa-grip-lines mr-2"></i> DESCRIPTION</th>
+                    <th class="bg-green" scope="col" style="max-width:125px;"><i class="fas fa-grip-lines mr-2"></i> DESCRIPTION</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -120,15 +120,20 @@
                       <th scope="row"><?php echo $i; ?></th>
                       <td><?php echo $package_details[0]['package_name']; ?></td>
                       <td><?php echo $list->reseller_package_new_price; ?></td>
-                      <td style="max-width:70px;">
-                        <a href="<?php echo base_url(); ?>Reseller/Res_Package/package_details/<?php echo $list->package_id; ?>" type="button" class="btn btn-primary bg-green btn-sm"><i class="fas fa-grip-lines "></i></a>
+                      <td style="max-width:125px;">
+                        <a href="<?php echo base_url(); ?>Reseller/Res_Package/package_details/<?php echo $list->package_id; ?>" type="button" class="btn btn-info btn-sm"><i class="fas fa-grip-lines "></i></a>
                         <span class="div_change_price">
                           <input type="hidden" class="reseller_package_id" name="reseller_package_id" value="<?php echo $list->reseller_package_id; ?>">
                           <input type="hidden" class="reseller_package_new_price" name="reseller_package_new_price" value="<?php echo $list->reseller_package_new_price; ?>">
-                          <button type="button" class="btn btn-sm btn-success btn_change_price" data-toggle="modal" data-target="#exampleModal">Change Price</button>
+                          <button type="button" class="btn btn-xs btn-success btn_change_price" data-toggle="modal" data-target="#exampleModal">Change Price</button>
                         </span>
-
-                        <!-- <a href="http://localhost/smm_reseller2/WebsiteController/buy_now/4" type="button" class="btn btn-sm btn-primary">Buy Now</a> -->
+                        <span>
+                          <?php if($list->is_featured == '0'){ ?>
+                            <button type="button" class="btn btn-xs btn-primary btn_make_featured" is_featured = "1">Make Featured</button>
+                          <?php } else{ ?>
+                            <button type="button" class="btn btn-xs btn-danger btn_make_featured"  is_featured = "0">Remove Featured</button>
+                          <?php } ?>
+                        </span>
                       </td>
                     </tr>
                   <?php } } } ?>
@@ -180,5 +185,21 @@
     var reseller_package_new_price = $(this).closest('.div_change_price').find('.reseller_package_new_price').val();
     $('#reseller_package_id').val(reseller_package_id);
     $('#reseller_package_new_price').val(reseller_package_new_price);
+  });
+
+  $(document).on('click', '.btn_make_featured', function(){
+    var reseller_package_id = $(this).closest('td').find('.reseller_package_id').val();
+    var is_featured = $(this).attr('is_featured');
+    $.ajax({
+      url:'<?php echo base_url(); ?>Reseller/Res_Package/make_package_featured',
+      type: 'POST',
+      data: {"reseller_package_id":reseller_package_id,
+              "is_featured":is_featured},
+      context: this,
+      success: function(result){
+        location.reload();
+      }
+    });
+
   });
 </script>

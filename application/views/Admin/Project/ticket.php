@@ -92,6 +92,28 @@
                           <label>End Date</label>
                           <input type="text" min="0" class="form-control form-control-sm" name="ticket_end_date" value="<?php if(isset($ticket_info)){ echo $ticket_info['ticket_end_date']; } ?>" id="date2" data-target="#date2" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="End Date" required >
                         </div> -->
+                        <div class="form-group col-md-4 select_sm">
+                          <label>Assign To</label>
+                          <select class="form-control select2 form-control-sm" name="ticket_assign_to" id="ticket_assign_to" data-placeholder="Select Employee" required>
+                            <option value="">Select Employee</option>
+                            <?php if(isset($employee_list)){ foreach ($employee_list as $list) { ?>
+                            <option value="<?php echo $list->employee_id; ?>" <?php if(isset($ticket_info) && $ticket_info['ticket_assign_to'] == $list->employee_id){ echo 'selected'; } ?>><?php echo $list->employee_name.' '.$list->employee_lname; ?></option>
+                            <?php } } ?>
+                          </select>
+                        </div>
+                        <div class="form-group col-md-4 select_sm">
+                          <label>Status</label>
+                          <select class="form-control select2 form-control-sm" name="ticket_status" id="ticket_status" data-placeholder="Select Status" required>
+                            <option value="">Select Status</option>
+                            <option value="1" <?php if(isset($ticket_info) && $ticket_info['ticket_status'] == "1"){ echo 'selected'; } ?>>Pending</option>
+                            <option value="2" <?php if(isset($ticket_info) && $ticket_info['ticket_status'] == "2"){ echo 'selected'; } ?>>Assigned</option>
+                            <option value="3" <?php if(isset($ticket_info) && $ticket_info['ticket_status'] == "3"){ echo 'selected'; } ?>>Working</option>
+                            <option value="4" <?php if(isset($ticket_info) && $ticket_info['ticket_status'] == "4"){ echo 'selected'; } ?>>Completed</option>
+
+                          </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                        </div>
                         <div class="form-group col-md-4">
                           <label>Attachment</label>
                           <input type="file" class="form-control form-control-sm" name="ticket_image" id="ticket_image">
@@ -109,14 +131,15 @@
 
 
 
+
                   </div>
                   <div class="card-footer clearfix" style="display: block;">
                     <div class="row">
                       <div class="col-md-6 text-left">
-                        <div class="custom-control custom-checkbox">
+                        <!-- <div class="custom-control custom-checkbox">
                           <input class="custom-control-input" type="checkbox" name="ticket_status" id="ticket_status" value="0" <?php if(isset($ticket_info) && $ticket_info['ticket_status'] == 0){ echo 'checked'; } ?>>
                           <label for="ticket_status" class="custom-control-label">Disable This Ticket</label>
-                        </div>
+                        </div> -->
                       </div>
                       <div class="col-md-6 text-right">
                         <a href="<?php echo base_url(); ?>Project/ticket" class="btn btn-sm btn-default px-4 mx-4">Cancel</a>
@@ -138,7 +161,7 @@
               <div class="card-header ">
                 <h3 class="card-title">List All Ticket</h3>
               </div>
-              <div class="card-body p-2">
+              <div class="card-body p-2" style="overflow-x:auto;">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -147,32 +170,47 @@
                     <th>Ticket Title</th>
                     <th>Project</th>
                     <th class="wt_75">Date</th>
+                    <th class="wt_50">Added By</th>
+                    <th class="wt_75">Assigned To</th>
                     <th class="wt_50">Status</th>
                   </tr>
                   </thead>
                   <tbody>
                     <?php if(isset($ticket_list)){
                       $i=0; foreach ($ticket_list as $list) { $i++;
-                        $employee_info = $this->Master_Model->get_info_arr_fields3('user_name', '', 'user_id', $list->employee_id, '', '', '', '', 'user');
+                        $employee_info = $this->Master_Model->get_info_arr_fields3('employee_name, employee_lname', '', 'employee_id', $list->ticket_assign_to, '', '', '', '', 'smm_employee');
                         $project_info = $this->Master_Model->get_info_arr_fields3('project_name', '', 'project_id', $list->project_id, '', '', '', '', 'smm_project');
+                        $reseller_info = $this->Master_Model->get_info_arr_fields3('reseller_name', '', 'reseller_id', $list->ticket_addedby, '', '', '', '', 'smm_reseller');
+
                     ?>
                       <tr>
                         <td class="d-none"><?php echo $i; ?></td>
                         <td>
                           <div class="btn-group">
-                          <?php if($list->ticket_addedby_type == 2){ ?>
+                          <?php //if($list->ticket_addedby_type == 1){ ?>
                             <a href="<?php echo base_url() ?>Project/edit_ticket/<?php echo $list->ticket_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
                             <a href="<?php echo base_url() ?>Project/delete_ticket/<?php echo $list->ticket_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Ticket');"><i class="fa fa-trash text-danger"></i></a>
-                          <?php } ?>
+                          <?php //} ?>
                           </div>
                         </td>
                         <td><?php echo $list->ticket_title; ?></td>
                         <td><?php if($project_info){ echo $project_info[0]['project_name']; } ?></td>
-                        <!-- <td><?php echo $list->ticket_priority; ?></td> -->
                         <td><?php echo $list->ticket_date; ?></td>
+                        <td class="wt_50"><?php if($list->ticket_addedby_type == 1){
+                          echo '<span class="text-primary"><b>Admin</b></span>';
+                        } else{
+                          if($reseller_info){
+                            echo '<span class="text-info"><b>'.$reseller_info[0]['reseller_name'].'</b></span>';
+                          }
+                        } ?></td>
+                        <td class="wt_75">
+                          <?php if($employee_info){ echo $employee_info[0]['employee_name'].' '.$employee_info[0]['employee_lname']; } ?>
+                        </td>
                         <td>
-                          <?php if($list->ticket_status == 0){ echo '<span class="text-danger">Inactive</span>'; }
-                            else{ echo '<span class="text-success">Active</span>'; } ?>
+                          <?php if($list->ticket_status == 1){ echo '<span class="text-danger">Pending</span>'; }
+                            elseif($list->ticket_status == 2){ echo '<span class="text-info">Assigned</span>'; }
+                            elseif($list->ticket_status == 3){ echo '<span class="text-primary">Working</span>'; }
+                            elseif($list->ticket_status == 3){ echo '<span class="text-success">Completed</span>'; } ?>
                         </td>
                       </tr>
                     <?php } } ?>

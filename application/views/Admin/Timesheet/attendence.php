@@ -38,8 +38,8 @@
                         <label>Select Employee</label>
                         <select class="form-control select2 form-control-sm" name="employee_id" id="employee_id" data-placeholder="Select Employee" required>
                           <option value="">Select Employee</option>
-                          <?php if(isset($user_list)){ foreach ($user_list as $list) { ?>
-                          <option value="<?php echo $list->user_id; ?>" <?php if(isset($attendence_info) && $attendence_info['employee_id'] == $list->user_id){ echo 'selected'; } if($list->user_status == '0'){ echo 'disabled'; } ?>><?php echo $list->user_name; ?></option>
+                          <?php if(isset($employee_list)){ foreach ($employee_list as $list) { ?>
+                          <option value="<?php echo $list->employee_id; ?>" <?php if(isset($attendence_info) && $attendence_info['employee_id'] == $list->employee_id){ echo 'selected'; } if($list->employee_status == '0'){ echo ' disabled'; } ?>><?php echo $list->employee_name; ?></option>
                           <?php } } ?>
                         </select>
                       </div>
@@ -59,10 +59,10 @@
                     <div class="card-footer clearfix" style="display: block;">
                       <div class="row">
                         <div class="col-md-6 text-left">
-                          <div class="custom-control custom-checkbox">
+                          <!-- <div class="custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" name="attendence_status" id="attendence_status" value="0" <?php if(isset($attendence_info) && $attendence_info['attendence_status'] == 0){ echo 'checked'; } ?>>
                             <label for="attendence_status" class="custom-control-label">Disable This Attendence</label>
-                          </div>
+                          </div> -->
                         </div>
                         <div class="col-md-6 text-right">
                           <a href="<?php echo base_url(); ?>Timesheet/attendence" class="btn btn-sm btn-default px-4 mx-4">Cancel</a>
@@ -94,30 +94,30 @@
                     <th class="wt_75">Date</th>
                     <th class="wt_50">In Time</th>
                     <th class="wt_50">Out Time</th>
-                    <th class="wt_50">Status</th>
+                    <!-- <th class="wt_50">Status</th> -->
                   </tr>
                   </thead>
                   <tbody>
                     <?php if(isset($attendence_list)){
                      $i=0; foreach ($attendence_list as $list) { $i++;
-                       $employee_info = $this->Master_Model->get_info_arr_fields3('user_name, user_lname', '', 'user_id', $list->employee_id, '', '', '', '', 'user');
+                       $employee_info = $this->Master_Model->get_info_arr_fields3('employee_name, employee_lname', '', 'employee_id', $list->employee_id, '', '', '', '', 'smm_employee');
                     ?>
                     <tr>
                       <td class="d-none"><?php echo $i; ?></td>
                       <td class="text-center">
-                        <div class="btn-attendence">
+                        <div class="btn-group">
                           <a href="<?php echo base_url() ?>Timesheet/edit_attendence/<?php echo $list->attendence_id; ?>" type="button" class="btn btn-sm btn-default"><i class="fa fa-edit text-primary"></i></a>
                           <a href="<?php echo base_url() ?>Timesheet/delete_attendence/<?php echo $list->attendence_id; ?>" type="button" class="btn btn-sm btn-default" onclick="return confirm('Delete this Attendence Information');"><i class="fa fa-trash text-danger"></i></a>
                         </div>
                       </td>
-                      <td><?php if($employee_info) { echo $employee_info[0]['user_name'].' '.$employee_info[0]['user_lname']; } ?></td>
+                      <td><?php if($employee_info) { echo $employee_info[0]['employee_name'].' '.$employee_info[0]['employee_lname']; } ?></td>
                       <td><?php echo $list->attendence_date; ?></td>
                       <td><?php echo $list->attendence_in_time; ?></td>
                       <td><?php echo $list->attendence_out_time; ?></td>
-                      <td>
+                      <!-- <td>
                         <?php if($list->attendence_status == 0){ echo '<span class="text-danger">Inactive</span>'; }
                           else{ echo '<span class="text-success">Active</span>'; } ?>
-                      </td>
+                      </td> -->
                     </tr>
                   <?php } } ?>
                   </tbody>

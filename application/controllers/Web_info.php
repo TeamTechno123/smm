@@ -258,6 +258,514 @@ class Web_info extends CI_Controller{
     header('location:'.base_url().'Web_info/testimonial');
   }
 
+
+
+/********************************* Blog Category ***********************************/
+
+  // Add Blog Category...
+  public function blog_category(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('blog_category_name', 'Blog Category Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $blog_category_status = $this->input->post('blog_category_status');
+      if(!isset($blog_category_status)){ $blog_category_status = '1'; }
+      $save_data = $_POST;
+      $save_data['blog_category_status'] = $blog_category_status;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['blog_category_addedby'] = $smm_user_id;
+      $user_id = $this->Master_Model->save_data('smm_blog_category', $save_data);
+
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Web_info/blog_category');
+    }
+
+    $data['blog_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','blog_category_id','ASC','smm_blog_category');
+    $data['page'] = 'Blog Category';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/blog_category', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update Blog Category...
+  public function edit_blog_category($blog_category_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('blog_category_name', 'Blog Category Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $blog_category_status = $this->input->post('blog_category_status');
+      if(!isset($blog_category_status)){ $blog_category_status = '1'; }
+      $update_data = $_POST;
+      $update_data['blog_category_status'] = $blog_category_status;
+      $update_data['blog_category_addedby'] = $smm_user_id;
+      $this->Master_Model->update_info('blog_category_id', $blog_category_id, 'smm_blog_category', $update_data);
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Web_info/blog_category');
+    }
+
+    $blog_category_info = $this->Master_Model->get_info_arr('blog_category_id',$blog_category_id,'smm_blog_category');
+    if(!$blog_category_info){ header('location:'.base_url().'Web_info/blog_category'); }
+    $data['update'] = 'update';
+    $data['update_blog_category'] = 'update';
+    $data['blog_category_info'] = $blog_category_info[0];
+    $data['act_link'] = base_url().'Web_info/edit_blog_category/'.$blog_category_id;
+
+    $data['blog_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','blog_category_id','ASC','smm_blog_category');
+    $data['page'] = 'Edit Blog Category';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/blog_category', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  //Delete Blog Category...
+  public function delete_blog_category($blog_category_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+    $this->Master_Model->delete_info('blog_category_id', $blog_category_id, 'smm_blog_category');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Web_info/blog_category');
+  }
+
+/*********************************** Blog *********************************/
+
+  // Add Blog....
+  public function blog(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('blog_name', 'Blog Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $blog_status = $this->input->post('blog_status');
+      if(!isset($blog_status)){ $blog_status = '1'; }
+      $save_data = $_POST;
+      $save_data['blog_status'] = $blog_status;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['blog_addedby_type'] = '1';
+      $save_data['blog_addedby'] = $smm_user_id;
+      $blog_id = $this->Master_Model->save_data('smm_blog', $save_data);
+
+      if($_FILES['blog_image']['name']){
+        $time = time();
+        $image_name = 'blog_'.$blog_id.'_'.$time;
+        $config['upload_path'] = 'assets/images/blog/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['file_name'] = $image_name;
+        $filename = $_FILES['blog_image']['name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $this->upload->initialize($config); // if upload library autoloaded
+        if ($this->upload->do_upload('blog_image') && $blog_id && $image_name && $ext && $filename){
+          $blog_image_up['blog_image'] =  base_url().'assets/images/blog/'.$image_name.'.'.$ext;
+          $this->Master_Model->update_info('blog_id', $blog_id, 'smm_blog', $blog_image_up);
+          $this->session->set_flashdata('upload_success','File Uploaded Successfully');
+        }
+        else{
+          $error = $this->upload->display_errors();
+          $this->session->set_flashdata('upload_error',$error);
+        }
+      }
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Web_info/blog');
+    }
+    $data['blog_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','blog_category_name','ASC','smm_blog_category');
+
+    $data['blog_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'blog_addedby_type','1','','','','','blog_id','DESC','smm_blog');
+    $data['page'] = 'Blog';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/blog', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update Blog...
+  public function edit_blog($blog_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('blog_name', 'Blog Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $blog_status = $this->input->post('blog_status');
+      if(!isset($blog_status)){ $blog_status = '1'; }
+      $update_data = $_POST;
+      unset($update_data['old_blog_img']);
+      $update_data['blog_status'] = $blog_status;
+      $update_data['blog_addedby_type'] = '1';
+      $save_data['blog_addedby'] = $smm_user_id;
+      $this->Master_Model->update_info('blog_id', $blog_id, 'smm_blog', $update_data);
+
+      if($_FILES['blog_image']['name']){
+        $time = time();
+        $image_name = 'blog_'.$blog_id.'_'.$time;
+        $config['upload_path'] = 'assets/images/blog/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['file_name'] = $image_name;
+        $filename = $_FILES['blog_image']['name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $this->upload->initialize($config); // if upload library autoloaded
+        if ($this->upload->do_upload('blog_image') && $blog_id && $image_name && $ext && $filename){
+          $blog_image_up['blog_image'] =  base_url().'assets/images/blog/'.$image_name.'.'.$ext;
+          $this->Master_Model->update_info('blog_id', $blog_id, 'smm_blog', $blog_image_up);
+          if($_POST['old_blog_img']){
+            $unlink_image = str_replace(base_url(), "",$_POST['old_blog_img']);
+            unlink($unlink_image);
+          }
+          $this->session->set_flashdata('upload_success','File Uploaded Successfully');
+        }
+        else{
+          $error = $this->upload->display_errors();
+          $this->session->set_flashdata('upload_error',$error);
+        }
+      }
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Web_info/blog');
+    }
+
+    $blog_info = $this->Master_Model->get_info_arr('blog_id',$blog_id,'smm_blog');
+    if(!$blog_info){ header('location:'.base_url().'Admin/Web_info/blog'); }
+    $data['update'] = 'update';
+    $data['update_blog'] = 'update';
+    $data['blog_info'] = $blog_info[0];
+    $data['act_link'] = base_url().'Web_info/edit_blog/'.$blog_id;
+    $data['blog_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','blog_category_name','ASC','smm_blog_category');
+
+    $data['blog_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'blog_addedby_type','1','','','','','blog_id','DESC','smm_blog');
+    $data['page'] = 'Edit Blog';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/blog', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  //Delete Blog...
+  public function delete_blog($blog_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $blog_info = $this->Master_Model->get_info_arr_fields('blog_image, blog_id', 'blog_id', $blog_id, 'smm_blog');
+    if($blog_info){
+      $blog_image = $blog_info[0]['blog_image'];
+      if($blog_image){
+        $unlink_image = str_replace(base_url(), "",$blog_image);
+        unlink($unlink_image);
+      }
+    }
+    $this->Master_Model->delete_info('blog_id', $blog_id, 'smm_blog');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Web_info/blog');
+  }
+
+
+/********************************* Tutorial Category ***********************************/
+
+  // Add Tutorial Category...
+  public function tutorial_category(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('tutorial_category_name', 'Tutorial Category Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $tutorial_category_status = $this->input->post('tutorial_category_status');
+      if(!isset($tutorial_category_status)){ $tutorial_category_status = '1'; }
+      $save_data = $_POST;
+      $save_data['tutorial_category_status'] = $tutorial_category_status;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['tutorial_category_addedby'] = $smm_user_id;
+      $user_id = $this->Master_Model->save_data('smm_tutorial_category', $save_data);
+
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Web_info/tutorial_category');
+    }
+
+    $data['tutorial_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','tutorial_category_id','ASC','smm_tutorial_category');
+    $data['page'] = 'Tutorial Category';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/tutorial_category', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update Tutorial Category...
+  public function edit_tutorial_category($tutorial_category_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('tutorial_category_name', 'Tutorial Category Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $tutorial_category_status = $this->input->post('tutorial_category_status');
+      if(!isset($tutorial_category_status)){ $tutorial_category_status = '1'; }
+      $update_data = $_POST;
+      $update_data['tutorial_category_status'] = $tutorial_category_status;
+      $update_data['tutorial_category_addedby'] = $smm_user_id;
+      $this->Master_Model->update_info('tutorial_category_id', $tutorial_category_id, 'smm_tutorial_category', $update_data);
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Web_info/tutorial_category');
+    }
+
+    $tutorial_category_info = $this->Master_Model->get_info_arr('tutorial_category_id',$tutorial_category_id,'smm_tutorial_category');
+    if(!$tutorial_category_info){ header('location:'.base_url().'Web_info/tutorial_category'); }
+    $data['update'] = 'update';
+    $data['update_tutorial_category'] = 'update';
+    $data['tutorial_category_info'] = $tutorial_category_info[0];
+    $data['act_link'] = base_url().'Web_info/edit_tutorial_category/'.$tutorial_category_id;
+
+    $data['tutorial_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','tutorial_category_id','ASC','smm_tutorial_category');
+    $data['page'] = 'Edit Tutorial Category';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/tutorial_category', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  //Delete Tutorial Category...
+  public function delete_tutorial_category($tutorial_category_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+    $this->Master_Model->delete_info('tutorial_category_id', $tutorial_category_id, 'smm_tutorial_category');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Web_info/tutorial_category');
+  }
+
+
+/*********************************** Tutorial *********************************/
+
+  // Add Tutorial....
+  public function tutorial(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('tutorial_name', 'Tutorial Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $tutorial_status = $this->input->post('tutorial_status');
+      if(!isset($tutorial_status)){ $tutorial_status = '1'; }
+      $save_data = $_POST;
+      $save_data['tutorial_status'] = $tutorial_status;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['tutorial_addedby_type'] = '1';
+      $save_data['tutorial_addedby'] = $smm_user_id;
+      $tutorial_id = $this->Master_Model->save_data('smm_tutorial', $save_data);
+
+      if($_FILES['tutorial_image']['name']){
+        $time = time();
+        $image_name = 'tutorial_'.$tutorial_id.'_'.$time;
+        $config['upload_path'] = 'assets/images/tutorial/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['file_name'] = $image_name;
+        $filename = $_FILES['tutorial_image']['name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $this->upload->initialize($config); // if upload library autoloaded
+        if ($this->upload->do_upload('tutorial_image') && $tutorial_id && $image_name && $ext && $filename){
+          $tutorial_image_up['tutorial_image'] =  base_url().'assets/images/tutorial/'.$image_name.'.'.$ext;
+          $this->Master_Model->update_info('tutorial_id', $tutorial_id, 'smm_tutorial', $tutorial_image_up);
+          $this->session->set_flashdata('upload_success','File Uploaded Successfully');
+        }
+        else{
+          $error = $this->upload->display_errors();
+          $this->session->set_flashdata('upload_error',$error);
+        }
+      }
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Web_info/tutorial');
+    }
+    $data['tutorial_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','tutorial_category_name','ASC','smm_tutorial_category');
+
+    $data['tutorial_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'tutorial_addedby_type','1','','','','','tutorial_id','DESC','smm_tutorial');
+    $data['page'] = 'Tutorial';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/tutorial', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update Tutorial...
+  public function edit_tutorial($tutorial_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('tutorial_name', 'Tutorial Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $tutorial_status = $this->input->post('tutorial_status');
+      if(!isset($tutorial_status)){ $tutorial_status = '1'; }
+      $update_data = $_POST;
+      unset($update_data['old_tutorial_img']);
+      $update_data['tutorial_status'] = $tutorial_status;
+      $update_data['tutorial_addedby_type'] = '1';
+      $save_data['tutorial_addedby'] = $smm_user_id;
+      $this->Master_Model->update_info('tutorial_id', $tutorial_id, 'smm_tutorial', $update_data);
+
+      if($_FILES['tutorial_image']['name']){
+        $time = time();
+        $image_name = 'tutorial_'.$tutorial_id.'_'.$time;
+        $config['upload_path'] = 'assets/images/tutorial/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $config['file_name'] = $image_name;
+        $filename = $_FILES['tutorial_image']['name'];
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $this->upload->initialize($config); // if upload library autoloaded
+        if ($this->upload->do_upload('tutorial_image') && $tutorial_id && $image_name && $ext && $filename){
+          $tutorial_image_up['tutorial_image'] =  base_url().'assets/images/tutorial/'.$image_name.'.'.$ext;
+          $this->Master_Model->update_info('tutorial_id', $tutorial_id, 'smm_tutorial', $tutorial_image_up);
+          if($_POST['old_tutorial_img']){
+            $unlink_image = str_replace(base_url(), "",$_POST['old_tutorial_img']);
+            unlink($unlink_image);
+          }
+          $this->session->set_flashdata('upload_success','File Uploaded Successfully');
+        }
+        else{
+          $error = $this->upload->display_errors();
+          $this->session->set_flashdata('upload_error',$error);
+        }
+      }
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Web_info/tutorial');
+    }
+
+    $tutorial_info = $this->Master_Model->get_info_arr('tutorial_id',$tutorial_id,'smm_tutorial');
+    if(!$tutorial_info){ header('location:'.base_url().'Admin/Web_info/tutorial'); }
+    $data['update'] = 'update';
+    $data['update_tutorial'] = 'update';
+    $data['tutorial_info'] = $tutorial_info[0];
+    $data['act_link'] = base_url().'Web_info/edit_tutorial/'.$tutorial_id;
+    $data['tutorial_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','tutorial_category_name','ASC','smm_tutorial_category');
+
+    $data['tutorial_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'tutorial_addedby_type','1','','','','','tutorial_id','DESC','smm_tutorial');
+    $data['page'] = 'Edit Tutorial';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/tutorial', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  //Delete Tutorial...
+  public function delete_tutorial($tutorial_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $tutorial_info = $this->Master_Model->get_info_arr_fields('tutorial_image, tutorial_id', 'tutorial_id', $tutorial_id, 'smm_tutorial');
+    if($tutorial_info){
+      $tutorial_image = $tutorial_info[0]['tutorial_image'];
+      if($tutorial_image){
+        $unlink_image = str_replace(base_url(), "",$tutorial_image);
+        unlink($unlink_image);
+      }
+    }
+    $this->Master_Model->delete_info('tutorial_id', $tutorial_id, 'smm_tutorial');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Web_info/tutorial');
+  }
+
+/*********************************** FAQ *********************************/
+
+  // Add FAQ....
+  public function faq(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('faq_name', 'FAQ Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $faq_status = $this->input->post('faq_status');
+      if(!isset($faq_status)){ $faq_status = '1'; }
+      $save_data = $_POST;
+      $save_data['faq_status'] = $faq_status;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['faq_addedby_type'] = '1';
+      $save_data['faq_addedby'] = $smm_user_id;
+      $faq_id = $this->Master_Model->save_data('smm_faq', $save_data);
+
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Web_info/faq');
+    }
+
+    $data['faq_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'faq_addedby_type','1','','','','','faq_id','DESC','smm_faq');
+    $data['page'] = 'FAQ';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/faq', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update FAQ...
+  public function edit_faq($faq_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('faq_name', 'FAQ Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $faq_status = $this->input->post('faq_status');
+      if(!isset($faq_status)){ $faq_status = '1'; }
+      $update_data = $_POST;
+      $update_data['faq_status'] = $faq_status;
+      $update_data['faq_addedby_type'] = '1';
+      $save_data['faq_addedby'] = $smm_user_id;
+      $this->Master_Model->update_info('faq_id', $faq_id, 'smm_faq', $update_data);
+
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Web_info/faq');
+    }
+
+    $faq_info = $this->Master_Model->get_info_arr('faq_id',$faq_id,'smm_faq');
+    if(!$faq_info){ header('location:'.base_url().'Admin/Web_info/faq'); }
+    $data['update'] = 'update';
+    $data['update_faq'] = 'update';
+    $data['faq_info'] = $faq_info[0];
+    $data['act_link'] = base_url().'Web_info/edit_faq/'.$faq_id;
+
+    $data['faq_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'faq_addedby_type','1','','','','','faq_id','DESC','smm_faq');
+    $data['page'] = 'Edit FAQ';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Web_info/faq', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  //Delete FAQ...
+  public function delete_faq($faq_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' && $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->Master_Model->delete_info('faq_id', $faq_id, 'smm_faq');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Web_info/faq');
+  }
+
+
 /*************************************** Website Setting **********************************/
   public function web_setting(){
     $smm_user_id = $this->session->userdata('smm_user_id');

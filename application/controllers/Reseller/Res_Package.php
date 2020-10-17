@@ -207,5 +207,20 @@ class Res_Package extends CI_Controller{
   }
 
 
+
+/*********************************************************************************/
+  // Make Package Featured...
+  public function make_package_featured(){
+    $smm_reseller_id = $this->session->userdata('smm_user_id');
+    $smm_res_company_id = $this->session->userdata('smm_res_company_id');
+    if($smm_reseller_id == '' && $smm_res_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $reseller_package_id = $_POST['reseller_package_id'];
+    $is_featured = $_POST['is_featured'];
+    $update_data['is_featured'] = $is_featured;
+
+    $this->Master_Model->update_info('reseller_package_id', $reseller_package_id, 'smm_reseller_package', $update_data);
+  }
+
 }
 ?>

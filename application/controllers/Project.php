@@ -297,6 +297,7 @@ class Project extends CI_Controller{
     $data['project_info'] = $project_info[0];
     $data['page'] = 'Project Overview';
 
+    $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','task_id','ASC','smm_task');
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
     $this->load->view('Admin/Project/project_det_overview', $data);
@@ -324,6 +325,7 @@ class Project extends CI_Controller{
     $project_info = $this->Master_Model->get_info_arr_fields('*', 'project_id', $project_id, 'smm_project');
     $data['project_info'] = $project_info[0];
     $data['page'] = 'Project Progress';
+    $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','task_id','ASC','smm_task');
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
     $this->load->view('Admin/Project/project_det_progress', $data);
@@ -388,6 +390,7 @@ class Project extends CI_Controller{
     $data['time_log_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','time_log_id','ASC','smm_time_log');
     $data['project_info'] = $project_info[0];
 
+    $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','task_id','ASC','smm_task');
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
     $this->load->view('Admin/Project/project_det_time_log', $data);
@@ -408,6 +411,7 @@ class Project extends CI_Controller{
     $data['project_revision_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','project_revision_id','ASC','smm_project_revision');
     $data['project_info'] = $project_info[0];
 
+    $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','task_id','ASC','smm_task');
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
     $this->load->view('Admin/Project/project_det_revision', $data);
@@ -552,6 +556,7 @@ class Project extends CI_Controller{
     $data['project_file_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','project_file_id','DESC','smm_project_file');
     $data['project_info'] = $project_info[0];
 
+    $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','task_id','ASC','smm_task');
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
     $this->load->view('Admin/Project/project_det_file', $data);
@@ -570,6 +575,7 @@ class Project extends CI_Controller{
     $data['project_info'] = $project_info[0];
     $data['project_del_phase_list'] = $this->Master_Model->get_list_by_id3('','project_id',$project_id,'','','','','project_del_phase_id','ASC','smm_project_del_phase');
 
+    $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','task_id','ASC','smm_task');
     $data['page'] = 'Project Milestone';
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
@@ -590,6 +596,7 @@ class Project extends CI_Controller{
     $order_id = $project_info[0]['order_id'];
     $data['invoice_list'] = $this->Master_Model->get_list_by_id3('','','','order_id',$order_id,'','','invoice_id','ASC','smm_invoice');
 
+    $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','task_id','ASC','smm_task');
     $data['page'] = 'Project Invoice';
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
@@ -625,6 +632,7 @@ class Project extends CI_Controller{
     $order_id = $project_info[0]['order_id'];
     $data['project_discussion_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','project_discussion_id','ASC','smm_project_discussion');
 
+    $data['task_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'project_id',$project_id,'','','','','task_id','ASC','smm_task');
     $data['page'] = 'Project Discussion';
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
@@ -1584,10 +1592,10 @@ class Project extends CI_Controller{
 
     $this->form_validation->set_rules('ticket_title', 'Ticket Name', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      $ticket_status = $this->input->post('ticket_status');
-      if(!isset($ticket_status)){ $ticket_status = '1'; }
+      // $ticket_status = $this->input->post('ticket_status');
+      // if(!isset($ticket_status)){ $ticket_status = '1'; }
       $save_data = $_POST;
-      $save_data['ticket_status'] = $ticket_status;
+      // $save_data['ticket_status'] = $ticket_status;
       $save_data['company_id'] = $smm_company_id;
       $save_data['ticket_addedby'] = $smm_user_id;
       $ticket_id = $this->Master_Model->save_data('smm_ticket', $save_data);
@@ -1617,6 +1625,7 @@ class Project extends CI_Controller{
     $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','department_status','1','department_name','ASC','smm_department');
     $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','user_status','1','user_name','ASC','user');
     $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_name','ASC','smm_project');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
 
     $data['ticket_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','ticket_id','DESC','smm_ticket');
     $data['page'] = 'Ticket';
@@ -1635,12 +1644,12 @@ class Project extends CI_Controller{
 
     $this->form_validation->set_rules('ticket_title', 'Ticket Name', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      $ticket_status = $this->input->post('ticket_status');
-      if(!isset($ticket_status)){ $ticket_status = '1'; }
+      // $ticket_status = $this->input->post('ticket_status');
+      // if(!isset($ticket_status)){ $ticket_status = '1'; }
       $update_data = $_POST;
       unset($update_data['old_ticket_image']);
-      $update_data['ticket_status'] = $ticket_status;
-      $update_data['ticket_addedby'] = $smm_user_id;
+      // $update_data['ticket_status'] = $ticket_status;
+      // $update_data['ticket_addedby'] = $smm_user_id;
       $this->Master_Model->update_info('ticket_id', $ticket_id, 'smm_ticket', $update_data);
 
       if($_FILES['ticket_image']['name']){
@@ -1677,6 +1686,7 @@ class Project extends CI_Controller{
     $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','department_status','1','department_name','ASC','smm_department');
     $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','user_status','1','user_name','ASC','user');
     $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','project_name','ASC','smm_project');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
 
     $data['ticket_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','ticket_id','DESC','smm_ticket');
     $data['page'] = 'Edit Ticket';

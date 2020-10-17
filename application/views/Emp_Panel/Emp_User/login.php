@@ -21,7 +21,7 @@
 <body class="hold-transition login-page "  >
 <div class="login-box">
   <div class="login-logo ">
-    <span class="login-box-msg">Reseller Login </span>
+    <span class="login-box-msg">Employee Login </span>
     <br><i class="fas fa-user"></i>
   </div>
   <!-- /.login-logo -->

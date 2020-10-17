@@ -68,8 +68,9 @@ class Finance extends CI_Controller{
     }
     $data['country_list'] = $this->Master_Model->get_list_by_id3('','','','','','','','country_name','ASC','country');
     $data['branch_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','branch_name','ASC','smm_branch');
+    $data['reseller_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_category_name','ASC','smm_reseller_category');
 
-    $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'reseller_added_type','1','','','','','reseller_id','DESC','smm_reseller');
+    $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_id','DESC','smm_reseller');
     $data['page'] = 'Reseller';
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);
@@ -128,9 +129,9 @@ class Finance extends CI_Controller{
     $data['country_list'] = $this->Master_Model->get_list_by_id3('','','','','','','','country_name','ASC','country');
     $data['state_list'] = $this->Master_Model->get_list_by_id3('','country_id',$country_id,'','','','','state_name','ASC','state');
     $data['city_list'] = $this->Master_Model->get_list_by_id3('','state_id',$state_id,'','','','','city_name','ASC','city');
-    // $data['branch_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','branch_name','ASC','smm_branch');
+    $data['reseller_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_category_name','ASC','smm_reseller_category');
 
-    $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'reseller_added_type','1','','','','','reseller_id','DESC','smm_reseller');
+    $data['reseller_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_id','DESC','smm_reseller');
     $data['page'] = 'Edit Reseller';
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);

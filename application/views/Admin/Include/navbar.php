@@ -495,6 +495,12 @@
           </a>
           <ul class="nav nav-treeview" style="display: none;">
             <li class="nav-item">
+              <a <?php if(isset($update_reseller_category)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Master/reseller_category" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Reseller Category</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a <?php if(isset($update_reseller)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Finance/reseller" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Reseller</p>
@@ -635,18 +641,51 @@
             </p>
           </a>
           <ul class="nav nav-treeview" style="display: none;">
+
+            <li class="nav-item">
+              <a <?php if(isset($update_blog_category)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Web_info/blog_category" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Blog Category</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a <?php if(isset($update_blog)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Web_info/blog" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Blog</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_tutorial_category)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Web_info/tutorial_category" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tutorial Category</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a <?php if(isset($update_tutorial)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Web_info/tutorial" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tutorial</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a <?php if(isset($update_faq)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Web_info/faq" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>FAQ</p>
+              </a>
+            </li>
+
             <li class="nav-item">
               <a  href="<?php echo base_url(); ?>Web_info/web_setting" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Website Information</p>
               </a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a <?php if(isset($update_slider)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Web_info/slider" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Slider</p>
               </a>
-            </li>
+            </li> -->
             <!-- <li class="nav-item">
               <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="#" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
@@ -685,58 +724,6 @@
             </li>
           </ul>
         </li>
-
-        <!-- <li class="nav-item has-treeview">
-          <a href="#" class="nav-link head">
-            <i class="nav-icon fas fa-ticket-alt"></i>
-            <p>
-              Ticket Information
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" style="display: none;">
-            <li class="nav-item">
-              <a <?php if(isset($update_ticket)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Project/ticket" <?php } ?> class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Ticket</p>
-              </a>
-            </li>
-          </ul>
-        </li> -->
-
-
-
-        <!-- <li class="nav-item has-treeview">
-          <a href="#" class="nav-link head">
-            <i class="nav-icon fas fa-search-location"></i>
-            <p>
-              Reviews / Testimonials
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" style="display: none;">
-
-          </ul>
-        </li> -->
-
-        <!-- <li class="nav-item has-treeview">
-          <a href="#" class="nav-link head">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-              Settings
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" style="display: none;">
-
-            <li class="nav-item">
-              <a <?php if(isset($update_bank_account)){ echo 'href="'.$act_link.'"'; } else{ ?> href="#" <?php } ?> class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Email Template</p>
-              </a>
-            </li>
-          </ul>
-        </li> -->
 
 
 
@@ -820,121 +807,8 @@
               </a>
             </li>
 
-
           </ul>
         </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- <li class="nav-item has-treeview">
-          <a href="#" class="nav-link head">
-            <i class="nav-icon fas fa-list"></i>
-            <p>
-              Master
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" style="display: none;">
-            <li class="nav-item">
-              <a <?php if(isset($update_order_status)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Master/order_status" <?php } ?> class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Order Status</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a <?php if(isset($update_product_category)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Master/product_category" <?php } ?> class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Product Category</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a <?php if(isset($update_purchase_type)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Master/purchase_type" <?php } ?> class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Purchase Type</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a <?php if(isset($update_sale_type)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Master/sale_type" <?php } ?> class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Sale Type</p>
-              </a>
-            </li>
-          </ul>
-        </li> -->
-
-
-
-        <!-- <li class="nav-item has-treeview">
-          <a href="#" class="nav-link head">
-            <i class="nav-icon fas fa-users"></i>
-            <p>
-              Party
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" style="display: none;">
-
-          </ul>
-        </li> -->
-
-        <!-- <li class="nav-item has-treeview">
-          <a href="#" class="nav-link head">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-              Product
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" style="display: none;">
-            <li class="nav-item">
-              <a <?php if(isset($update_product_setting)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Product/item_company" <?php } ?> class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Product Setting</p>
-              </a>
-            </li>
-          </ul>
-        </li> -->
-
-
-        <!-- <li class="nav-item has-treeview">
-          <a href="#" class="nav-link head">
-            <i class="nav-icon fas fa-cog"></i>
-            <p>
-              Transaction
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview" style="display: none;">
-
-
-          </ul>
-        </li> -->
-
       </nav>
     <!-- /.sidebar-menu -->
     </div>

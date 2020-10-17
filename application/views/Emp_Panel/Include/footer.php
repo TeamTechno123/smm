@@ -91,6 +91,11 @@
       toastr.error('File Not Uploaded');
     });
   <?php } ?>
+  <?php if($this->session->flashdata('invalid_password')){ ?>
+    $(document).ready(function(){
+      toastr.error('Invalid Old Password');
+    });
+  <?php } ?>
 </script>
 
 
@@ -180,6 +185,15 @@
     $('.select2').select2();
     //Bootstrap Duallistbox
     $('.duallistbox').bootstrapDualListbox();
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' });
+    //Money Euro
+    $('[data-mask]').inputmask();
+    $('.mfd_date').inputmask();
+    // $(f).find('.mfd_date').mask('99/99/9999');
   })
 </script>
 

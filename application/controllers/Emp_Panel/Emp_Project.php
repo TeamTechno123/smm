@@ -393,7 +393,45 @@ class Emp_Project extends CI_Controller{
     $this->load->view('Emp_Panel/Include/footer', $data);
   }
 
+// Ticket...
+  public function ticket($ticket_id = null){
+    $smm_emp_id = $this->session->userdata('smm_emp_id');
+    $smm_emp_company_id = $this->session->userdata('smm_emp_company_id');
+    $smm_emp_role_id = $this->session->userdata('smm_emp_role_id');
+    if($smm_emp_id == '' || $smm_emp_company_id == ''){ header('location:'.base_url().'Employee'); }
 
+
+
+
+    if(isset($ticket_id) && $ticket_id){
+      $this->form_validation->set_rules('ticket_no', 'Ticket Number', 'trim|required');
+      if ($this->form_validation->run() != FALSE) {
+        $update_data = $_POST;
+        $this->Master_Model->update_info('ticket_id', $ticket_id, 'smm_ticket', $update_data);
+
+        $this->session->set_flashdata('update_success','success');
+        header('location:'.base_url().'Emp_Panel/Emp_Project/ticket');
+      }
+
+      $ticket_info = $this->Master_Model->get_info_arr_fields3('*', '', 'ticket_id',$ticket_id, 'ticket_assign_to',$smm_emp_id, '', '', 'smm_ticket');
+      if(!$ticket_info){ header('location:'.base_url().'Emp_Panel/Emp_Project/ticket/'); }
+      $data['update'] = 'update';
+      $data['update_ticket'] = 'update';
+      $data['ticket_info'] = $ticket_info[0];
+      $data['act_link'] = base_url().'Emp_Panel/Emp_Project/ticket/'.$ticket_id;
+      $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_emp_company_id,'','','','','department_status','1','department_name','ASC','smm_department');
+      $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_emp_company_id,'','','is_admin','0','user_status','1','user_name','ASC','user');
+      $data['project_list'] = $this->Master_Model->get_list_by_id3($smm_emp_company_id,'','','','','','','project_name','ASC','smm_project');
+      $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_emp_company_id,'','','','','','','employee_name','ASC','smm_employee');
+    }
+
+    $data['ticket_list'] = $this->Master_Model->get_list_by_id3($smm_emp_company_id,'ticket_assign_to',$smm_emp_id,'','','','','ticket_id','DESC','smm_ticket');
+    $data['page'] = 'Ticket';
+    $this->load->view('Emp_Panel/Include/head', $data);
+    $this->load->view('Emp_Panel/Include/navbar', $data);
+    $this->load->view('Emp_Panel/Emp_Project/ticket', $data);
+    $this->load->view('Emp_Panel/Include/footer', $data);
+  }
 
 
 

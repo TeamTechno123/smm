@@ -32,6 +32,7 @@
       <!-- <p class="login-box-msg">Login </p> -->
       <form class="input_form" method="post" action="">
         <div class="row ">
+
           <div class="form-group col-md-12">
             <label>Name of Reseller/Company</label>
             <input type="text" class="form-control form-control-sm" name="reseller_name" id="reseller_name" value="" placeholder="Enter Name of Reseller/Company" required="">
@@ -54,7 +55,17 @@
             <input type="password" class="form-control form-control-sm con_password" id="reseller_c_password" value="" placeholder="Confirm Password" required="">
           </div>
 
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6 select_sm">
+            <label>Reseller Category</label>
+            <select class="form-control form-control-sm select2" name="reseller_category_id" id="reseller_category_id" data-placeholder="Select Category" required >
+              <option value="">Select Category</option>
+              <?php if(isset($reseller_category_list)){ foreach ($reseller_category_list as $list) { ?>
+              <option value="<?php echo $list->reseller_category_id; ?>" <?php if(isset($reseller_info) && $reseller_info['reseller_category_id'] == $list->reseller_category_id){ echo 'selected'; } if($list->reseller_category_status == 0){ echo ' disabled'; } ?>><?php echo $list->reseller_category_name; ?></option>
+              <?php } } ?>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
             <label>Country</label>
             <select class="form-control select2 form-control-sm" name="country_id" id="country_id" data-placeholder="Select Country" required >
               <option value="">Select Country</option>
@@ -63,7 +74,7 @@
               <?php } } ?>
             </select>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label>State</label>
             <select class="form-control select2 form-control-sm" name="state_id" id="state_id" data-placeholder="Select State" required >
               <option value="">Select State</option>
@@ -72,7 +83,7 @@
               <?php } } ?>
             </select>
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-6">
             <label>City</label>
             <select class="form-control select2 form-control-sm" name="city_id" id="city_id" data-placeholder="Select City" required >
               <option value="">Select City</option>

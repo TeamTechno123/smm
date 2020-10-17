@@ -250,12 +250,22 @@ input[type=number] {
   overflow-x: auto;
 }
 
+.project_menu a{
+  color: #7E7E7E!important;
+  background-color: #fff !important;
+}
+
 .project_menu .active{
-  background: #007bff !important;
+  color: #000!important;
+  background-color: #fff !important;
+
 }
 .project_menu .active a{
   color: #fff;
+  border-bottom: 2px solid #6A5ACD!important;
 }
+
+
 
 
 

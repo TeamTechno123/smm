@@ -638,6 +638,95 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     $this->load->view('Admin/Include/footer', $data);
   }
 
+/********************************* Reseller Category ***********************************/
+
+  // Add Reseller Category...
+  public function reseller_category(){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('reseller_category_name', 'Reseller Category Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $reseller_category_status = $this->input->post('reseller_category_status');
+      if(!isset($reseller_category_status)){ $reseller_category_status = '1'; }
+      $save_data = $_POST;
+      $save_data['reseller_category_status'] = $reseller_category_status;
+      $save_data['company_id'] = $smm_company_id;
+      $save_data['reseller_category_addedby'] = $smm_user_id;
+      $user_id = $this->Master_Model->save_data('smm_reseller_category', $save_data);
+
+      $this->session->set_flashdata('save_success','success');
+      header('location:'.base_url().'Master/reseller_category');
+    }
+
+    $data['reseller_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_category_id','ASC','smm_reseller_category');
+    $data['page'] = 'Reseller Category';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Master/reseller_category', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  // Edit/Update Reseller Category...
+  public function edit_reseller_category($reseller_category_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+
+    $this->form_validation->set_rules('reseller_category_name', 'Reseller Category Name', 'trim|required');
+    if ($this->form_validation->run() != FALSE) {
+      $reseller_category_status = $this->input->post('reseller_category_status');
+      if(!isset($reseller_category_status)){ $reseller_category_status = '1'; }
+      $update_data = $_POST;
+      $update_data['reseller_category_status'] = $reseller_category_status;
+      $update_data['reseller_category_addedby'] = $smm_user_id;
+      $this->Master_Model->update_info('reseller_category_id', $reseller_category_id, 'smm_reseller_category', $update_data);
+
+      $this->session->set_flashdata('update_success','success');
+      header('location:'.base_url().'Master/reseller_category');
+    }
+
+    $reseller_category_info = $this->Master_Model->get_info_arr('reseller_category_id',$reseller_category_id,'smm_reseller_category');
+    if(!$reseller_category_info){ header('location:'.base_url().'Master/reseller_category'); }
+    $data['update'] = 'update';
+    $data['update_reseller_category'] = 'update';
+    $data['reseller_category_info'] = $reseller_category_info[0];
+    $data['act_link'] = base_url().'Master/edit_reseller_category/'.$reseller_category_id;
+
+    $data['reseller_category_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','reseller_category_id','ASC','smm_reseller_category');
+    $data['page'] = 'Edit Reseller Category';
+    $this->load->view('Admin/Include/head', $data);
+    $this->load->view('Admin/Include/navbar', $data);
+    $this->load->view('Admin/Master/reseller_category', $data);
+    $this->load->view('Admin/Include/footer', $data);
+  }
+
+  //Delete Reseller Category...
+  public function delete_reseller_category($reseller_category_id){
+    $smm_user_id = $this->session->userdata('smm_user_id');
+    $smm_company_id = $this->session->userdata('smm_company_id');
+    $smm_role_id = $this->session->userdata('smm_role_id');
+    if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
+    $this->Master_Model->delete_info('reseller_category_id', $reseller_category_id, 'smm_reseller_category');
+    $this->session->set_flashdata('delete_success','success');
+    header('location:'.base_url().'Master/reseller_category');
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*****************************************************************************************/
   // Check Duplication
   public function check_duplication(){

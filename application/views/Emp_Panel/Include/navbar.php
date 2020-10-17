@@ -86,7 +86,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/timesheet" class="nav-link head">
+          <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/attendence_list" class="nav-link head">
             <i class="nav-icon far fa-money-bill-alt"></i>
             <p>
               Timesheet
@@ -145,7 +145,7 @@
             </li>
 
              <li class="nav-item">
-              <a  href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/ticket" class="nav-link">
+              <a  <?php if(isset($update_ticket)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Emp_Panel/Emp_Project/ticket" <?php } ?> class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Ticket</p>
               </a>
@@ -155,7 +155,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/basic_info" class="nav-link head">
+          <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Profile/basic_info" class="nav-link head">
             <i class="nav-icon far fa-money-bill-alt"></i>
             <p>
               My Profile

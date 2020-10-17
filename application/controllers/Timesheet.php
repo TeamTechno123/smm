@@ -47,7 +47,7 @@ class Timesheet extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Timesheet/attendence');
     }
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','user_status','1','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
 
     $data['attendence_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','attendence_id','DESC','smm_attendence');
     $data['page'] = 'Attendence';
@@ -83,7 +83,7 @@ class Timesheet extends CI_Controller{
     $data['update_attendence'] = 'update';
     $data['attendence_info'] = $attendence_info[0];
     $data['act_link'] = base_url().'Timesheet/edit_attendence/'.$attendence_id;
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','user_status','1','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
 
     $data['attendence_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','attendence_id','DESC','smm_attendence');
     $data['page'] = 'Edit Attendence';
@@ -118,10 +118,7 @@ class Timesheet extends CI_Controller{
 
     $this->form_validation->set_rules('overtime_request_date', 'Overtime Request Name', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      // $overtime_request_status = $this->input->post('overtime_request_status');
-      // if(!isset($overtime_request_status)){ $overtime_request_status = '1'; }
       $save_data = $_POST;
-      // $save_data['overtime_request_status'] = $overtime_request_status;
       $save_data['company_id'] = $smm_company_id;
       $save_data['overtime_request_addedby'] = $smm_user_id;
       $overtime_request_id = $this->Master_Model->save_data('smm_overtime_request', $save_data);
@@ -129,7 +126,7 @@ class Timesheet extends CI_Controller{
       $this->session->set_flashdata('save_success','success');
       header('location:'.base_url().'Timesheet/overtime_request');
     }
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','','','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
 
     $data['overtime_request_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','overtime_request_id','DESC','smm_overtime_request');
     $data['page'] = 'Overtime Request';
@@ -165,7 +162,7 @@ class Timesheet extends CI_Controller{
     $data['update_overtime_request'] = 'update';
     $data['overtime_request_info'] = $overtime_request_info[0];
     $data['act_link'] = base_url().'Timesheet/edit_overtime_request/'.$overtime_request_id;
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','','','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
 
     $data['overtime_request_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','overtime_request_id','DESC','smm_overtime_request');
     $data['page'] = 'Edit Overtime Request';
@@ -189,8 +186,6 @@ class Timesheet extends CI_Controller{
 
 
 
-
-
 /********************************* Leave ***********************************/
 
   // Add Leave...
@@ -202,10 +197,23 @@ class Timesheet extends CI_Controller{
 
     $this->form_validation->set_rules('employee_id', 'Leave', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      // $leave_status = $this->input->post('leave_status');
-      // if(!isset($leave_status)){ $leave_status = '1'; }
       $save_data = $_POST;
-      // $save_data['leave_status'] = $leave_status;
+      $leave_half_day = $this->input->post('leave_half_day');
+      if(isset($leave_half_day)){
+        $save_data['leave_total_days'] = '0';
+        $save_data['leave_half_day'] = '1';
+      } else{
+        $date1 = $_POST['leave_start_date'];
+        $date2 = $_POST['leave_end_date'];
+
+        $date1 = strtotime($date1);
+        $date2 = strtotime($date2);
+        $datediff = $date2 - $date1;
+        $leave_total_days = round($datediff / (60 * 60 * 24)) + 1;
+
+        $save_data['leave_total_days'] = $leave_total_days;
+        $save_data['leave_half_day'] = '0';
+      }
       $save_data['company_id'] = $smm_company_id;
       $save_data['leave_addedby'] = $smm_user_id;
       $leave_id = $this->Master_Model->save_data('smm_leave', $save_data);
@@ -233,7 +241,7 @@ class Timesheet extends CI_Controller{
       header('location:'.base_url().'Timesheet/leave');
     }
     $data['leave_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','leave_type_name','ASC','smm_leave_type');
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','','','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
 
     $data['leave_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','leave_id','DESC','smm_leave');
     $data['page'] = 'Leave';
@@ -252,9 +260,22 @@ class Timesheet extends CI_Controller{
 
     $this->form_validation->set_rules('employee_id', 'Leave', 'trim|required');
     if ($this->form_validation->run() != FALSE) {
-      // $leave_status = $this->input->post('leave_status');
-      // if(!isset($leave_status)){ $leave_status = '1'; }
       $update_data = $_POST;
+
+      $leave_half_day = $this->input->post('leave_half_day');
+      if(isset($leave_half_day)){
+        $update_data['leave_total_days'] = '0';
+        $update_data['leave_half_day'] = '1';
+      } else{
+        $date1 = $_POST['leave_start_date'];
+        $date2 = $_POST['leave_end_date'];
+        $date1 = strtotime($date1);
+        $date2 = strtotime($date2);
+        $datediff = $date2 - $date1;
+        $leave_total_days = round($datediff / (60 * 60 * 24)) + 1;
+        $update_data['leave_total_days'] = $leave_total_days;
+        $update_data['leave_half_day'] = '0';
+      }
       unset($update_data['old_leave_image']);
       // $update_data['leave_status'] = $leave_status;
       $update_data['leave_addedby'] = $smm_user_id;
@@ -290,7 +311,7 @@ class Timesheet extends CI_Controller{
     $data['leave_info'] = $leave_info[0];
     $data['act_link'] = base_url().'Timesheet/edit_leave/'.$leave_id;
     $data['leave_type_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','leave_type_name','ASC','smm_leave_type');
-    $data['user_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','is_admin','0','','','user_name','ASC','user');
+    $data['employee_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','employee_name','ASC','smm_employee');
 
     $data['leave_list'] = $this->Master_Model->get_list_by_id3($smm_company_id,'','','','','','','leave_id','DESC','smm_leave');
     $data['page'] = 'Edit Leave';

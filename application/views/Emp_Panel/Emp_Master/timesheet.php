@@ -15,44 +15,7 @@
           <div class="col-md-12">
             <h4>Attendance</h4>
           </div>
-             <div class="col-md-4 col-6">
-            <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/employee">
-              <div class="info-box">
-                <span class="info-box-icon text-success"><i class="far fa-clock"></i></span>
-                <div class="info-box-content">                 
-                  <span class="info-box-number text-primary f-16">Attendance</span>
-                   <span class="info-box-text text-secondary">Attendance All</span>
-                </div>
-              </div>
-            </a>
-          
-          </div>
-
-           <div class="col-md-4 col-6">
-            <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/employee">
-              <div class="info-box">
-                <span class="info-box-icon text-success"><i class="far fa-calendar-alt"></i></span>
-                <div class="info-box-content">                 
-                  <span class="info-box-number text-primary f-16">Monthly Timesheet</span>
-                   <span class="info-box-text text-secondary">View All</span>
-                </div>
-              </div>
-            </a>
-          
-          </div>
-
-           <div class="col-md-4 col-6">
-            <a href="<?php echo base_url(); ?>Emp_Panel/Emp_Master/employee">
-              <div class="info-box">
-                <span class="info-box-icon text-success"><i class="far fa-clock"></i></span>
-                <div class="info-box-content">                 
-                  <span class="info-box-number text-primary f-16">Overtime Request</span>
-                   <span class="info-box-text text-secondary">Add Overtime Request</span>
-                </div>
-              </div>
-            </a>
-          
-          </div>
+          <?php include('timesheet_topbar.php'); ?>
         </div>
 
         <div class="row">
@@ -60,8 +23,8 @@
           <div class="col-md-12">
             <!-- general form elements -->
             <div class="card">
-           
-           
+
+
             <div class="card-body">
               <form class="form-horizontal" autocomplete="off" method="post">
                 <div class="form-group row">
@@ -78,17 +41,17 @@
                       <button type="submit" class="btn btn-primary" name="button">Get</button>
                     </div>
                   </div>
-                
+
                 </div>
-               
+
               </form>
-             
+
              <div class="row">
               <div class="col-sm-8"> <h6 class="">Daily Attendance Report</h6> </div>
                <div class="col-sm-4"> <h5> <a href="#">  <span class="badge badge-primary"> <i class="fas fa-plus ml-2 mr-2"></i> Date Wise Attendance</span></a> </h5>  </div>
-               
+
              </div>
-             
+
                 <hr>
                 <table id="example1" class="table table-bordered table-striped scroll" >
                   <thead>
@@ -103,15 +66,15 @@
                     <th>Late </th>
                      <th>Early Leaving</th>
                     <th>Overtime</th>
-                    <th>Total Work </th>                    
+                    <th>Total Work </th>
                   </tr>
                   </thead>
                   <tbody>
-              
+
                 </table>
                 <br>
-                
-             
+
+
             </div>
           </div>
           </div>
@@ -120,7 +83,7 @@
       </div><!-- /.container-fluid -->
     </section>
 
-    
+
   </div>
 
 </body>

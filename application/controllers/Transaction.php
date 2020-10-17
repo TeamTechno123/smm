@@ -54,16 +54,25 @@ class Transaction extends CI_Controller{
       $this->Master_Model->update_info('order_id', $order_id, 'smm_order', $update_data);
 
       if($_POST['order_cancel_approve'] == '1'){
-        $update_data['project_status'] = '3';
-        $this->Master_Model->update_info('order_id', $order_id, 'smm_project', $update_data);
+        // Cancel Project...
+        $update_data2['project_status'] = '3';
+        $this->Master_Model->update_info('order_id', $order_id, 'smm_project', $update_data2);
+
+        // Cancel Invoice...
+        $update_data3['invoice_status'] = '2';
+        $this->Master_Model->update_info('ref_order_id', $order_id, 'smm_invoice', $update_data3);
+
+        // Cancel Commission...
+        $cancelled_invoice_list = $this->Master_Model->get_list_by_id3($smm_company_id,'ref_order_id',$order_id,'invoice_status','2','','','invoice_id','ASC','smm_invoice');
+        foreach ($cancelled_invoice_list as $cancelled_invoice_list1) {
+          $invoice_id = $cancelled_invoice_list1->invoice_id;
+          $update_data4['commission_status'] = '2';
+          $this->Master_Model->update_info('invoice_id', $invoice_id, 'smm_commission', $update_data4);
+        }
       }
 
       header('location:'.base_url().'Transaction/order_cancel_list');
     }
-
-
-
-
 
 
 }

@@ -468,7 +468,7 @@ class Res_Master extends CI_Controller{
       $update_data = $_POST;
       unset($update_data['old_blog_img']);
       $update_data['blog_status'] = $blog_status;
-      $save_data['blog_addedby_type'] = '2';
+      $update_data['blog_addedby_type'] = '2';
       $this->Master_Model->update_info('blog_id', $blog_id, 'smm_blog', $update_data);
 
       if($_FILES['blog_image']['name']){

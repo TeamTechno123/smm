@@ -28,16 +28,40 @@
           <div class="col-md-10">
             <div class="row mb-5">
               <div class="col-4">
-                <img class="profile-img" src="http://localhost/smm/assets/images/reseller/reseller_2_1599543094.png">
+                <img class="profile-img" src="<?php echo base_url(); ?>assets/images/employee/<?php echo $employee_info['employee_image']; ?>">
               </div>
               <div class="col-6">
                 <h4 class=""><?php echo $employee_info['employee_name'].' '.$employee_info['employee_lname']; ?><span class="admin-grey"> @ <?php echo $designation_info['designation_name']; ?></span></h4>
                 <p>Id : <?php echo $employee_info['employee_emp_id']; ?></p>
                 <h6>My Office Shift 9:00am To 6:00pm</h6>
+                <div class="row">
+                  <div class="col-md-auto">
+                    <?php
+                    $smm_emp_id = $this->session->userdata('smm_emp_id');
+                    $smm_emp_company_id = $this->session->userdata('smm_emp_company_id');
+                    $attendence_date = date('d-m-Y');
 
-                <button type="submit" class="btn btn-primary">Clock In </button>
-                <button type="submit" class="btn btn-primary">Clock Out </button>
-                <button type="submit" class="btn btn-secondary"><i class="fas fa-user-times"></i></button>
+                    $check_clock_in = $this->Master_Model->get_info_arr_fields3('*', $smm_emp_company_id, 'attendence_date',$attendence_date, 'employee_id', $smm_emp_id, '', '', 'smm_attendence'); ?>
+
+                    <form class="" action="<?php echo base_url(); ?>Emp_Panel/Emp_Master/clock_in" method="post">
+                      <button type="submit" class="btn btn-primary btn-sm" <?php if($check_clock_in){ echo 'disabled'; } ?>>Clock In </button>
+                    </form>
+                  </div>
+                  <div class="col-md-auto">
+                    <form class="" action="<?php echo base_url(); ?>Emp_Panel/Emp_Master/clock_out" method="post">
+                      <button type="submit" class="btn btn-primary btn-sm">Clock Out </button>
+                    </form>
+                  </div>
+                  <div class="col-md-auto">
+                    <button style="display:inline;" type="submit" class="btn btn-secondary"><i class="fas fa-user-times"></i></button>
+                  </div>
+                </div>
+
+
+
+
+
+
               </div>
             </div>
           </div>
@@ -120,3 +144,11 @@
 
 </body>
 </html>
+
+<script type="text/javascript">
+  <?php if($this->session->flashdata('clock_in_exist')){ ?>
+    $(document).ready(function(){
+      toastr.error('Already Clock In');
+    });
+  <?php } ?>
+</script>

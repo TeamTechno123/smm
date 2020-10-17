@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-group col-md-3">
                       <label>Date of Joining</label>
-                      <input type="text" class="form-control form-control-sm datetimepicker-input" name="employee_join_date" value="<?php if(isset($employee_info)){ echo $employee_info['employee_join_date']; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Joining Date" required >
+                      <input type="text" class="form-control form-control-sm " name="employee_join_date" value="<?php if(isset($employee_info)){ echo $employee_info['employee_join_date']; } ?>" id="date1" data-target="#date1" data-toggle="datetimepicker" data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy" data-mask placeholder="Enter Joining Date" required >
                     </div>
 
                     <!-- <div class="form-group col-md-4 select_sm">
@@ -139,6 +139,22 @@
                         <?php } } ?>
                       </select>
                     </div>
+
+                    <div class="form-group col-md-3">
+                      <label>Salary</label>
+                      <input type="number" min="0" class="form-control form-control-sm" name="employee_salary" id="employee_salary" value="<?php if(isset($employee_info)){ echo $employee_info['employee_salary']; } ?>"  placeholder="Enter Salary" required >
+                    </div>
+                    <div class="form-group col-md-3 select_sm">
+                      <label>Salary Type</label>
+                      <select class="form-control select2" name="employee_salary_type" id="employee_salary_type" data-placeholder="Select Salary Type">
+                        <option value="">Select Salary Type</option>
+                        <option value="Hourly" <?php if(isset($employee_info) && $employee_info['employee_salary_type'] == 'Hourly'){ echo 'selected'; } ?>>Hourly</option>
+                        <option value="Daily" <?php if(isset($employee_info) && $employee_info['employee_salary_type'] == 'Daily'){ echo 'selected'; } ?>>Daily</option>
+                        <option value="Weekly" <?php if(isset($employee_info) && $employee_info['employee_salary_type'] == 'Weekly'){ echo 'selected'; } ?>>Weekly</option>
+                        <option value="Monthly" <?php if(isset($employee_info) && $employee_info['employee_salary_type'] == 'Monthly'){ echo 'selected'; } ?>>Monthly</option>
+                      </select>
+                    </div>
+
                     <div class="form-group col-md-6 select_sm">
                       <label>Leave Category</label>
                       <select class="form-control select2" multiple name="leave_type_id[]" id="leave_type_id[]" data-placeholder="Leave Category">
@@ -157,30 +173,34 @@
                       </select>
                     </div>
 
+                    <div class="form-group col-md-3 select_sm">
+                      <label>Select Country</label>
+                      <select class="form-control select2" name="country_id" id="country_id" data-placeholder="Select Country" required>
+                        <option value="">Select Country</option>
+                        <?php if(isset($country_list)){ foreach ($country_list as $list) { ?>
+                        <option value="<?php echo $list->country_id; ?>" <?php if(isset($employee_info) && $employee_info['country_id'] == $list->country_id){ echo 'selected'; } ?>><?php echo $list->country_name; ?></option>
+                        <?php } } ?>
+                      </select>
+                    </div>
+                    <div class="form-group col-md-3 select_sm">
+                      <label>Select State</label>
+                      <select class="form-control select2" name="state_id" id="state_id" data-placeholder="Select State" required>
+                        <option value="">Select State</option>
+                        <?php if(isset($state_list)){ foreach ($state_list as $list) { ?>
+                        <option value="<?php echo $list->state_id; ?>" <?php if(isset($employee_info) && $employee_info['state_id'] == $list->state_id){ echo 'selected'; } ?>><?php echo $list->state_name; ?></option>
+                        <?php } } ?>
+                      </select>
+                    </div>
+
+
+
                     <div class="form-group col-md-6">
                       <label>Address</label>
                       <textarea class="form-control form-control-sm" name="employee_address" id="employee_address" rows="4" required><?php if(isset($employee_info)){ echo $employee_info['employee_address']; } ?></textarea>
                     </div>
                     <div class="form-group col-md-6">
                       <div class="row">
-                        <div class="form-group col-md-6 select_sm">
-                          <label>Select Country</label>
-                          <select class="form-control select2" name="country_id" id="country_id" data-placeholder="Select Country" required>
-                            <option value="">Select Country</option>
-                            <?php if(isset($country_list)){ foreach ($country_list as $list) { ?>
-                            <option value="<?php echo $list->country_id; ?>" <?php if(isset($employee_info) && $employee_info['country_id'] == $list->country_id){ echo 'selected'; } ?>><?php echo $list->country_name; ?></option>
-                            <?php } } ?>
-                          </select>
-                        </div>
-                        <div class="form-group col-md-6 select_sm">
-                          <label>Select State</label>
-                          <select class="form-control select2" name="state_id" id="state_id" data-placeholder="Select State" required>
-                            <option value="">Select State</option>
-                            <?php if(isset($state_list)){ foreach ($state_list as $list) { ?>
-                            <option value="<?php echo $list->state_id; ?>" <?php if(isset($employee_info) && $employee_info['state_id'] == $list->state_id){ echo 'selected'; } ?>><?php echo $list->state_name; ?></option>
-                            <?php } } ?>
-                          </select>
-                        </div>
+
                         <div class="form-group col-md-6 select_sm">
                           <label>Select City</label>
                           <select class="form-control select2" name="city_id" id="city_id" data-placeholder="Select City" required>

@@ -43,6 +43,15 @@
                         <?php } } ?>
                       </select>
                     </div> -->
+                    <div class="form-group col-md-6 select_sm">
+                      <label>Reseller Category</label>
+                      <select class="form-control select2" name="reseller_category_id" id="reseller_category_id" data-placeholder="Select Category" required >
+                        <option value="">Select Category</option>
+                        <?php if(isset($reseller_category_list)){ foreach ($reseller_category_list as $list) { ?>
+                        <option value="<?php echo $list->reseller_category_id; ?>" <?php if(isset($reseller_info) && $reseller_info['reseller_category_id'] == $list->reseller_category_id){ echo 'selected'; } if($list->reseller_category_status == 0){ echo ' disabled'; } ?>><?php echo $list->reseller_category_name; ?></option>
+                        <?php } } ?>
+                      </select>
+                    </div>
                     <div class="form-group col-md-12">
                       <label>Name of Reseller/Company</label>
                       <input type="text" class="form-control form-control-sm" name="reseller_name" id="reseller_name" value="<?php if(isset($reseller_info)){ echo $reseller_info['reseller_name']; } ?>"  placeholder="Enter Name of Reseller/Company" required >

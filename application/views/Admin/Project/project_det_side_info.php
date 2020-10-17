@@ -66,52 +66,35 @@
    </div>
 
    <div class="col-12 p-0">
-     <hr>
-     <div class="mobiletrack d-block m-0">
-      <div class="timeline-block timeline-block-right">
-        <div class="marker"></div>
-        <div class="timeline-content">
-           <h5>Order Confirmed</h5>
-           <span></span>
-           <p></p>
+    <hr>
+      <div class="mobiletrack d-block m-0">
+        <div class="timeline-block timeline-block-right w-100">
+          <div class="marker"></div>
+          <div class="timeline-content">
+            <h6 class="mb-0 mt-2 ">Project Start</h6>
+            <span><?php echo $project_info['project_start_date']; ?></span>
+          </div>
         </div>
-     </div>
+        <?php foreach ($task_list as $task_list1) { ?>
+          <div class="timeline-block timeline-block-right w-100">
+            <div class="marker"></div>
+            <div class="timeline-content">
+              <h6 class="mb-0 mt-2 "><?php echo $task_list1->task_title;  ?></h6>
+              <span><?php echo $task_list1->task_start_date.' To '.$task_list1->task_end_date;  ?></span>
+            </div>
+          </div>
+        <?php } ?>
 
-     <!-- <div class="timeline-block timeline-block-left">
-        <div class="marker"></div>
-        <div class="timeline-content">
-           <h5>Order Placed</h5>
-           <span></span>
-           <p></p>
-        </div>
-     </div> -->
+       <?php if($project_info['project_end_date']){ ?>
+         <div class="timeline-block timeline-block-right w-100">
+           <div class="marker"></div>
+           <div class="timeline-content">
+             <h6 class="mb-0 mt-2 ">Project End</h6>
+             <span><?php echo $project_info['project_end_date']; ?></span>
+           </div>
+         </div>
+       <?php } ?>
 
-     <div class="timeline-block timeline-block-right">
-        <div class="marker"></div>
-        <div class="timeline-content">
-           <h5 class="text-success">Order Received</h5>
-           <span class="text-success">Your Order Recived By Courier Station Pune </span>
-           <p></p>
-        </div>
-     </div>
-
-     <!-- <div class="timeline-block timeline-block-left">
-        <div class="marker"></div>
-        <div class="timeline-content">
-           <h5>Order-Processing</h5>
-           <span></span>
-           <p></p>
-        </div>
-     </div> -->
-
-     <div class="timeline-block timeline-block-right">
-        <div class="marker"></div>
-        <div class="timeline-content">
-           <h5>Delivered</h5>
-           <span></span>
-           <p></p>
-        </div>
-     </div>
     </div>
    </div>
 </div>

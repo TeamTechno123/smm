@@ -154,10 +154,10 @@ class Res_Invoice extends CI_Controller{
     // $data['branch_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'','','','','','','branch_name','ASC','smm_branch');
     // $data['department_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'','','','','','','department_name','ASC','smm_department');
     //
-    $commission_total = $this->Master_Model->get_sum($smm_res_company_id,'commission_amount','reseller_id',$smm_reseller_id,'','','','','smm_commission');
+    $commission_total = $this->Master_Model->get_sum($smm_res_company_id,'commission_amount','reseller_id',$smm_reseller_id,'commission_status','1','','','smm_commission');
     if($commission_total == ''){ $data['commission_total'] = 0; }
     else{ $data['commission_total'] = $commission_total; }
-    $data['commission_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'reseller_id',$smm_reseller_id,'','','','','commission_id','DESC','smm_commission');
+    $data['commission_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'reseller_id',$smm_reseller_id,'commission_status','1','','','commission_id','DESC','smm_commission');
     $data['page'] = 'Order List';
     // echo $commission_total;
     $this->load->view('Reseller/Include/head', $data);
@@ -222,13 +222,6 @@ public function invoice_setting(){
 }
 
 
-// /********************************* Reseller Wallet Amount *********************************/
-//   public function redeem_request(){
-//     $smm_reseller_id = $this->session->userdata('smm_reseller_id');
-//     $smm_res_company_id = $this->session->userdata('smm_res_company_id');
-//     $wallet_amount = $this->Master_Model->get_sum($smm_res_company_id,'commission_amount','reseller_id',$smm_reseller_id,'','','','','smm_commission');
-//
-//   }
 /********************************* Redeem Request *********************************/
 
   public function redeem_request(){
@@ -250,13 +243,12 @@ public function invoice_setting(){
       header('location:'.base_url().'Reseller/Res_Invoice/redeem_request');
     }
 
-    $wallet_amount = $this->Master_Model->get_sum($smm_res_company_id,'commission_amount','reseller_id',$smm_reseller_id,'','','','','smm_commission');
+    $wallet_amount = $this->Master_Model->get_sum($smm_res_company_id,'commission_amount','reseller_id',$smm_reseller_id,'commission_status','1','','','smm_commission');
     $redeem_amount = $this->Master_Model->get_sum($smm_res_company_id,'redeem_request_amount','reseller_id',$smm_reseller_id,'redeem_request_status','1','','','smm_redeem_request');
     if(!$wallet_amount){ $wallet_amount = '0'; }
     if(!$redeem_amount){ $redeem_amount = '0'; }
     $wallet_balance = $wallet_amount - $redeem_amount;
     $data['wallet_balance'] = $wallet_balance;
-    //$wallet_amount = $this->Master_Model->get_sum($smm_res_company_id,'commission_amount','reseller_id',$smm_reseller_id,'','','','','smm_commission');
     $data['redeem_request_list'] = $this->Master_Model->get_list_by_id3($smm_res_company_id,'reseller_id',$smm_reseller_id,'','','','','redeem_request_id','DESC','smm_redeem_request');
     $data['page'] = 'Redeem Request';
     $this->load->view('Reseller/Include/head', $data);

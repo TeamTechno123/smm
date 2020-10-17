@@ -53,7 +53,7 @@ class Website extends CI_Controller{
      header('location:'.base_url().'Profile-Add');
    }
 
-
+   $data['reseller_category_list'] = $this->Master_Model->get_list_by_id3('','','','','','','','reseller_category_name','ASC','smm_reseller_category');
    $data['country_list'] = $this->Master_Model->get_list_by_id3('','','','','','','','country_name','ASC','country');
    $data['page'] = 'Signup';
    $this->load->view('Website/signup', $data);
