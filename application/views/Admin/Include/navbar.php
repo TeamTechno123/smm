@@ -518,6 +518,19 @@
                 <p>Become Reseller</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a <?php if(isset($update_faq)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Master/faq" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>FAQ</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a <?php if(isset($update_faq)){ echo 'href="'.$act_link.'"'; } else{ ?> href="<?php echo base_url(); ?>Master/tutorial" <?php } ?> class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tutorial</p>
+              </a>
+            </li>
           </ul>
         </li>
 

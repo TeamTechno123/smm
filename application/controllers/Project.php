@@ -17,6 +17,23 @@ class Project extends CI_Controller{
       $smm_role_id = $this->session->userdata('smm_role_id');
       if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
 
+      $data['p_count'] =$this->Master_Model->get_count('project_id',$smm_company_id,'','','','','','','smm_project');
+      $data['p_complete_count'] = $this->Master_Model->get_count('project_id',$smm_company_id,'project_status',2,'','','','','smm_project');
+      $data['p_progress_count'] = $this->Master_Model->get_count('project_id',$smm_company_id,'project_status',1,'','','','','smm_project');
+      $data['p_cancel_count'] = $this->Master_Model->get_count('project_id',$smm_company_id,'project_status',3,'','','','','smm_project');
+
+      $data['t_count'] =$this->Master_Model->get_count('task_id',$smm_company_id,'','','','','','','smm_task');
+      $data['t_open_count'] = $this->Master_Model->get_count('task_id',$smm_company_id,'task_status',1,'','','','','smm_task');
+      $data['t_assign_count'] = $this->Master_Model->get_count('task_id',$smm_company_id,'task_status',2,'','','','','smm_task');
+      $data['t_complete_count'] = $this->Master_Model->get_count('task_id',$smm_company_id,'task_status',4,'','','','','smm_task');
+
+      $data['ticket_count'] =$this->Master_Model->get_count('ticket_id',$smm_company_id,'','','','','','','smm_ticket');
+      $data['ticket_pending_count'] = $this->Master_Model->get_count('ticket_id',$smm_company_id,'ticket_status',1,'','','','','smm_ticket');
+      $data['ticket_assign_count'] = $this->Master_Model->get_count('ticket_id',$smm_company_id,'ticket_status',2,'','','','','smm_ticket');
+      $data['ticket_complete_count'] = $this->Master_Model->get_count('ticket_id',$smm_company_id,'ticket_status',4,'','','','','smm_ticket');
+
+
+
       $data['page'] = 'Project Dashboard';
       $this->load->view('Admin/Include/head', $data);
       $this->load->view('Admin/Include/navbar', $data);

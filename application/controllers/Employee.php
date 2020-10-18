@@ -14,6 +14,10 @@ class Employee extends CI_Controller{
     $smm_role_id = $this->session->userdata('smm_role_id');
     if($smm_user_id == '' || $smm_company_id == ''){ header('location:'.base_url().'User'); }
 
+    $data['total_employee'] =$this->Master_Model->get_count('employee_id',$smm_company_id,'','','','','','','smm_employee');
+    $data['total_freelancer'] =$this->Master_Model->get_count('freelancer_id',$smm_company_id,'','','','','','','smm_freelancer');
+    $data['total_leave_request'] =$this->Master_Model->get_count('leave_id',$smm_company_id,'','','','','','','smm_leave');
+    $data['total_overtime_request'] =$this->Master_Model->get_count('overtime_request_id',$smm_company_id,'','','','','','','smm_overtime_request');
     $data['page'] = 'Employee Dashboard';
     $this->load->view('Admin/Include/head', $data);
     $this->load->view('Admin/Include/navbar', $data);

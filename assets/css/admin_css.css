@@ -325,6 +325,11 @@ input[type=number] {
    z-index: 9999
 }
 
+
+
+
+/* Tutorial design */
+
 .timeline-content {
    width: 95%;
    padding: 0 15px;
@@ -348,4 +353,39 @@ input[type=number] {
    line-height: 1.5em;
    word-spacing: 1px;
    color: #888;
+}
+
+
+
+.filter-button
+{
+    font-size: 18px;
+    border: 1px solid #42B32F;
+    border-radius: 5px;
+    text-align: center;
+    color: #42B32F;
+    margin-bottom: 30px;
+
+}
+.filter-button:hover
+{
+    font-size: 18px;
+    border: 1px solid #42B32F;
+    border-radius: 5px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #42B32F;
+
+}
+.btn-default:active .filter-button:active
+{
+    background-color: #42B32F;
+    color: white;
+}
+
+.tutorial-img{
+  width: 450px;
+  height: 450px;
+  margin-left: auto;
+  margin-right: auto;
 }

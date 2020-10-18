@@ -24,42 +24,52 @@
         <hr>
         <h4 class="mb-3">Employee Summary</h4>
         <div class="row">
+
           <div class="col-md-3 col-6">
+              <a href="<?php echo base_url(); ?>Employee/employee">
             <div class="info-box">
               <span class="info-box-icon text-success"><i class="far fa-user"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text text-secondary">Employees</span>
-                <span class="info-box-number text-dark f-18">10</span>
+                <span class="info-box-text text-secondary">Total Employees</span>
+                <span class="info-box-number text-dark f-18"><?php echo $total_employee; ?></span>
               </div>
             </div>
+            </a>
           </div>
+
           <div class="col-md-3 col-6">
+            <a href="<?php echo base_url(); ?>Employee/freelancer">
             <div class="info-box">
               <span class="info-box-icon text-info"><i class="fas fa-calculator"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text text-secondary">Total Salaries Paid</span>
-                <span class="info-box-number text-dark f-18">20000</span>
+                <span class="info-box-text text-secondary">Total Freelancer</span>
+                <span class="info-box-number text-dark f-18"><?php echo $total_freelancer; ?></span>
               </div>
             </div>
+              </a>
           </div>
           <div class="col-md-3 col-6">
+            <a href="<?php echo base_url(); ?>Timesheet/leave">
             <div class="info-box">
               <span class="info-box-icon text-danger"><i class="fas fa-trophy"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text text-secondary">Awards</span>
-                <span class="info-box-number text-dark f-18">20000</span>
+                <span class="info-box-text text-secondary">Total leave Request</span>
+                <span class="info-box-number text-dark f-18"><?php echo $total_leave_request; ?></span>
               </div>
             </div>
+            </a>
           </div>
           <div class="col-md-3 col-6">
+            <a href="<?php echo base_url(); ?>Timesheet/overtime_request">
             <div class="info-box">
               <span class="info-box-icon text-warning"><i class="far fa-calendar-alt"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text text-secondary">Leave Request</span>
-                <span class="info-box-number text-dark f-18">20000</span>
+                <span class="info-box-text text-secondary">Total Overtime Request</span>
+                <span class="info-box-number text-dark f-18"><?php echo $total_overtime_request; ?></span>
               </div>
             </div>
-          </div>
+          </a>
+      </div>
 
           <div class="col-md-6">
             <div class="card card-primary card-outline">
